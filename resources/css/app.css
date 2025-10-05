@@ -1,0 +1,87 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+* {
+    font-family: var(--font-poppins);
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #1f2937;
+    scroll-behavior: smooth;
+}
+
+@theme {
+    --font-poppins: "Poppins", "sans-serif";
+
+    --color-primary: #0d3b66;
+    --color-secondary: #00a8e8;
+    --color-accent: #f95738;
+    --color-dark: #1a1a2e;
+    --color-light: #f8f9fa;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-20px) translateX(5px) rotate(2deg);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(-5px) rotate(-2deg);
+    }
+
+    75% {
+        transform: translateY(-20px) translateX(3px) rotate(1deg);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: var(--delay, 0);
+}
+
+/* Reduce Notyf font size */
+.notyf__message {
+    font-size: 0.875rem !important;
+    /* Tailwind's text-sm (14px) */
+}
+
+/* Optional: make toast a bit smaller overall */
+.notyf__toast {
+    padding: 10px 16px !important;
+}
+
+/* Optional: make text more readable */
+.notyf__message {
+    line-height: 1.4;
+}
