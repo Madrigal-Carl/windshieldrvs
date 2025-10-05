@@ -190,19 +190,7 @@
             <h2 class="text-3xl font-bold text-center mb-4 text-primary">Explore Wind Vulnerability Data</h2>
             <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">Visualize assessed houses across Boac,
                 Marinduque to guide community preparedness</p>
-            <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg h-96 relative">
-                <!-- Map placeholder -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <x-feathericon-map class="w-16 h-16 text-gray-400" />
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 bg-primary/80 text-white p-6 text-center">
-                    <h3 class="text-xl font-semibold mb-2">Interactive GIS Map Coming Soon</h3>
-                    <p class="mb-4">Our team is currently developing the interactive mapping feature</p>
-                    <a href="#"
-                        class="inline-block bg-accent text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition">Notify
-                        Me When Available</a>
-                </div>
-            </div>
+            <livewire:map-view />
         </div>
     </section>
 

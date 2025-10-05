@@ -85,3 +85,21 @@ html {
 .notyf__message {
     line-height: 1.4;
 }
+
+nav {
+    z-index: 1000 !important;
+}
+
+#assess {
+    z-index: 1000 !important;
+}
+
+/* Lower the map’s z-index slightly */
+#view-map {
+    z-index: 1;
+}
+
+/* Also ensure leaflet control buttons don’t overlap the nav */
+.leaflet-control {
+    z-index: 500 !important;
+}
