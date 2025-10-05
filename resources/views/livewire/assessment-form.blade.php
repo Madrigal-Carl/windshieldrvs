@@ -1238,6 +1238,81 @@
                 </div>
             @endif
 
+            @if ($currentStep === 13)
+                <div class="flex flex-col gap-4">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
+                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                            Screening (RVS)
+                            Tool
+                            for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                            VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House)</h2>
+                        <p class="p-8"><b>Please pin your house location on the map below. <i>I-pin ang lokasyon ng
+                                    iyong bahay sa mapa sa
+                                    ibaba</i></b>
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="p-4">
+                            <div wire:ignore id="pin-map" class="w-full h-[500px] rounded-lg shadow-md"></div>
+                            <div class="mt-4 text-sm text-gray-600 text-center">
+                                @if ($latitude && $longitude)
+                                    📍 <b>Selected Location:</b> {{ number_format($latitude, 5) }},
+                                    {{ number_format($longitude, 5) }}
+                                @else
+                                    No location selected yet.
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @push('scripts')
+                    <script>
+                        document.addEventListener('livewire:init', () => {
+                            const mapElement = document.getElementById('pin-map');
+                            if (!mapElement) return; // ✅ Prevents error if map is not on page
+
+                            const map = L.map('pin-map').setView([13.4754, 121.8380], 13);
+                            let marker = null;
+
+                            // Add map tiles
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; OpenStreetMap contributors'
+                            }).addTo(map);
+                            // Handle clicks/taps
+                            map.on('click', function(e) {
+                                const {
+                                    lat,
+                                    lng
+                                } = e.latlng;
+
+                                if (marker) map.removeLayer(marker);
+
+                                const customIcon = L.icon({
+                                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                                    iconSize: [35, 35],
+                                    iconAnchor: [17, 34],
+                                    popupAnchor: [0, -30],
+                                });
+
+                                marker = L.marker([lat, lng], {
+                                        icon: customIcon
+                                    })
+                                    .addTo(map)
+                                    .bindPopup("Your selected location").openPopup();
+
+                                // Send to Livewire
+                                @this.set('latitude', lat);
+                                @this.set('longitude', lng);
+                            });
+                        });
+                    </script>
+                @endpush
+            @endif
+
             {{-- <div>
                 <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-6">1.1 What type of roof does the house have? <span

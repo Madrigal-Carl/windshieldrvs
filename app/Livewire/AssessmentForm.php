@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
-    public int $currentStep = 1;
+    public int $currentStep = 13;
     public int $totalSteps = 14;
     public $isAccepted;
     public $houseId, $address, $date, $assessorName;
@@ -23,6 +23,7 @@ class AssessmentForm extends Component
     public $roofOverhang, $eavesSoffits;
     public $houseHeight;
     public $houseLocation, $neighbor;
+    public $latitude, $longitude;
 
     public function mount()
     {
@@ -170,19 +171,33 @@ class AssessmentForm extends Component
                 case 13:
                     $this->validate([
                         'date' => 'required|date',
+                        'latitude' => 'required|numeric',
+                        'longitude' => 'required|numeric',
                     ], [
-                        'date.required' => 'The assessment date is required.',
-                        'date.date' => 'Please enter a valid date.',
+                        'latitude.required' => 'Please pin your location on the map.',
+                        'longitude.required' => 'Please pin your location on the map.',
                     ]);
-                    break;
 
-                case 14:
-                    $this->validate([
-                        'isAccepted' => 'required|accepted',
-                    ], [
-                        'isAccepted.required' => 'You must confirm the completion.',
-                        'isAccepted.accepted' => 'Please check the confirmation box before submitting.',
-                    ]);
+                    $boacBounds = [
+                        'north' => 13.4450,
+                        'south' => 13.3750,
+                        'west'  => 121.8200,
+                        'east'  => 121.9500,
+                    ];
+
+                    if (
+                        $this->latitude < $boacBounds['south'] ||
+                        $this->latitude > $boacBounds['north'] ||
+                        $this->longitude < $boacBounds['west'] ||
+                        $this->longitude > $boacBounds['east']
+                    ) {
+                        notyf()
+                            ->position('x', 'right')
+                            ->position('y', 'top')
+                            ->error('Please select a location within Boac, Marinduque.');
+                        return false;
+                    }
+
                     break;
             }
         } catch (ValidationException $e) {
