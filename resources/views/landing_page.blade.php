@@ -1,11 +1,15 @@
 <x-app>
     <!-- Navigation -->
-    <nav class="fixed w-full bg-primary/90 backdrop-blur-md z-50 shadow-lg">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-primary/90 backdrop-blur-md z-50 shadow-lg p-2 md:p-0">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
                 <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-8">
                 <p class="text-white text-2xl font-bold">WindShield<span class="text-accent">RVS</span></p>
             </a>
+
+            <!-- Desktop Links -->
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="text-white hover:text-accent transition">Home</a>
                 <a href="#about" class="text-white hover:text-accent transition">About</a>
@@ -13,13 +17,34 @@
                 <a href="#map" class="text-white hover:text-accent transition">GIS Map</a>
                 <a href="#contact" class="text-white hover:text-accent transition">Contact</a>
             </div>
+
+            <!-- Desktop Login -->
             <a href="/login"
-                class="hidden md:block bg-accent text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition">Login</a>
-            <button class="md:hidden text-white">
+                class="hidden md:block bg-accent text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition">
+                Login
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
                 <x-feathericon-menu />
             </button>
         </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu"
+            class="hidden flex-col font-medium items-center space-y-4 bg-primary/95 px-6 py-4 md:hidden shadow-lg border-t border-white/10">
+            <a href="#home" class="text-white hover:text-accent transition">Home</a>
+            <a href="#about" class="text-white hover:text-accent transition">About</a>
+            <a href="#features" class="text-white hover:text-accent transition">Features</a>
+            <a href="#map" class="text-white hover:text-accent transition">GIS Map</a>
+            <a href="#contact" class="text-white hover:text-accent transition">Contact</a>
+            <a href="/login"
+                class="bg-accent w-full text-white px-6 py-2 rounded-sm font-medium hover:bg-orange-600 transition text-center">
+                Login
+            </a>
+        </div>
     </nav>
+
 
     <!-- Hero Section -->
     <section id="home"
