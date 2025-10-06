@@ -128,7 +128,7 @@
                     <p class="mb-8 text-gray-700">The tool follows guidelines from FEMA P-2062, National Structural Code
                         of the Philippines (NSCP), and National Building Code (NBC) to provide reliable risk assessments
                         that can inform community preparedness strategies.</p>
-                    <a href="#" class="text-accent font-medium flex items-center hover:text-orange-600">
+                    <a href="#features" class="text-accent font-medium flex items-center hover:text-orange-600">
                         Read More
                         <x-feathericon-arrow-right class="ml-2 w-4 h-4" />
                     </a>
