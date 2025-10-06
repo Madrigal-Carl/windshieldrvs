@@ -15,7 +15,7 @@
                             return;
                         }
 
-                        this.map = L.map(container).setView([13.4400, 121.8750], 12.8);
+                        this.map = L.map(container).setView([13.4513, 121.8397], 13.2);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; OpenStreetMap contributors'
                         }).addTo(this.map);

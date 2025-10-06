@@ -1275,7 +1275,7 @@
                             const mapElement = document.getElementById('pin-map');
                             if (!mapElement) return; // ✅ Prevents error if map is not on page
 
-                            const map = L.map('pin-map').setView([13.4754, 121.8380], 13);
+                            const map = L.map('pin-map').setView([13.4513, 121.8397], 13.2);
                             let marker = null;
 
                             // Add map tiles

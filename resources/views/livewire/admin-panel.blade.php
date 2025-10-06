@@ -1,22 +1,32 @@
-<div class="flex w-full h-screen">
-    <aside class="flex flex-col bg-primary h-screen w-1/5 p-6 shadow-lg">
-        <a href="/admin" class="w-full flex items-center justify-center gap-2 mt-6 mb-10">
-            <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-7">
-            <p class="text-white text-2xl font-bold tracking-wide">
-                WindShield<span class="text-accent">RVS</span>
-            </p>
-        </a>
-        <nav class="flex flex-col gap-2 text-white">
+<div class="flex flex-col md:flex-row w-full h-screen">
+    <aside class="flex md:flex-col bg-primary md:h-screen w-full md:w-1/5 p-6 shadow-lg relative">
+        <!-- Top Bar (Mobile) -->
+        <div class="flex w-full items-center justify-between md:justify-center">
+            <a href="/admin" class="flex items-center gap-2 md:mt-6 md:mb-10">
+                <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-6 md:w-7">
+                <p class="text-white text-xl md:text-2xl font-bold tracking-wide">
+                    WindShield<span class="text-accent">RVS</span>
+                </p>
+            </a>
+
+            <!-- Burger Button (visible only on mobile) -->
+            <button id="burger-btn" class="md:hidden text-white focus:outline-none">
+                <x-feathericon-menu class="w-7 h-7" />
+            </button>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex flex-col gap-2 text-white">
             <button wire:click="setActiveTab('dashboard')"
                 class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 font-medium transition-all duration-300 hover:translate-x-1
-                    {{ $activeTab === 'dashboard' ? 'bg-accent shadow-inner' : '' }}">
+                {{ $activeTab === 'dashboard' ? 'bg-accent shadow-inner' : '' }}">
                 <x-feathericon-layers class="w-5" stroke-width="1.6" />
                 <span class="text-sm">Dashboard</span>
             </button>
 
             <button wire:click="setActiveTab('assessment')"
                 class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 transition-all duration-300 hover:translate-x-1
-                    {{ $activeTab === 'assessment' ? 'bg-accent shadow-inner' : '' }}">
+                {{ $activeTab === 'assessment' ? 'bg-accent shadow-inner' : '' }}">
                 <x-feathericon-clipboard class="w-5" stroke-width="1.6" />
                 <span class="text-sm">Assessment</span>
             </button>
@@ -37,59 +47,98 @@
         </nav>
     </aside>
 
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-40"></div>
+
+    <!-- Mobile Sidebar (same links as desktop) -->
+    <div id="mobile-sidebar"
+        class="fixed top-0 left-0 h-full w-64 bg-primary shadow-lg transform -translate-x-full transition-transform duration-300 z-50 p-6 flex flex-col text-white">
+        <div class="flex justify-between items-center mb-6">
+            <p class="text-2xl font-bold">Menu</p>
+            <button id="close-sidebar" class="text-white">
+                <x-feathericon-x class="w-6 h-6" />
+            </button>
+        </div>
+
+        <button wire:click="setActiveTab('dashboard')"
+            class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 font-medium transition-all duration-300
+            {{ $activeTab === 'dashboard' ? 'bg-accent shadow-inner' : '' }}">
+            <x-feathericon-layers class="w-5" stroke-width="1.6" />
+            <span class="text-sm">Dashboard</span>
+        </button>
+
+        <button wire:click="setActiveTab('assessment')"
+            class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 transition-all duration-300
+            {{ $activeTab === 'assessment' ? 'bg-accent shadow-inner' : '' }}">
+            <x-feathericon-clipboard class="w-5" stroke-width="1.6" />
+            <span class="text-sm">Assessment</span>
+        </button>
+
+        <div class="border-t border-white/20 my-3"></div>
+
+        <button
+            class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 transition-all duration-300">
+            <x-feathericon-settings class="w-5" stroke-width="1.6" />
+            <span class="text-sm">Settings</span>
+        </button>
+
+        <button wire:click='logoutConfirm'
+            class="cursor-pointer flex items-center gap-3 hover:bg-accent rounded-xl px-4 py-3 transition-all duration-300">
+            <x-feathericon-log-out class="w-5" stroke-width="1.6" />
+            <span class="text-sm">Logout</span>
+        </button>
+    </div>
+
+
     <div class="flex-1 flex flex-col gap-6 p-8 overflow-auto h-screen">
         @if ($activeTab === 'dashboard')
             <h1 class="text-2xl font-bold text-primary">Dashboard Overview</h1>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
                 <!-- Total Assessments -->
-                <div class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-primary/20">
-                            <x-feathericon-clipboard class="text-primary w-6 h-6" />
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">Total Assessments</p>
-                            <p class="text-2xl font-semibold text-dark">1,248</p>
-                        </div>
+                <div
+                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
+                    <div class="p-3 rounded-lg bg-primary/20">
+                        <x-feathericon-clipboard class="text-primary w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs md:text-sm font-medium text-gray-500">Total Assessments</p>
+                        <p class="text-xl md:text-2xl font-semibold text-dark">1,248</p>
                     </div>
                 </div>
 
                 <!-- High Risk -->
-                <div class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-red-500/20">
-                            <x-feathericon-alert-triangle class="text-red-500 w-6 h-6" />
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">High Risk</p>
-                            <p class="text-2xl font-semibold text-red-600">42</p>
-                        </div>
+                <div
+                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
+                    <div class="p-3 rounded-lg bg-red-500/20">
+                        <x-feathericon-alert-triangle class="text-red-500 w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs md:text-sm font-medium text-gray-500">High Risk</p>
+                        <p class="text-xl md:text-2xl font-semibold text-red-600">42</p>
                     </div>
                 </div>
 
                 <!-- Moderate Risk -->
-                <div class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-yellow-500/20">
-                            <x-feathericon-alert-circle class="text-yellow-500 w-6 h-6" />
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">Moderate Risk</p>
-                            <p class="text-2xl font-semibold text-yellow-600">120</p>
-                        </div>
+                <div
+                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
+                    <div class="p-3 rounded-lg bg-yellow-500/20">
+                        <x-feathericon-alert-circle class="text-yellow-500 w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs md:text-sm font-medium text-gray-500">Moderate Risk</p>
+                        <p class="text-xl md:text-2xl font-semibold text-yellow-600">120</p>
                     </div>
                 </div>
 
                 <!-- Low Risk -->
-                <div class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-green-500/20">
-                            <x-feathericon-check-circle class="text-green-500 w-6 h-6" />
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">Low Risk</p>
-                            <p class="text-2xl font-semibold text-green-600">982</p>
-                        </div>
+                <div
+                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
+                    <div class="p-3 rounded-lg bg-green-500/20">
+                        <x-feathericon-check-circle class="text-green-500 w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs md:text-sm font-medium text-gray-500">Low Risk</p>
+                        <p class="text-xl md:text-2xl font-semibold text-green-600">982</p>
                     </div>
                 </div>
             </div>
@@ -99,9 +148,8 @@
         @elseif ($activeTab === 'assessment')
             <h1 class="text-2xl font-bold text-primary">Assessment Reports</h1>
 
-            <div class="relative overflow-x-auto">
-                <div
-                    class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+            <div class="flex flex-col space-y-4">
+                <div class="flex flex-col md:flex-row space-y-4 sm:space-y-0 md:items-center justify-between pb-4">
                     <div>
                         <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
                             class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
@@ -118,22 +166,10 @@
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        <!-- Dropdown menu -->
+
                         <div id="dropdownRadio"
-                            class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm"
-                            data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top"
-                            style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+                            class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
                             <ul class="p-3 space-y-1 text-sm text-gray-700" aria-labelledby="dropdownRadioButton">
-                                <li>
-                                    <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
-                                        <input id="filter-radio-example-1" type="radio" value=""
-                                            name="filter-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                                        <label for="filter-radio-example-1"
-                                            class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">Last
-                                            day</label>
-                                    </div>
-                                </li>
                                 <li>
                                     <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
                                         <input checked="" id="filter-radio-example-2" type="radio"
@@ -177,10 +213,10 @@
                             </ul>
                         </div>
                     </div>
+
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative">
-                        <div
-                            class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                        <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
                             <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -189,82 +225,68 @@
                             </svg>
                         </div>
                         <input type="text" id="table-search"
-                            class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            class="w-full md:w-80 block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Search for items">
                     </div>
                 </div>
 
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th class="p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-all-search" type="checkbox"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
-                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                </div>
-                            </th>
-                            <th class="px-6 py-3">
-                                House Id
-                            </th>
-                            <th class="px-6 py-3 text-center">
-                                Address / Brgy
-                            </th>
-                            <th class="px-6 py-3 text-center">
-                                Severity
-                            </th>
-                            <th class="px-6 py-3 text-center">
-                                Created at
-                            </th>
-                            <th class="px-6 py-3">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($i = 0; $i < 6; $i++)
-                            <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
-                                <td class="w-4 p-4">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="p-4">
                                     <div class="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox"
+                                        <input id="checkbox-all-search" type="checkbox"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
-                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
                                     </div>
-                                </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    House 1235
                                 </th>
-                                <td class="px-6 py-4 text-center">
-                                    Santol, Gasan, Marinduque
-                                </td>
-                                <td class="px-6 py-4 flex items-center justify-center">
-                                    {{-- <span class="inline-block px-3 py-1 rounded-full text-white bg-green-500">
-                                    Low
-                                </span> --}}
-                                    <span class="inline-block px-3 py-1 rounded-full text-white bg-accent">
-                                        Moderate
-                                    </span>
-                                    {{-- <span class="inline-block px-3 py-1 rounded-full text-white bg-red-500">
-                                    High
-                                </span> --}}
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    October 4, 2025
-                                </td>
-                                <td class="px-6 py-4 flex items-center gap-2">
-                                    <button
-                                        class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
-                                        <x-feathericon-download class="text-blue-600 w-5 h-5" />
-                                    </button>
-                                    <button
-                                        class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
-                                        <x-feathericon-trash-2 class="text-red-500 w-5 h-5" />
-                                    </button>
-                                </td>
+                                <th class="px-6 py-3">House Id</th>
+                                <th class="px-6 py-3 text-center">Address / Brgy</th>
+                                <th class="px-6 py-3 text-center">Severity</th>
+                                <th class="px-6 py-3 text-center">Created at</th>
+                                <th class="px-6 py-3">Action</th>
                             </tr>
-                        @endfor
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @for ($i = 0; $i < 6; $i++)
+                                <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="w-4 p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
+                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                        House 1235
+                                    </th>
+                                    <td class="px-6 py-4 text-center">
+                                        Santol, Gasan, Marinduque
+                                    </td>
+                                    <td class="px-6 py-4 flex items-center justify-center">
+                                        <span class="inline-block px-3 py-1 rounded-full text-white bg-accent">
+                                            Moderate
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        October 4, 2025
+                                    </td>
+                                    <td class="px-6 py-4 flex items-center gap-2">
+                                        <button
+                                            class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
+                                            <x-feathericon-download class="text-blue-600 w-5 h-5" />
+                                        </button>
+                                        <button
+                                            class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
+                                            <x-feathericon-trash-2 class="text-red-500 w-5 h-5" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="flex flex-col items-center mt-6">
                     <span class="text-sm text-gray-700">
@@ -294,6 +316,7 @@
                     </div>
                 </div>
             </div>
+
         @endif
     </div>
 </div>
