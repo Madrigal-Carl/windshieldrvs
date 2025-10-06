@@ -18,10 +18,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         return view('admin_panel');
     })->name('admin.panel');
-
-    // 🚪 Optional logout route
-    // Route::post('/logout', function () {
-    //     Auth::logout();
-    //     return redirect()->route('auth');
-    // })->name('logout');
 });

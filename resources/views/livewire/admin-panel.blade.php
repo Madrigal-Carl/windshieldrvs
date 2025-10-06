@@ -95,19 +95,7 @@
             </div>
 
             <h1 class="text-2xl font-bold text-primary">GIS Map</h1>
-            <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg h-96 relative">
-                <!-- Map placeholder -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <x-feathericon-map class="w-16 h-16 text-gray-400" />
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 bg-primary/80 text-white p-6 text-center">
-                    <h3 class="text-xl font-semibold mb-2">Interactive GIS Map Coming Soon</h3>
-                    <p class="mb-4">Our team is currently developing the interactive mapping feature</p>
-                    <a href="#"
-                        class="inline-block bg-accent text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition">Notify
-                        Me When Available</a>
-                </div>
-            </div>
+            <livewire:map-view />
         @elseif ($activeTab === 'assessment')
             <h1 class="text-2xl font-bold text-primary">Assessment Reports</h1>
 
