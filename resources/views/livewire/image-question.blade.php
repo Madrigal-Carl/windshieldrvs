@@ -10,7 +10,7 @@
         @foreach ($options as $option)
             <div class="relative h-full">
                 <input type="radio" id="{{ $option['value'] }}" name="{{ $model }}" value="{{ $option['value'] }}"
-                    wire:model="value" class="hidden peer">
+                    wire:model.live="value" class="hidden peer">
 
                 <label for="{{ $option['value'] }}"
                     class="flex flex-col h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">

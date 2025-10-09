@@ -206,26 +206,31 @@
                                 'value' => 'hip',
                                 'label' => 'Hip / compact (quatro aguas)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'monoslope',
                                 'label' => 'Monoslope',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'gable',
                                 'label' => 'Gable (dos aguas)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'irregular',
                                 'label' => 'Irregular / complex',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'unknown',
                                 'label' => 'Unknown framing',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -234,26 +239,31 @@
                                 'value' => 'concrete-slab',
                                 'label' => 'Concrete slab',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'concrete-tiles',
                                 'label' => 'Concrete tiles / heavy tile',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'metal-sheets',
                                 'label' => 'Metal sheets with good overlap (yero)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'old-metal',
                                 'label' => 'Corrugated thin metal / old metal (lumang yero)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'nipa',
                                 'label' => 'Light thatch / nipa or severely degraded material (nipa o pawid)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -262,29 +272,34 @@
                                 'value' => 'proper-bolted',
                                 'label' => 'Proper bolted / welded anchors & straps (Maayos at matatag ang pagkakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'embedded-anchors',
                                 'label' =>
                                     'Embedded anchors / mechanical anchors in good condition (Maganda ang kalagayan ng pagkakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'some-achors',
                                 'label' =>
                                     'Some anchors present but partially corroded (May presensya ng mga anchor ngunit bahagyang kinakalawang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'mostly-nails',
                                 'label' =>
                                     'Mostly nails only / weak fasteners (Pako lang ang ginamit/Mahina ang ginamit na pangkabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'no-anchor',
                                 'label' => 'No anchorage (Walang maayos na pagkakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -294,29 +309,34 @@
                                 'label' =>
                                     'Continuous tied load path, straps present (Kumpleto at matibay ang koneksyon at mayroong bracing)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'good-connections',
                                 'label' =>
                                     'Good connections, minor deficiencies (Maganda ang koneksyon ngunit mayroong konting mga pagkukulang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'partial-ties',
                                 'label' =>
                                     'Partial ties, some missing fasteners (Bahagya lang ang koneksyon at mayroong pagkukulang sa mga fastener)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'weak-joints',
                                 'label' =>
                                     'Weak joints, visible gaps (Mahina ang dugtungan at may nakikitang mga puwang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'no-connection',
                                 'label' => 'No connection / visibly detached (Walang koneksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -325,51 +345,56 @@
                                 'value' => 'no-corrosion',
                                 'label' => 'New / no corrosion (Bago/walang kalawang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'minor-corrosion',
                                 'label' =>
                                     'Minor corrosion / with some repairs (Maliit na kalawang/may ilang pag-aayos)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'some-loose-panels',
                                 'label' =>
                                     'Some loose panels / patches (May ilang luma at maluluwang na panel/may tinagpiang mga panel)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'many-loose-panels',
                                 'label' =>
                                     'Many loose panels / lots of corrosion (Maraming maluluwang na panel/lubhang kinakalawang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'with-holes',
                                 'label' => 'With holes / large gaps (Butas-butas/malalaking mga puwang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                     @endphp
                     <livewire:image-question question="1.1 What type of roof does the house have?"
                         subtitle="Ano ang uri ng bubong ng bahay?" :options="$roofTypeOptions" model="roofType"
-                        wire:key="roofType-question" />
+                        wire:key="roofType-question" :maxValue="5" />
 
                     <livewire:image-question question="1.2  What is the roof made of?" subtitle="Saan gawa ang bubong?"
-                        :options="$roofMadeOptions" model="roofMade" wire:key="roofMade-question" />
+                        :options="$roofMadeOptions" model="roofMade" wire:key="roofMade-question" :maxValue="4" />
 
                     <livewire:image-question question="1.3  How is the roof anchored to the structure?"
                         subtitle="Paano nakakabit ang bubong sa istruktura?" :options="$roofAnchorOptions" model="roofAnchor"
-                        wire:key="roofAnchor-question" />
+                        wire:key="roofAnchor-question" :maxValue="5" />
 
                     <livewire:image-question question="1.4   How secure is the roof-to-wall connection?"
                         subtitle="Gaano katibay ang koneksyon ng bubong sa pader?" :options="$roofWallOptions" model="roofWall"
-                        wire:key="roofWall-question" />
+                        wire:key="roofWall-question" :maxValue="3" />
 
                     <livewire:image-question question="1.5  What is the current condition of the roof?"
                         subtitle="Ano ang kasalukuyang kondisyon ng bubong?" :options="$roofConditionOptions" model="roofCondition"
-                        wire:key="roofCondition-question" />
+                        wire:key="roofCondition-question" :maxValue="3" />
                 </div>
             @endif
 
@@ -394,26 +419,31 @@
                                 'label' =>
                                     'Hurricane ties / anchor bolts everywhere (Kumpleto at matibay ang koneksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'mostly-present',
                                 'label' => 'Mostly present & correct (Mayroong ties at tama ang pagkakakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'partial-coverage',
                                 'label' => 'Partial coverage (Bahagya lang ang sakop ng koneksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'rarely-present',
                                 'label' => 'Rarely present (Madalang ang maayos na koneksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'absent',
                                 'label' => 'Absent (Walang maayos na koneksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -423,42 +453,46 @@
                                 'label' =>
                                     'High quality, adequate spacing, corrosion protected (Mataas ang kalidad, may tamang pagitan, walang kalawang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'good-quality',
-                                'label' => 'Good quality, minor corrosion (Maganda ang kalidad, may konting kalawan',
+                                'label' => 'Good quality, minor corrosion (Maganda ang kalidad, may konting kalawang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'moderate-quality',
                                 'label' =>
                                     'Moderate (mixed fasteners) (Pangkaraniwang kalidad, magkahalo ang ginamit na fastener)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'low-quality',
                                 'label' =>
                                     'Low quality (nails only, some missing) (Mababa ang kalidad at marami ang kulang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'very-poor',
                                 'label' =>
                                     'Very poor or missing fasteners (Sobrang baba ng kalidad, halos walang mga fastener)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
-
                     @endphp
                     <livewire:image-question
                         question="2.1 Are there proper roof-to-wall connections (ties/anchor bolts)?"
                         subtitle="Mayroon bang wastong ties o anchor bolts sa bubong at pader?" :options="$roofWallConnectionOptions"
-                        model="roofWallConnection" wire:key="roofWallConnection-question" />
+                        model="roofWallConnection" wire:key="roofWallConnection-question" :maxValue="8" />
 
                     <livewire:image-question
                         question="2.2 What is the quality of the roof-to-wall fasteners (nails, screws, bolts)?"
                         subtitle="Ano ang kalidad ng mga fasteners (pako, turnilyo, bolts)?" :options="$roofWallFastenerOptions"
-                        model="roofWallFastener" wire:key="roofWallFastener-question" />
+                        model="roofWallFastener" wire:key="roofWallFastener-question" :maxValue="7" />
                 </div>
             @endif
 
@@ -483,28 +517,33 @@
                                 'label' =>
                                     'Reinforced concrete (RC) walls with known reinforcement (Kongkreto na may bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'mixed',
                                 'label' =>
                                     'Mixed (RC + CHB well reinforced) (Magkahalong kongkreto, hollowblocks at bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'concrete-hollow',
                                 'label' =>
                                     'Concrete hollow block (CHB) with some reinforcement (Hollowblocks na may bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'unreinforced-hollow',
                                 'label' => 'Unreinforced CHB / weak masonry (Hollowblocks)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'lightweight',
                                 'label' => 'Lightweight / poor materials (highly vulnerable) (Kahoy o pawid)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -513,28 +552,32 @@
                                 'value' => 'properly-reinforced',
                                 'label' => 'Properly reinforced & supported (Kumpleto ang bakal, matibay ang suporta)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'adequate-reinforcement',
                                 'label' => 'Adequate reinforcement with minor concerns (Sapat ang bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'partial-reinforcement',
-                                'label' =>
-                                    'Partial reinforcement / questionable ties (Ilang parte lang ang may bakal )',
+                                'label' => 'Partial reinforcement / questionable ties (Ilang parte lang ang may bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'insufficient-reinforcement',
                                 'label' =>
                                     'Insufficient reinforcement / thin walls (Manipis ang mga pader at kulang ang suporta)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'structurally-unsound',
                                 'label' => 'Structurally unsound (major risk) (Halos walang suporta)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -543,44 +586,49 @@
                                 'value' => 'no-cracks',
                                 'label' => 'No cracks / deterioration (Walang mga bitak)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'hairline-cracks',
                                 'label' => 'Hairline cracks only (May maliliit na bitak)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'moderate-cracks',
                                 'label' =>
                                     'Several moderate cracks / repairs visible (Katamtaman ang laki ng bitak at may mga repairs)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'major-cracks',
                                 'label' =>
                                     'Major cracking / spalling (Malalaking mga bitak at may ebidensiya ng spalling)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'severe-damage',
                                 'label' =>
                                     'Severe damage / holes / collapse signs (Malubhang pagkasira/May senyales ng pagguho)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
-
                     @endphp
+
                     <livewire:image-question question="3.1   What type of material are the walls made of?"
                         subtitle="Anong materyales ang ginamit sa pader?" :options="$wallMadeOptions" model="wallMade"
-                        wire:key="wallMade-question" />
+                        wire:key="wallMade-question" :maxValue="5" />
 
                     <livewire:image-question question="3.2 How structurally sound are the walls?"
                         subtitle="Gaano katibay at maayos ang pagkakagawa ng pader?" :options="$wallStructureOptions"
-                        model="wallStructure" wire:key="wallStructure-question" />
+                        model="wallStructure" wire:key="wallStructure-question" :maxValue="6" />
 
                     <livewire:image-question question="3.3 What is the condition of the walls?"
                         subtitle="Ano ang kondisyon ng pader (bitak, pagkasira)" :options="$wallConditionOptions"
-                        model="wallCondition" wire:key="wallCondition-question" />
+                        model="wallCondition" wire:key="wallCondition-question" :maxValue="4" />
                 </div>
             @endif
 
@@ -606,26 +654,31 @@
                                 'label' =>
                                     'Visible concrete foundation & anchorage, good condition (Kita at maayos ang pundasyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'minor-issues',
                                 'label' => 'Foundation present, minor issues (May pundasyon ngunit may konting sira)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'partial-foundation',
                                 'label' => 'Shallow / partial foundation, limited  (Mababa/limitadong pundasyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'weak-foundation',
                                 'label' => 'Weak foundation / poor anchorage (Mahinang pundasyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'no-foundation',
                                 'label' => 'No proper foundation / floating walls (Walang pundasyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
@@ -634,38 +687,43 @@
                                 'value' => 'none',
                                 'label' => 'None (Wala)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
                                 'value' => 'minor-settlement',
                                 'label' => 'Minor settlement (<10 mm) (Maliit na paglubog)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
                                 'value' => 'moderate-settlement',
                                 'label' => 'Moderate settlement / cracking (May bahagyang paglubog at pagbitak)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
                                 'value' => 'noticeable-tilt',
                                 'label' => 'Noticeable tilt / separation (Tabingi/Humihiwalay na pader)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
                                 'value' => 'severe-settlement',
                                 'label' =>
                                     'Severe settlement / separation (Malubhang paglubog/ Halos bumagsak ang pader)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
-
                     @endphp
+
                     <livewire:image-question question="4.1 Is there a visible foundation and proper anchorage?"
                         subtitle="Nakikita ba ang pundasyon at maayos ba ang pagkaka-angkla?" :options="$foundationOptions"
-                        model="foundation" wire:key="foundation-question" />
+                        model="foundation" wire:key="foundation-question" :maxValue="6" />
 
                     <livewire:image-question question="4.2 Are there signs of settlement or tilt?"
                         subtitle="Mayroon bang senyales ng paglubog ng lupa o pagtilt ng pader?" :options="$settlementOptions"
-                        model="settlement" wire:key="settlement-question" />
+                        model="settlement" wire:key="settlement-question" :maxValue="4" />
                 </div>
             @endif
 
@@ -687,141 +745,162 @@
                     @php
                         $doorTypeOptions = [
                             [
-                                'value' => 'metal',
+                                'value' => 'door-metal',
                                 'label' => 'Solid metal / secure doors (Metal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'sturdy-wood',
+                                'value' => 'door-wood-sturdy',
                                 'label' => 'Sturdy wooden doors (Matibay na kahoy)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'panel',
+                                'value' => 'door-panel',
                                 'label' => 'Panel / flush doors (Panel/Flush door)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'fragile',
+                                'value' => 'door-fragile',
                                 'label' => 'Fragile doors / glass doors (Salamin na pinto)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'very-week',
+                                'value' => 'door-missing',
                                 'label' => 'Very weak / missing doors (Mahina/Walang pinto)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $doorConditionOptions = [
                             [
-                                'value' => 'well-fitted',
+                                'value' => 'condition-well-fitted',
                                 'label' => 'Well-fitted swing / secure sliding (Maayos ang pagbukas at paglapat)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'minor-gaps',
+                                'value' => 'condition-minor-gaps',
                                 'label' =>
                                     'Good operation with minor gaps (Maganda ang kondisyon ngunit may konting puwang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'loose-fittings',
+                                'value' => 'condition-loose-fittings',
                                 'label' =>
                                     'Operational issues / loose fittings (Hindi maayos ang pagbukas at maluwang ang pagkakakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'large-gaps',
+                                'value' => 'condition-large-gaps',
                                 'label' =>
                                     'Poor seals / large gaps (Hindi pulido ang kabit at may mga malalaking puwang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'detached',
+                                'value' => 'condition-detached',
                                 'label' => 'Easily blown / detached (Madaling tangayin o matumba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $windowTypeOptions = [
                             [
-                                'value' => 'protected',
+                                'value' => 'window-protected',
                                 'label' =>
                                     'Fixed or protected glazing (impact resistant) (Fixed na bintana na mayroong proteksyon sa impact)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'good-frame',
+                                'value' => 'window-good-frame',
                                 'label' => 'Casement with good frame (Bintana na may matibay na frame)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'sliding',
+                                'value' => 'window-sliding',
                                 'label' => 'Sliding / standard windows (Karaniwang mga bintana)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'single-pane',
+                                'value' => 'window-single-pane',
                                 'label' =>
                                     'Single-pane or weak glazing (Bintanang binubuo ng isang panel at mayroong mahinang proteksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'missing-shutters',
+                                'value' => 'window-missing-shutters',
                                 'label' =>
                                     'Large fragile glazing / missing shutters (Malaking mga bintana na walang proteksyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $windowConditionOptions = [
                             [
-                                'value' => 'strong-frame',
+                                'value' => 'window-condition-strong-frame',
                                 'label' =>
                                     'Strong frames, anchored to structure (Matibay na frame at naka-angkla sa istraktura)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'good-frame',
+                                'value' => 'window-condition-good-frame',
                                 'label' =>
                                     'Good frames, minor gaps (Maayos na frame ngunit mayroong konting mga puwang)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'moderate-anchorage',
+                                'value' => 'window-condition-moderate-anchorage',
                                 'label' =>
                                     'Moderate anchorage, signs of looseness (Katamtamang pagkaka-angkla at mayroong senyales ng pagiging maluwag)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'loose-frame',
+                                'value' => 'window-condition-loose-frame',
                                 'label' =>
                                     'Loose frames, missing anchors (Maluwag na mga frame at kulang ang pagkaka-angkla sa istraktura)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'frame-detached',
+                                'value' => 'window-condition-detached',
                                 'label' => 'Frames detached / vulnerable to blowout (Walang mga frame)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
                     <livewire:image-question question="5.1  What type of doors does the building have?"
                         subtitle="Anong uri ng pinto ang mayroon sa gusali?" :options="$doorTypeOptions" model="doorType"
-                        wire:key="doorType-question" />
+                        wire:key="doorType-question" :maxValue="2" />
 
                     <livewire:image-question question="5.2   Do the doors swing/slide properly and seal well?"
                         subtitle="Maayos bang bumubukas/sumasara ang pinto at selyado ito?" :options="$doorConditionOptions"
-                        model="doorCondition" wire:key="doorCondition-question" />
+                        model="doorCondition" wire:key="doorCondition-question" :maxValue="1" />
 
                     <livewire:image-question question="5.3 What type of windows are installed?"
                         subtitle="Anong uri ng bintana ang nakakabit?" :options="$windowTypeOptions" model="windowType"
-                        wire:key="windowType-question" />
+                        wire:key="windowType-question" :maxValue="3" />
 
                     <livewire:image-question question="5.4 How secure and anchored are the door/window frames?"
                         subtitle="Matibay at maayos bang nakakabit ang mga frame ng bintana at pinto?"
-                        :options="$windowConditionOptions" model="windowCondition" wire:key="windowCondition-question" />
+                        :options="$windowConditionOptions" model="windowCondition" wire:key="windowCondition-question"
+                        :maxValue="4" />
                 </div>
             @endif
 
@@ -843,105 +922,121 @@
                     @php
                         $columnShapeOptions = [
                             [
-                                'value' => 'rectangular',
+                                'value' => 'column-shape-rectangular',
                                 'label' => 'Proper rectangular / square well-designed (Hugis parisukat o parihaba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'irregular',
+                                'value' => 'column-shape-irregular',
                                 'label' =>
                                     'Slightly irregular but adequate (Bahagyang di regular ang hugis ngunit sapat ang disenyo)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'mixed',
+                                'value' => 'column-shape-mixed',
                                 'label' => 'Mixed / unknown (Magkakaiba ang hugis)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'poor',
+                                'value' => 'column-shape-poor',
                                 'label' => 'Poor cross-section / undersized (Maliit ang dimensyon para sa istraktura)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'inadequate',
+                                'value' => 'column-shape-inadequate',
                                 'label' => 'Inadequate columns (Di akmang mga haligi)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $columnMaterialOptions = [
                             [
-                                'value' => 'reinforced',
+                                'value' => 'column-material-reinforced',
                                 'label' =>
                                     'Reinforced concrete with proper detailing (Kongkreto na may sapat na bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'minor-cornern',
+                                'value' => 'column-material-minor-concern',
                                 'label' => 'Reinforced concrete with minor concerns (Kongkreto na may bakal)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'composite',
+                                'value' => 'column-material-composite',
                                 'label' => 'Composite / unknown reinforcement (Magkakahalong materyales)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'steel-only',
+                                'value' => 'column-material-steel-only',
                                 'label' =>
                                     'Steel only or weak material in poor condition (Nakalantad na bakal/ Materyales na di maganda ang kondisyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'damaged',
+                                'value' => 'column-material-damaged',
                                 'label' => 'Weak or damaged material (Mga materyales na may sira o mahina)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $columnConditionOptions = [
                             [
-                                'value' => 'no-defects',
+                                'value' => 'column-condition-no-defects',
                                 'label' => 'No visible defects (Walang nakikitang depekto)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'minor-crack',
+                                'value' => 'column-condition-minor-crack',
                                 'label' => 'Minor hairline cracks (May mga maliliit na bitak)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'moderate-crack',
+                                'value' => 'column-condition-moderate-crack',
                                 'label' =>
                                     'Moderate cracks / repairs (May katamtamang bitak at pagsaayos/ni-repair na bitak)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'major-crack',
+                                'value' => 'column-condition-major-crack',
                                 'label' =>
                                     'Major cracks / spalling (Malalaking bitak o may natutuklap na bahagi ng konkreto)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'severe-deterioration',
+                                'value' => 'column-condition-severe-deterioration',
                                 'label' =>
                                     'Severe deterioration / compromised (Matinding pagkasira at hindi na matibay ang estruktura)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
+
                     <livewire:image-question question="6.1  What is the shape of the columns?"
                         subtitle="Ano ang hugis ng haligi?" :options="$columnShapeOptions" model="columnShape"
-                        wire:key="columnShape-question" />
+                        wire:key="columnShape-question" :maxValue="2" />
 
                     <livewire:image-question question="6.2  What is the material of the columns?"
                         subtitle="Anong materyales ang ginamit sa haligi?" :options="$columnMaterialOptions" model="columnMaterial"
-                        wire:key="columnMaterial-question" />
+                        wire:key="columnMaterial-question" :maxValue="3" />
 
                     <livewire:image-question question="6.3  What is the current condition of the columns/beams?"
                         subtitle="Ano ang kondisyon ng haligi at beam?" :options="$columnConditionOptions" model="columnCondition"
-                        wire:key="columnCondition-question" />
+                        wire:key="columnCondition-question" :maxValue="3" />
                 </div>
             @endif
 
@@ -963,68 +1058,79 @@
                     @php
                         $houseShapeOptions = [
                             [
-                                'value' => 'rectangular',
+                                'value' => 'house-shape-rectangular',
                                 'label' => 'Regular rectangular / square plan (Parihaba/parisukat)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'irregular',
+                                'value' => 'house-shape-irregular',
                                 'label' =>
                                     'Mostly regular with small projections (Karamihan ay regular na may maliit na nakausli)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'mixed',
+                                'value' => 'house-shape-mixed',
                                 'label' => 'L/T projections (Hugis L/T)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'poor',
+                                'value' => 'house-shape-poor',
                                 'label' => 'Irregular plan with re-entrant corners',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'inadequate',
+                                'value' => 'house-shape-inadequate',
                                 'label' => 'Highly irregular complex plan (worst)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $houseRatioOptions = [
                             [
-                                'value' => 'reinforced',
+                                'value' => 'house-ratio-low-rise',
                                 'label' => 'Low-rise wide base (stable) (Mababa na may malapad na pundasyon)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'minor-cornern',
+                                'value' => 'house-ratio-slightly-tall',
                                 'label' => 'Slightly tall but stable (Medyo mataas pero matatag)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'composite',
+                                'value' => 'house-ratio-moderate',
                                 'label' => 'Moderate slenderness (Katamtamang proporsyon ng taas at lapad ng bahay)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'steel-only',
+                                'value' => 'house-ratio-tall-narrow',
                                 'label' => 'Tall and narrow for a one-storey (Mataas at makitid)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'damaged',
+                                'value' => 'house-ratio-extreme',
                                 'label' => 'Extremely unbalanced (Lubhang hindi balanse)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
+
                     <livewire:image-question question="7.1 What is the shape of the house plan?"
                         subtitle="Ano ang hugis ng plano ng bahay?" :options="$houseShapeOptions" model="houseShape"
-                        wire:key="houseShape-question" />
+                        wire:key="houseShape-question" :maxValue="4" />
 
                     <livewire:image-question question="7.1 What is the aspect ratio of the house (height:width)?"
                         subtitle="Ano ang proporsyon ng sukat ng taas at lapad ng bahay?" :options="$houseRatioOptions"
-                        model="houseRatio" wire:key="houseRatio-question" />
+                        model="houseRatio" wire:key="houseRatio-question" :maxValue="3" />
                 </div>
             @endif
 
@@ -1046,71 +1152,83 @@
                     @php
                         $roofOverhangOptions = [
                             [
-                                'value' => 'minimal',
+                                'value' => 'roof-overhang-minimal',
                                 'label' => 'Minimal (≤ 300 mm wood / ≤ 450 mm concrete) (Maiksi)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'moderate',
+                                'value' => 'roof-overhang-moderate',
                                 'label' => 'Moderate length (450-500mm) (Katamtamang haba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'slightly-long',
+                                'value' => 'roof-overhang-slightly-long',
                                 'label' => 'Slightly long (510-600mm) (Medyo mahaba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'long',
+                                'value' => 'roof-overhang-long',
                                 'label' => 'Long overhangs (610mm-1m) (Mahaba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'very-long',
+                                'value' => 'roof-overhang-very-long',
                                 'label' => 'Very long / unsupported overhangs (>1m) (Sobrang haba)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $eavesSoffitsOptions = [
                             [
-                                'value' => 'well-anchored',
+                                'value' => 'eaves-well-anchored',
                                 'label' =>
                                     'Well anchored, corrosion resistant(Maayos ang pagkakakabit, walang senyales ng pangangalawang/pagkasira)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'minor-corrosion',
+                                'value' => 'eaves-minor-corrosion',
                                 'label' =>
                                     'Good condition minor corrosion (Maayos ang kondisyon, may kaunting senyales ng pangangalawang/pagkasira)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'moderate-corrosion',
+                                'value' => 'eaves-moderate-corrosion',
                                 'label' =>
                                     'Moderate corrosion / some loose elements (May katamtamang senyales pangangalawang o pagkasira, lumuwag na ang pagkakakabit)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'corroded-fastener',
+                                'value' => 'eaves-corroded-fastener',
                                 'label' => 'Loose / corroded fasteners (Maluwag/kinakalawang na ang mga turnilyo/pako)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'detached',
-                                'label' => 'Detached or falling elements (Humihiwalay/nahuhulog na ang ilang mga parte',
+                                'value' => 'eaves-detached',
+                                'label' =>
+                                    'Detached or falling elements (Humihiwalay/nahuhulog na ang ilang mga parte)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
+
                     <livewire:image-question question="8.1 How long is the roof overhang?"
                         subtitle="Gaano kahaba ang nakausling bahagi ng bubong?" :options="$roofOverhangOptions"
-                        model="roofOverhang" wire:key="roofOverhang-question" />
+                        model="roofOverhang" wire:key="roofOverhang-question" :maxValue="3" />
 
                     <livewire:image-question
                         question="8.2  What is the condition of the eaves and soffits of the houepair?"
                         subtitle="Ano ang kalagayan ng nakausling bahagi ng bubong?" :options="$eavesSoffitsOptions"
-                        model="eavesSoffits" wire:key="eavesSoffits-question" />
+                        model="eavesSoffits" wire:key="eavesSoffits-question" :maxValue="2" />
                 </div>
             @endif
 
@@ -1132,35 +1250,41 @@
                     @php
                         $houseHeightOptions = [
                             [
-                                'value' => '2.4–3.0',
+                                'value' => 'house-height-2-4-3-0',
                                 'label' => '2.4–3.0 m',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => '3.1–4.7',
+                                'value' => 'house-height-3-1-4-7',
                                 'label' => '3.1–4.7 m',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => '4.8–6.0',
+                                'value' => 'house-height-4-8-6-0',
                                 'label' => '4.8–6.0 m',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => '6.1–7.1',
+                                'value' => 'house-height-6-1-7-1',
                                 'label' => '6.1–7.1 m',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => '7.2',
+                                'value' => 'house-height-7-2-plus',
                                 'label' => '≥ 7.2 m',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
+
                     <livewire:image-question question="9.1 How tall is your house?"
                         subtitle="Gaano kataas ang inyong bahay?" :options="$houseHeightOptions" model="houseHeight"
-                        wire:key="houseHeight-question" />
+                        wire:key="houseHeight-question" :maxValue="5" />
                 </div>
             @endif
 
@@ -1182,68 +1306,79 @@
                     @php
                         $houseLocationOptions = [
                             [
-                                'value' => 'sheltered-inland',
+                                'value' => 'house-location-sheltered-inland',
                                 'label' =>
                                     'Sheltered inland, many obstructions (Panloob na lugar na hindi direktang tinatamaan ng hangin mula sa dagat)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'urban-area',
+                                'value' => 'house-location-urban-area',
                                 'label' => 'Urban area with surrounding buildings (Bayan na may mga gusali)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'mixed-terrain',
+                                'value' => 'house-location-mixed-terrain',
                                 'label' => 'Mixed terrain / partial exposure',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'open-terrain',
+                                'value' => 'house-location-open-terrain',
                                 'label' => 'Open terrain (Exposure C) (Kapatagan)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'coastal',
+                                'value' => 'house-location-coastal',
                                 'label' => 'Coastal (Baybayin/Tabing dagat)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
 
                         $neighborOptions = [
                             [
-                                'value' => 'high-density',
+                                'value' => 'neighbor-high-density',
                                 'label' => 'High density (many obstructions / sheltered)(Marami ang bilang mg bahay)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 20,
                             ],
                             [
-                                'value' => 'medium-density',
+                                'value' => 'neighbor-medium-density',
                                 'label' => 'Medium density (Katamtaman lamang ang bilang ng bahay)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 40,
                             ],
                             [
-                                'value' => 'low-density',
+                                'value' => 'neighbor-low-density',
                                 'label' => 'Low density (some shelter) (Kaunti lamang ang bahay)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 60,
                             ],
                             [
-                                'value' => 'sparse-isolated',
+                                'value' => 'neighbor-sparse-isolated',
                                 'label' => 'Sparse isolated (less shelter) (Kalat-kalat na magkakahiwalay ang bahay)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 80,
                             ],
                             [
-                                'value' => 'isolated',
+                                'value' => 'neighbor-isolated',
                                 'label' => 'Isolated house in open terrain (Nakahiwalay na bahay sa kapatagan)',
                                 'image' => asset('images/unknown_building.png'),
+                                'percentage' => 100,
                             ],
                         ];
                     @endphp
+
                     <livewire:image-question question="10.1 Where is the location of your house?"
                         subtitle="Saan matatagpuan ang inyong bahay?" :options="$houseLocationOptions" model="houseLocation"
-                        wire:key="houseLocation-question" />
+                        wire:key="houseLocation-question" :maxValue="3" />
 
                     <livewire:image-question question="10.2 How would you describe the number of houses in your area?"
                         subtitle="Paano mo ilalarawan ang dami ng bahay sa inyong lugar?" :options="$neighborOptions"
-                        model="neighbor" wire:key="neighbor-question" />
+                        model="neighbor" wire:key="neighbor-question" :maxValue="2" />
                 </div>
             @endif
 

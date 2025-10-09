@@ -9,7 +9,8 @@ use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
-    public int $currentStep = 14;
+    public array $selectedOptions = [];
+    public int $currentStep = 3;
     public int $totalSteps = 14;
     public $isAccepted;
     public $houseId, $address, $date, $assessorName;
@@ -226,8 +227,11 @@ class AssessmentForm extends Component
     }
 
     #[On('optionSelected')]
-    public function handleOptionSelected($field, $value)
+    public function handleOptionSelected($field, $value, $computedValue)
     {
+        dd($field, $value, $computedValue);
+
+        $this->selectedOptions[$field] = $computedValue;
         $this->$field = $value;
     }
 
