@@ -76,6 +76,9 @@
                                 (Data Privacy Act of 2012).</b> The results will only be used for academic purposes and
                             disaster risk reduction planning.
                         </p>
+                        <p>
+                            Should you have any questions or concerns about the study, please feel free to contact us:
+                        </p>
                         <p><b>Contact Information</b></p>
                         <p>
                             <b>Researcher:</b> Wilmer Anjaneya D. Imperio IV<br>
@@ -96,6 +99,12 @@
                             <b>Researcher:</b> Samuel V. Valdepeña<br>
                             <b>Email Address:</b> samvaldepena003@gmail.com<br>
                             <b>Contact No.:</b> 09389484323
+                        </p>
+                        <p>
+                            We sincerely thank you for your valuable time and support. With your participation, we can
+                            help strengthen the resilience of our communities against strong winds and typhoons.
+                            Respectfully yours,
+                            The Researchers
                         </p>
                     </div>
 
@@ -1313,6 +1322,82 @@
                 @endpush
             @endif
 
+            <!-- Results -->
+            @if ($currentStep === 14)
+                <div class="flex flex-col gap-4 bg-white rounded-xl shadow-md overflow-hidden pt-8 px-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-primary mb-2">Assessment Complete!</h2>
+                        <p class="text-gray-600">Your security vulnerability score</p>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-between gap-8 mb-12">
+                        <div class="relative w-54 h-54">
+                            <svg class="progress-circle w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb"
+                                    stroke-width="6" />
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#f95738"
+                                    stroke-width="6" stroke-dasharray="283" stroke-dashoffset="85"
+                                    stroke-linecap="round" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-3xl font-bold text-accent" id="score-percentage">Moderate</span>
+                                <span class="text-sm text-gray-500">Vulnerability Rating</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 text-left">
+                            <h3 class="text-xl font-semibold text-primary mb-4 text-center">Moderate Risk</h3>
+                            <p class="text-gray-600 mb-4">Your organization shows some security awareness but has
+                                significant areas for improvement.</p>
+
+                            <div class="mb-4">
+                                <h4 class="font-medium text-primary mb-2">Key Vulnerabilities:</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Lack of threat detection capabilities</li>
+                                    <li>Insufficient employee security training</li>
+                                    <li>Missing multi-factor authentication</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-primary mb-2">Recommendations:</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Implement a Security Awareness Training program</li>
+                                    <li>Enable MFA for all privileged accounts</li>
+                                    <li>Conduct a penetration test to identify weaknesses</li>
+                                    <li>Develop an incident response plan</li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-10">
+                                <p class="text-gray-700">Thank you for taking the time to participate in our study.
+                                    Your responses will
+                                    greatly contribute to our research on assessing wind-induced structural
+                                    vulnerability of one-storey concrete houses in Marinduque. (Maraming salamat
+                                    sa paglalaan ng oras upang lumahok sa aming pag-aaral. Malaki ang
+                                    maitutulong ng iyong mga sagot sa aming pananaliksik hinggil sa pagtatasa ng
+                                    kahinaan ng mga isang-palapag na konkretong bahay laban sa malalakas na
+                                    hangin sa Marinduque.)</p>
+                            </div>
+
+                            <div class="mt-6">
+                                <h3 class="font-medium text-primary mb-2">
+                                    Any Additional Recommendations?
+                                </h3>
+                                <p class="text-gray-600 mb-4 text-sm">
+                                    Please share any suggestions or mitigation strategies that may help improve the
+                                    assessment.
+                                </p>
+
+                                <textarea id="additional-recommendations" rows="5"
+                                    class="w-full resize-none px-3 py-2 text-gray-700 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                                    placeholder="E.g., Make the interface more user-friendly, add visual progress indicators, include more sample images, or improve loading speed..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             {{-- <div>
                 <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-6">1.1 What type of roof does the house have? <span
@@ -1409,71 +1494,6 @@
                     class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                     placeholder="E.g., We use multi-factor authentication, endpoint protection, and conduct employee training..."></textarea>
             </div> --}}
-
-            <!-- Results -->
-            @if ($currentStep === 14)
-                <div class="flex flex-col gap-4 bg-white rounded-xl shadow-md overflow-hidden pt-8 px-8">
-                    <div class="text-center mb-8">
-                        <h2 class="text-2xl font-bold text-primary mb-2">Assessment Complete!</h2>
-                        <p class="text-gray-600">Your security vulnerability score</p>
-                    </div>
-
-                    <div class="flex flex-col items-center justify-between gap-8 mb-12">
-                        <div class="relative w-48 h-48">
-                            <svg class="progress-circle w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb"
-                                    stroke-width="6" />
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#f95738"
-                                    stroke-width="6" stroke-dasharray="283" stroke-dashoffset="85"
-                                    stroke-linecap="round" />
-                            </svg>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-3xl font-bold text-accent" id="score-percentage">Medium</span>
-                                <span class="text-sm text-gray-500">Vulnerability Rating</span>
-                            </div>
-                        </div>
-
-                        <div class="flex-1 text-left">
-                            <h3 class="text-xl font-semibold text-primary mb-4 text-center">Moderate Risk</h3>
-                            <p class="text-gray-600 mb-4">Your organization shows some security awareness but has
-                                significant areas for improvement.</p>
-
-                            <div class="mb-4">
-                                <h4 class="font-medium text-primary mb-2">Key Vulnerabilities:</h4>
-                                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                    <li>Lack of threat detection capabilities</li>
-                                    <li>Insufficient employee security training</li>
-                                    <li>Missing multi-factor authentication</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 class="font-medium text-primary mb-2">Recommendations:</h4>
-                                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                    <li>Implement a Security Awareness Training program</li>
-                                    <li>Enable MFA for all privileged accounts</li>
-                                    <li>Conduct a penetration test to identify weaknesses</li>
-                                    <li>Develop an incident response plan</li>
-                                </ul>
-                            </div>
-
-                            <div class="mt-8">
-                                <h3 class="font-medium text-primary mb-2">
-                                    Any Additional Recommendations?
-                                </h3>
-                                <p class="text-gray-600 mb-4 text-sm">
-                                    Please share any suggestions or mitigation strategies that may help improve the
-                                    assessment.
-                                </p>
-
-                                <textarea id="additional-recommendations" rows="5"
-                                    class="w-full resize-none px-3 py-2 text-gray-700 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
-                                    placeholder="E.g., Make the interface more user-friendly, add visual progress indicators, include more sample images, or improve loading speed..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
 
             <!-- Navigation Buttons -->
             <div class="flex justify-between mt-8">

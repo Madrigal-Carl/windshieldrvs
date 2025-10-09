@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
-    public int $currentStep = 1;
+    public int $currentStep = 14;
     public int $totalSteps = 14;
     public $isAccepted;
     public $houseId, $address, $date, $assessorName;
