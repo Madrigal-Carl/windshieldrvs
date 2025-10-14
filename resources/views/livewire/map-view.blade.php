@@ -22,18 +22,18 @@
 
                         const icons = {
                             low: L.icon({
-                                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                                iconSize: [30, 30],
+                                iconUrl: '{{ asset('images/location-icon/location-green.png') }}',
+                                iconSize: [28, 40],
                                 className: 'low-pin'
                             }),
                             moderate: L.icon({
-                                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                                iconSize: [30, 30],
+                                iconUrl: '{{ asset('images/location-icon/location-orange.png') }}',
+                                iconSize: [28, 40],
                                 className: 'moderate-pin'
                             }),
                             high: L.icon({
-                                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                                iconSize: [30, 30],
+                                iconUrl: '{{ asset('images/location-icon/location-red.png') }}',
+                                iconSize: [28, 40],
                                 className: 'high-pin'
                             }),
                         };
@@ -54,13 +54,12 @@
             }
         }
 
-        // Add colored pin filters
-        const style = document.createElement('style');
-        style.innerHTML = `
-        .leaflet-marker-icon.low-pin { filter: hue-rotate(90deg) saturate(1.5); }
-        .leaflet-marker-icon.moderate-pin { filter: hue-rotate(20deg) saturate(1.5); }
-        .leaflet-marker-icon.high-pin { filter: hue-rotate(-30deg) saturate(2); }
-    `;
-        document.head.appendChild(style);
+        // const style = document.createElement('style');
+        // style.innerHTML = `
+    //     .leaflet-marker-icon.low-pin { filter: hue-rotate(120deg) saturate(1.5); }
+    //     .leaflet-marker-icon.moderate-pin { filter: hue-rotate(30deg) saturate(1.5); }
+    //     .leaflet-marker-icon.high-pin { filter: hue-rotate(20deg) saturate(1.5); }
+    // `;
+        // document.head.appendChild(style);
     </script>
 @endpush
