@@ -21,31 +21,57 @@
                         }).addTo(this.map);
 
                         const icons = {
+                            'very-low': L.icon({
+                                iconUrl: '{{ asset('images/location-icon/location-very-low.png') }}',
+                                iconSize: [28, 40],
+                                className: 'very-low-pin'
+                            }),
                             low: L.icon({
-                                iconUrl: '{{ asset('images/location-icon/location-green.png') }}',
+                                iconUrl: '{{ asset('images/location-icon/location-low.png') }}',
                                 iconSize: [28, 40],
                                 className: 'low-pin'
                             }),
                             moderate: L.icon({
-                                iconUrl: '{{ asset('images/location-icon/location-orange.png') }}',
+                                iconUrl: '{{ asset('images/location-icon/location-medium.png') }}',
                                 iconSize: [28, 40],
                                 className: 'moderate-pin'
                             }),
                             high: L.icon({
-                                iconUrl: '{{ asset('images/location-icon/location-red.png') }}',
+                                iconUrl: '{{ asset('images/location-icon/location-high.png') }}',
                                 iconSize: [28, 40],
                                 className: 'high-pin'
                             }),
+                            'very-high': L.icon({
+                                iconUrl: '{{ asset('images/location-icon/location-very-high.png') }}',
+                                iconSize: [28, 40],
+                                className: 'very-high-pin'
+                            }),
                         };
+
+                        // helper function to prettify severity text
+                        function formatSeverity(severity) {
+                            return severity
+                                .split('-')
+                                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                .join(' ');
+                        }
 
                         const pins = @json($pins);
                         pins.forEach(pin => {
-                            const icon = icons[pin.severity] || icons.low;
+                            const icon = icons[pin.severity.toLowerCase()] || icons.low;
+                            const formattedSeverity = formatSeverity(pin.severity);
+
                             L.marker([pin.latitude, pin.longitude], {
                                     icon
                                 })
                                 .addTo(this.map)
-                                .bindPopup(`<strong>Severity:</strong> ${pin.severity}`);
+                                .bindPopup(`<strong>Severity:</strong> ${formattedSeverity}`)
+                                .on('mouseover', function() {
+                                    this.openPopup();
+                                })
+                                .on('mouseout', function() {
+                                    this.closePopup();
+                                });
                         });
 
                         setTimeout(() => this.map.invalidateSize(), 400);
@@ -53,13 +79,5 @@
                 }
             }
         }
-
-        // const style = document.createElement('style');
-        // style.innerHTML = `
-    //     .leaflet-marker-icon.low-pin { filter: hue-rotate(120deg) saturate(1.5); }
-    //     .leaflet-marker-icon.moderate-pin { filter: hue-rotate(30deg) saturate(1.5); }
-    //     .leaflet-marker-icon.high-pin { filter: hue-rotate(20deg) saturate(1.5); }
-    // `;
-        // document.head.appendChild(style);
     </script>
 @endpush

@@ -11,7 +11,6 @@ class MapView extends Component
 
     public function mount()
     {
-        // Fetch all assessed locations
         $this->pins = Assessment::select('latitude', 'longitude', 'severity')->get();
     }
 

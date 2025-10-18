@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
-            $table->enum('severity', ['low', 'moderate', 'high']);
+            $table->enum('severity', ['very-low', 'low', 'moderate', 'high', 'very-high']);
             $table->timestamps();
         });
     }

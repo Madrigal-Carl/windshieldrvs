@@ -23,12 +23,21 @@ class DatabaseSeeder extends Seeder
 
         $baseLat = 13.4750;
         $baseLng = 121.8380;
-        $severities = ['low', 'moderate', 'high'];
-        for ($i = 0; $i < 5; $i++) {
+        $severities = ['very-low', 'low', 'moderate', 'high', 'very-high'];
+
+        $entries = 10;
+
+        for ($i = 0; $i < $entries; $i++) {
+            if ($i < count($severities)) {
+                $severity = $severities[$i];
+            } else {
+                $severity = $severities[array_rand($severities)];
+            }
+
             Assessment::create([
-                'latitude' => $baseLat + ((rand(-50, 50)) / 1000),
-                'longitude' => $baseLng + ((rand(-50, 50)) / 1000),
-                'severity' => $severities[array_rand($severities)],
+                'latitude' => $baseLat + (rand(-50, 50) / 1000),
+                'longitude' => $baseLng + (rand(-50, 50) / 1000),
+                'severity' => $severity,
             ]);
         }
     }

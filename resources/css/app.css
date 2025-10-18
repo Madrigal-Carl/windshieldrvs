@@ -103,3 +103,8 @@ nav {
 .leaflet-control {
     z-index: 500 !important;
 }
+
+input.peer:checked+.outer .inner {
+    opacity: 1;
+    transform: scale(1);
+}
