@@ -105,11 +105,11 @@ class AssessmentForm extends Component
 
                 case 6:
                     $this->validate([
-                        'wall' => 'required',
+                        'walls' => 'required',
                         'wallType' => 'required',
                         'wallCondition' => 'required',
                     ], [
-                        'wall.required' => 'Please specify the type of foundation.',
+                        'walls.required' => 'Please specify the type of foundation.',
                         'wallType.required' => 'Please specify the type of the wall.',
                         'wallCondition.required' => 'Please specify the condition of the wall.',
                     ]);
@@ -223,10 +223,10 @@ class AssessmentForm extends Component
                     ]);
 
                     $boacBounds = [
-                        'north' => 13.4450,
-                        'south' => 13.3750,
-                        'west'  => 121.8200,
-                        'east'  => 121.9500,
+                        'north' => 13.4900,
+                        'south' => 13.3800,
+                        'west'  => 121.7900,
+                        'east'  => 121.9300,
                     ];
 
                     if (

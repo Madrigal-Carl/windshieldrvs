@@ -1299,14 +1299,16 @@
 
                     <livewire:image-question question="8.1 What is the shape of the house? "
                         subtitle="Ano ang hugis ng bahay?" :options="$houseShapeOptions" model="houseShape"
-                        wire:key="houseShape-question" :maxValue="3" />
+                        wire:key="houseShape-question" :maxValue="3" :value="$houseShape" />
 
                     <livewire:image-question question="8.2 How tall is your house?" subtitle="Gaano katas ang bahay?"
-                        :options="$houseHeightOptions" model="houseHeight" wire:key="houseHeight-question" :maxValue="3" />
+                        :options="$houseHeightOptions" model="houseHeight" wire:key="houseHeight-question" :maxValue="3"
+                        :value="$houseHeight" />
 
                     <livewire:image-question question="8.3 What is the aspect ratio of the house (Height: Width)"
                         subtitle="Gaano katas ang bahay?Ano ang proporsyon ng sukat ng taas at lapad ng bahay?"
-                        :options="$houseRatioOptions" model="houseRatio" wire:key="houseRatio-question" :maxValue="2" />
+                        :options="$houseRatioOptions" model="houseRatio" wire:key="houseRatio-question" :maxValue="2"
+                        :value="$houseRatio" />
                 </div>
             @endif
 
@@ -1399,12 +1401,13 @@
 
                     <livewire:image-question question="9.1 How long is the roof overhang?"
                         subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
-                        model="overhang" wire:key="overhang-question" :maxValue="3" />
+                        model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang" />
 
                     <livewire:image-question
                         question="9.2 What is the condition of the eaves and soffits of the house?"
                         subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
-                        :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2" />
+                        :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
+                        :value="$eaves" />
                 </div>
             @endif
 
@@ -1495,38 +1498,46 @@
 
                     <livewire:image-question question="10.1 How would you describe the number of houses in your area?"
                         subtitle="Paano mo ilalarawan ang dami ng bahay sa inyong lugar?" :options="$houseNumberOptions"
-                        model="houseNumber" wire:key="houseNumber-question" :maxValue="5" />
+                        model="houseNumber" wire:key="houseNumber-question" :maxValue="5" :value="$houseNumber" />
 
                     <livewire:image-question question="10.2 Where is the location of your house?"
                         subtitle="Saan matatagpuan ang inyong bahay?" :options="$houseLocationOptions" model="houseLocation"
-                        wire:key="houseLocation-question" :maxValue="5" />
+                        wire:key="houseLocation-question" :maxValue="5" :value="$houseLocation" />
                 </div>
             @endif
 
             @if ($currentStep === 13)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
-                            Screening (RVS)
-                            Tool
-                            for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
+                        <h2 class="text-2xl font-bold text-primary">
+                            Rapid Visual Screening (RVS)
+                            Tool for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque
+                        </h2>
                     </div>
+
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
-                            VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House)</h2>
-                        <p class="p-8"><b>Please pin your house location on the map below. <i>I-pin ang lokasyon ng
-                                    iyong bahay sa mapa sa
-                                    ibaba</i></b>
+                        <h2 class="text-lg font-bold text-white p-8 bg-primary">
+                            WIND VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House)
+                        </h2>
+                        <p class="p-8">
+                            <b>Please pin your house location on the map below.
+                                <i>I-pin ang lokasyon ng iyong bahay sa mapa sa ibaba</i>
+                            </b>
                         </p>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
                         <div class="p-4">
-                            <div wire:ignore id="pin-map" class="w-full h-[500px] rounded-lg shadow-md"></div>
+                            <!-- MAP -->
+                            <div wire:ignore id="pin-map" class="w-full h-[500px] rounded-lg shadow-md"
+                                x-data="pinMapComponent(@this, {{ $latitude ?? 'null' }}, {{ $longitude ?? 'null' }})" x-init="initMap()"
+                                x-on:refresh-map.window="refreshMap()"></div>
+
+                            <!-- LOCATION DISPLAY -->
                             <div class="mt-4 text-sm text-gray-600 text-center">
                                 @if ($latitude && $longitude)
-                                    📍 <b>Selected Location:</b> {{ number_format($latitude, 5) }},
-                                    {{ number_format($longitude, 5) }}
+                                    📍 <b>Selected Location:</b>
+                                    {{ number_format($latitude, 5) }}, {{ number_format($longitude, 5) }}
                                 @else
                                     No location selected yet.
                                 @endif
@@ -1534,46 +1545,133 @@
                         </div>
                     </div>
                 </div>
+
                 @push('scripts')
                     <script>
-                        document.addEventListener('livewire:init', () => {
-                            const mapElement = document.getElementById('pin-map');
-                            if (!mapElement) return; // ✅ Prevents error if map is not on page
+                        function pinMapComponent(livewire, existingLat, existingLng) {
+                            return {
+                                map: null,
+                                marker: null,
+                                boundsLayer: null,
 
-                            const map = L.map('pin-map').setView([13.4513, 121.8397], 13.2);
-                            let marker = null;
+                                initMap() {
+                                    this.$nextTick(() => {
+                                        const container = document.getElementById('pin-map');
+                                        if (!container) return;
 
-                            // Add map tiles
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '&copy; OpenStreetMap contributors'
-                            }).addTo(map);
-                            // Handle clicks/taps
-                            map.on('click', function(e) {
-                                const {
-                                    lat,
-                                    lng
-                                } = e.latlng;
+                                        if (this.map) {
+                                            this.refreshMap();
+                                            return;
+                                        }
 
-                                if (marker) map.removeLayer(marker);
+                                        const defaultCenter = [13.4513, 121.8397];
+                                        const startCoords = (existingLat && existingLng) ? [existingLat, existingLng] :
+                                            defaultCenter;
 
-                                const customIcon = L.icon({
-                                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                                    iconSize: [35, 35],
-                                    iconAnchor: [17, 34],
-                                    popupAnchor: [0, -30],
-                                });
+                                        // Initialize map
+                                        this.map = L.map(container, {
+                                            center: startCoords,
+                                            zoom: 13,
+                                            zoomSnap: 0.1,
+                                            zoomDelta: 0.5
+                                        });
 
-                                marker = L.marker([lat, lng], {
-                                        icon: customIcon
-                                    })
-                                    .addTo(map)
-                                    .bindPopup("Your selected location").openPopup();
+                                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            attribution: '&copy; OpenStreetMap contributors'
+                                        }).addTo(this.map);
 
-                                // Send to Livewire
-                                @this.set('latitude', lat);
-                                @this.set('longitude', lng);
-                            });
-                        });
+                                        const customIcon = L.icon({
+                                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                                            iconSize: [35, 35],
+                                            iconAnchor: [17, 34],
+                                            popupAnchor: [0, -30],
+                                        });
+
+                                        // 🩵 Draw Boac boundary
+                                        const boacBounds = [
+                                            [13.3800, 121.7900], // SW
+                                            [13.4900, 121.9300] // NE
+                                        ];
+
+                                        this.boundsLayer = L.rectangle(boacBounds, {
+                                            color: "#00BFFF",
+                                            weight: 2,
+                                            fillColor: "#ADD8E6",
+                                            fillOpacity: 0.15
+                                        }).addTo(this.map);
+
+                                        // Fit only once (no recenter after pin)
+                                        if (!existingLat || !existingLng) {
+                                            this.map.fitBounds(boacBounds, {
+                                                padding: [20, 20]
+                                            });
+                                        }
+
+                                        // Restore existing pin
+                                        if (existingLat && existingLng) {
+                                            this.marker = L.marker(startCoords, {
+                                                    icon: customIcon,
+                                                    interactive: false
+                                                })
+                                                .addTo(this.map)
+                                                .bindPopup('Your selected location');
+                                        }
+
+                                        // Handle click → place or move marker
+                                        this.map.on('click', e => {
+                                            const {
+                                                lat,
+                                                lng
+                                            } = e.latlng;
+
+                                            const inside =
+                                                lat >= boacBounds[0][0] &&
+                                                lat <= boacBounds[1][0] &&
+                                                lng >= boacBounds[0][1] &&
+                                                lng <= boacBounds[1][1];
+
+                                            if (!inside) {
+                                                alert('Please select a location within Boac, Marinduque.');
+                                                return;
+                                            }
+
+                                            if (this.marker) this.map.removeLayer(this.marker);
+
+                                            this.marker = L.marker([lat, lng], {
+                                                    icon: customIcon,
+                                                    interactive: false
+                                                })
+                                                .addTo(this.map)
+                                                .bindPopup('Your selected location')
+                                                .openPopup();
+
+                                            livewire.set('latitude', lat);
+                                            livewire.set('longitude', lng);
+                                        });
+
+                                        // 🧭 Important: marker should NOT move when zooming
+                                        this.map.on('zoom', () => {
+                                            if (this.marker) {
+                                                const latlng = this.marker.getLatLng();
+                                                this.marker.setLatLng(latlng); // reapply exact position
+                                            }
+                                        });
+
+                                        // Ensure tiles display properly
+                                        setTimeout(() => this.refreshMap(), 400);
+                                    });
+                                },
+
+                                refreshMap() {
+                                    if (!this.map) return;
+                                    const center = this.map.getCenter();
+                                    this.map.invalidateSize();
+                                    this.map.panTo(center, {
+                                        animate: false
+                                    }); // keep same center
+                                }
+                            }
+                        }
                     </script>
                 @endpush
             @endif
@@ -1623,7 +1721,7 @@
                             <p class="text-gray-600 mb-4">Your organization shows some security awareness but has
                                 significant areas for improvement.</p>
 
-                            {{-- <div class="mb-4">
+                            <div class="mb-4">
                                 <h4 class="font-medium text-primary mb-2">Key Vulnerabilities:</h4>
                                 <ul class="list-disc list-inside text-gray-700 space-y-1">
                                     <li>Lack of threat detection capabilities</li>
@@ -1640,10 +1738,11 @@
                                     <li>Conduct a penetration test to identify weaknesses</li>
                                     <li>Develop an incident response plan</li>
                                 </ul>
-                            </div> --}}
+                            </div>
 
                             <div class="mt-10">
-                                <p class="text-gray-700">Thank you for taking the time to participate in our study.
+                                <p class="text-gray-700 text-sm">Thank you for taking the time to participate in our
+                                    study.
                                     Your responses will
                                     greatly contribute to our research on assessing wind-induced structural
                                     vulnerability of one-storey concrete houses in Marinduque. (Maraming salamat
@@ -1653,7 +1752,7 @@
                                     hangin sa Marinduque.)</p>
                             </div>
 
-                            <div class="mt-6">
+                            {{-- <div class="mt-6">
                                 <h3 class="font-medium text-primary mb-2">
                                     Any Additional Recommendations?
                                 </h3>
@@ -1665,7 +1764,7 @@
                                 <textarea id="additional-recommendations" rows="5"
                                     class="w-full resize-none px-3 py-2 text-gray-700 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                                     placeholder="E.g., Make the interface more user-friendly, add visual progress indicators, include more sample images, or improve loading speed..."></textarea>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -1673,7 +1772,7 @@
 
             <!-- Navigation Buttons -->
             <div class="flex justify-between mt-8">
-                @if ($currentStep > 1)
+                @if ($currentStep > 1 && $currentStep < $totalSteps)
                     <button type="button" wire:click="prevStep"
                         class="cursor-pointer flex items-center px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
                         <x-feathericon-chevron-left class="inline" /> Back
@@ -1689,9 +1788,11 @@
                 @endif
 
                 @if ($currentStep === $totalSteps)
-                    <a href="{{ route('landing.page') }}" type="button"
-                        class="px-6 py-2 bg-primary text-white rounded-lg">
-                        Return Home</a>
+                    <div class="flex items-center justify-end w-full">
+                        <a href="{{ route('landing.page') }}" type="button"
+                            class="px-6 py-2 bg-primary text-white rounded-lg">
+                            View Result</a>
+                    </div>
                 @endif
             </div>
         </div>
