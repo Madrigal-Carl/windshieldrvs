@@ -409,8 +409,11 @@ class AssessmentForm extends Component
     public function handleOptionTotal($field, $value)
     {
         // For aggregated/total-style controls, store both the property and the selectedOptions
+        // Keep the numeric total on the component property (used for UI validation and counts)
         $this->$field = $value;
-        $this->selectedOptions[$field] = $value;
+        // NOTE: do NOT store aggregated totals from ImageQuestionV3 in selectedOptions
+        // These totals are counts (e.g., doorsTotal, windowTotal) and should not be treated
+        // as vulnerability scores that contribute to the overall risk sum.
     }
 
     public function evaluateAssessment()

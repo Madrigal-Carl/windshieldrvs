@@ -1719,6 +1719,9 @@
                     </div>
                 @endif
             </div>
+            <pre class="mt-20 bg-gray-50 p-3 rounded text-xs">
+    {{ json_encode($selectedOptions, JSON_PRETTY_PRINT) }}
+</pre>
         </div>
     </div>
 </div>
