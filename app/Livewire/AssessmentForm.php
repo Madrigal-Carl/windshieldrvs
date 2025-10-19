@@ -26,6 +26,13 @@ class AssessmentForm extends Component
     public $houseNumber, $houseLocation;
     public $latitude, $longitude;
     public $riskLevel, $riskScore;
+    public array $vulnerabilities = [];
+    public array $recommendations = [];
+    public bool $allClear = false;
+    public string $remarksMessage = '';
+    // New: group vulnerabilities and remarks by assessment step
+    public array $vulnerabilitiesByStep = [];
+    public array $remarksByStep = [];
 
     public function mount()
     {
@@ -260,6 +267,9 @@ class AssessmentForm extends Component
                 $this->currentStep = 6;
                 return $this->dispatch('scroll-to-top');
             }
+            if ($this->currentStep === $this->totalSteps - 1) {
+                $this->evaluateAssessment();
+            }
             $this->currentStep++;
             $this->dispatch('scroll-to-top');
         }
@@ -362,6 +372,160 @@ class AssessmentForm extends Component
             $this->riskLevel = 'Low';
         } else {
             $this->riskLevel = 'Very Low';
+        }
+
+        // Prepare human readable vulnerabilities and recommendations based on answers
+        $this->prepareReport();
+    }
+
+    protected function prepareReport()
+    {
+        $vulns = [];
+        $recs = [];
+        $byStepVulns = [];
+        $byStepRecs = [];
+
+        // Step 3: Roof issues
+        $step = 3;
+        $stepV = null;
+        $stepR = null;
+        if (in_array($this->roofCondition, ['poor', 'very-poor', 'damaged'])) {
+            $stepV = 'Roof in poor condition';
+            $stepR = 'Repair or replace damaged roofing to improve structural integrity';
+        } elseif (in_array($this->roofMade, ['light-material', 'thatch', 'corrugated-metal'])) {
+            $stepV = 'Lightweight or weak roofing material';
+            $stepR = 'Consider upgrading to stronger roofing materials or reinforcing attachments';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        if ($this->roofWallConnection === 'weak' || $this->roofWallConnection === 'none') {
+            $vulns[] = 'Poor roof-to-wall connections';
+            $recs[] = 'Install proper ties/anchors between roof and walls to reduce uplift risk';
+        }
+
+        // Step 4: Truss / structure
+        $step = 4;
+        $stepV = null;
+        $stepR = null;
+        // Special rule: if roof is NOT concrete-slab and truss is not present -> vulnerability
+        if ($this->roofMade !== 'concrete-slab' && $this->truss === 'not-present') {
+            $stepV = 'Missing roof trusses for a non-concrete roof';
+            $stepR = 'Add proper trusses or bracing to distribute loads and resist wind uplift';
+        } elseif (in_array($this->trussCondition, ['poor', 'very-poor'])) {
+            $stepV = 'Truss members in poor condition';
+            $stepR = 'Repair or replace compromised truss members and check fasteners';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        // Step 6: Walls
+        $step = 6;
+        $stepV = null;
+        $stepR = null;
+        if (in_array($this->wallCondition, ['poor', 'very-poor'])) {
+            $stepV = 'Wall condition is poor';
+            $stepR = 'Repair cracks, repoint mortar, and strengthen wall connections to foundations';
+        } elseif ($this->wallType === 'lightweight' || $this->walls === 'not-present') {
+            $stepV = 'Inadequate wall construction';
+            $stepR = 'Consider reinforcing walls or adding shear elements to improve lateral resistance';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        // Step 8: Openings (doors/windows)
+        $step = 8;
+        $stepV = null;
+        $stepR = null;
+        if (($this->windowTotal > 0 && ($this->windowType === 'large' || $this->doorwindowFrame === 'weak')) || ($this->doors > 0 && $this->doorwindowFrame === 'weak')) {
+            $stepV = 'Large or weak openings (doors/windows) or insufficient anchors';
+            $stepR = 'Reinforce frames or add shutters and secure anchors to reduce failure during wind events';
+        } elseif ($this->doorCondition === 'poor' || $this->windowType === 'poor') {
+            $stepV = 'Doors or windows in poor condition';
+            $stepR = 'Repair or replace damaged doors/windows and ensure secure fastening';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        // Step 9: Columns and beams
+        $step = 9;
+        $stepV = null;
+        $stepR = null;
+        if (isset($this->columnbeamCondition) && in_array($this->columnbeamCondition, ['poor', 'very-poor'])) {
+            $stepV = 'Columns or beams showing signs of distress';
+            $stepR = 'Have a structural assessment for columns/beams and apply retrofits where necessary';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        // Step 10: House geometry/height
+        $step = 10;
+        $stepV = null;
+        $stepR = null;
+        if ($this->houseHeight && $this->houseHeight > 4) {
+            $stepV = 'Tall profile relative to plan area increases wind forces';
+            $stepR = 'Review geometry and consider aerodynamic or structural mitigation measures';
+        }
+        if ($stepV) {
+            $vulns[] = $stepV;
+            $recs[] = $stepR;
+            $byStepVulns[$step] = $stepV;
+            $byStepRecs[$step] = $stepR;
+        }
+
+        // Generic low-score recommendations (summary)
+        if ($this->riskScore <= 40) {
+            $vulns[] = 'Overall low resilience to wind loads based on assessed attributes';
+            $recs[] = 'Prioritize inspections and phased strengthening for the most critical vulnerabilities';
+            // attach to step 14 summary
+            $byStepVulns[14] = 'Overall low resilience to wind loads based on assessed attributes';
+            $byStepRecs[14] = 'Prioritize inspections and phased strengthening for the most critical vulnerabilities';
+        }
+
+        // Deduplicate and assign (flat lists still available)
+        $this->vulnerabilities = array_values(array_unique($vulns));
+        $this->recommendations = array_values(array_unique($recs));
+
+        // Assign grouped lists
+        ksort($byStepVulns);
+        ksort($byStepRecs);
+        $this->vulnerabilitiesByStep = $byStepVulns;
+        $this->remarksByStep = $byStepRecs;
+
+        // All clear / remarks logic
+        if (empty($this->vulnerabilitiesByStep)) {
+            $this->allClear = true;
+            $this->remarksMessage = 'All assessed components show acceptable conditions based on your responses.';
+            if (in_array($this->roofCondition, ['good', 'very-good']) && in_array($this->wallCondition, ['good', 'very-good'])) {
+                $this->remarksMessage = 'Your roof and walls appear to be in good condition.';
+            } elseif (in_array($this->roofCondition, ['good', 'very-good'])) {
+                $this->remarksMessage = 'Your roof appears to be in good condition.';
+            } elseif (in_array($this->wallCondition, ['good', 'very-good'])) {
+                $this->remarksMessage = 'Your walls appear to be in good condition.';
+            }
+        } else {
+            $this->allClear = false;
+            $this->remarksMessage = '';
         }
     }
 

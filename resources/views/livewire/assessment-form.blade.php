@@ -1545,135 +1545,6 @@
                         </div>
                     </div>
                 </div>
-
-                @push('scripts')
-                    <script>
-                        function pinMapComponent(livewire, existingLat, existingLng) {
-                            return {
-                                map: null,
-                                marker: null,
-                                boundsLayer: null,
-
-                                initMap() {
-                                    this.$nextTick(() => {
-                                        const container = document.getElementById('pin-map');
-                                        if (!container) return;
-
-                                        if (this.map) {
-                                            this.refreshMap();
-                                            return;
-                                        }
-
-                                        const defaultCenter = [13.4513, 121.8397];
-                                        const startCoords = (existingLat && existingLng) ? [existingLat, existingLng] :
-                                            defaultCenter;
-
-                                        // Initialize map
-                                        this.map = L.map(container, {
-                                            center: startCoords,
-                                            zoom: 13,
-                                            zoomSnap: 0.1,
-                                            zoomDelta: 0.5
-                                        });
-
-                                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                            attribution: '&copy; OpenStreetMap contributors'
-                                        }).addTo(this.map);
-
-                                        const customIcon = L.icon({
-                                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                                            iconSize: [35, 35],
-                                            iconAnchor: [17, 34],
-                                            popupAnchor: [0, -30],
-                                        });
-
-                                        // 🩵 Draw Boac boundary
-                                        const boacBounds = [
-                                            [13.3800, 121.7900], // SW
-                                            [13.4900, 121.9300] // NE
-                                        ];
-
-                                        this.boundsLayer = L.rectangle(boacBounds, {
-                                            color: "#00BFFF",
-                                            weight: 2,
-                                            fillColor: "#ADD8E6",
-                                            fillOpacity: 0.15
-                                        }).addTo(this.map);
-
-                                        // Fit only once (no recenter after pin)
-                                        if (!existingLat || !existingLng) {
-                                            this.map.fitBounds(boacBounds, {
-                                                padding: [20, 20]
-                                            });
-                                        }
-
-                                        // Restore existing pin
-                                        if (existingLat && existingLng) {
-                                            this.marker = L.marker(startCoords, {
-                                                    icon: customIcon,
-                                                    interactive: false
-                                                })
-                                                .addTo(this.map)
-                                                .bindPopup('Your selected location');
-                                        }
-
-                                        // Handle click → place or move marker
-                                        this.map.on('click', e => {
-                                            const {
-                                                lat,
-                                                lng
-                                            } = e.latlng;
-
-                                            const inside =
-                                                lat >= boacBounds[0][0] &&
-                                                lat <= boacBounds[1][0] &&
-                                                lng >= boacBounds[0][1] &&
-                                                lng <= boacBounds[1][1];
-
-                                            if (!inside) {
-                                                alert('Please select a location within Boac, Marinduque.');
-                                                return;
-                                            }
-
-                                            if (this.marker) this.map.removeLayer(this.marker);
-
-                                            this.marker = L.marker([lat, lng], {
-                                                    icon: customIcon,
-                                                    interactive: false
-                                                })
-                                                .addTo(this.map)
-                                                .bindPopup('Your selected location')
-                                                .openPopup();
-
-                                            livewire.set('latitude', lat);
-                                            livewire.set('longitude', lng);
-                                        });
-
-                                        // 🧭 Important: marker should NOT move when zooming
-                                        this.map.on('zoom', () => {
-                                            if (this.marker) {
-                                                const latlng = this.marker.getLatLng();
-                                                this.marker.setLatLng(latlng); // reapply exact position
-                                            }
-                                        });
-
-                                        // Ensure tiles display properly
-                                        setTimeout(() => this.refreshMap(), 400);
-                                    });
-                                },
-
-                                refreshMap() {
-                                    if (!this.map) return;
-                                    const center = this.map.getCenter();
-                                    this.map.invalidateSize();
-                                    this.map.panTo(center, {
-                                        animate: false
-                                    }); // keep same center
-                                }
-                            }
-                        }
-                    </script>
-                @endpush
             @endif
 
             <!-- Results -->
@@ -1711,33 +1582,41 @@
                                 <span class="text-3xl font-bold mb-2 {{ $textColorClass }}" id="score-percentage">
                                     {{ $riskLevel }}
                                 </span>
-                                <span class="text-gray-500">{{ $riskScore ?? 0 }}%</span>
+                                <span class="text-gray-500">{{ number_format($riskScore, 2) ?? 0 }}%</span>
                             </div>
                         </div>
 
 
                         <div class="flex-1 text-left">
                             <h3 class="text-xl font-semibold text-primary mb-4 text-center">Vulnerability Rating</h3>
-                            <p class="text-gray-600 mb-4">Your organization shows some security awareness but has
-                                significant areas for improvement.</p>
-
                             <div class="mb-4">
                                 <h4 class="font-medium text-primary mb-2">Key Vulnerabilities:</h4>
-                                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                    <li>Lack of threat detection capabilities</li>
-                                    <li>Insufficient employee security training</li>
-                                    <li>Missing multi-factor authentication</li>
-                                </ul>
+                                @if (!empty($vulnerabilities))
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                        @foreach ($vulnerabilities as $v)
+                                            <li>{{ $v }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-gray-600">No specific vulnerabilities identified based on your
+                                        answers.</p>
+                                @endif
                             </div>
 
-                            <div>
-                                <h4 class="font-medium text-primary mb-2">Recommendations:</h4>
-                                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                    <li>Implement a Security Awareness Training program</li>
-                                    <li>Enable MFA for all privileged accounts</li>
-                                    <li>Conduct a penetration test to identify weaknesses</li>
-                                    <li>Develop an incident response plan</li>
-                                </ul>
+                            <div class="mb-4">
+                                <h4 class="font-medium text-primary mb-2">Remarks:</h4>
+                                @if ($allClear)
+                                    <p class="text-gray-700">{{ $remarksMessage }}</p>
+                                @elseif(!empty($recommendations))
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                        @foreach ($recommendations as $r)
+                                            <li>{{ $r }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-gray-600">No specific remarks available. Review assessment
+                                        details for guidance.</p>
+                                @endif
                             </div>
 
                             <div class="mt-10">
@@ -1810,3 +1689,150 @@
         });
     });
 </script>
+
+@push('scripts')
+    <script>
+        // Global map component factory so x-data can reference it even when step 13 is mounted later
+        function pinMapComponent(livewire, existingLat, existingLng) {
+            return {
+                map: null,
+                marker: null,
+                boundsLayer: null,
+
+                initMap() {
+                    this.$nextTick(() => {
+                        const container = document.getElementById('pin-map');
+                        if (!container) return;
+
+                        if (this.map) {
+                            this.refreshMap();
+                            return;
+                        }
+
+                        const defaultCenter = [13.4513, 121.8397];
+                        const startCoords = (existingLat && existingLng) ? [existingLat, existingLng] :
+                            defaultCenter;
+
+                        this.map = L.map(container, {
+                            center: startCoords,
+                            zoom: 13,
+                            zoomSnap: 0.1,
+                            zoomDelta: 0.5
+                        });
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; OpenStreetMap contributors'
+                        }).addTo(this.map);
+
+                        const customIcon = L.icon({
+                            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                            iconSize: [35, 35],
+                            iconAnchor: [17, 34],
+                            popupAnchor: [0, -30],
+                        });
+
+                        const boacBounds = [
+                            [13.3800, 121.7900],
+                            [13.4900, 121.9300]
+                        ];
+
+                        this.boundsLayer = L.rectangle(boacBounds, {
+                            color: "#00BFFF",
+                            weight: 2,
+                            fillColor: "#ADD8E6",
+                            fillOpacity: 0.15
+                        }).addTo(this.map);
+
+                        if (!existingLat || !existingLng) {
+                            this.map.fitBounds(boacBounds, {
+                                padding: [20, 20]
+                            });
+                        }
+
+                        if (existingLat && existingLng) {
+                            this.marker = L.marker(startCoords, {
+                                    icon: customIcon,
+                                    interactive: false
+                                })
+                                .addTo(this.map)
+                                .bindPopup('Your selected location');
+                        }
+
+                        this.map.on('click', e => {
+                            const {
+                                lat,
+                                lng
+                            } = e.latlng;
+                            const inside = lat >= boacBounds[0][0] && lat <= boacBounds[1][0] && lng >=
+                                boacBounds[0][1] && lng <= boacBounds[1][1];
+                            if (!inside) {
+                                alert('Please select a location within Boac, Marinduque.');
+                                return;
+                            }
+                            if (this.marker) this.map.removeLayer(this.marker);
+                            this.marker = L.marker([lat, lng], {
+                                    icon: customIcon,
+                                    interactive: false
+                                })
+                                .addTo(this.map)
+                                .bindPopup('Your selected location')
+                                .openPopup();
+                            livewire.set('latitude', lat);
+                            livewire.set('longitude', lng);
+                        });
+
+                        this.map.on('zoom', () => {
+                            if (this.marker) {
+                                const latlng = this.marker.getLatLng();
+                                this.marker.setLatLng(latlng);
+                            }
+                        });
+
+                        setTimeout(() => this.refreshMap(), 400);
+                    });
+                },
+
+                refreshMap() {
+                    if (!this.map) return;
+                    const center = this.map.getCenter();
+                    this.map.invalidateSize();
+                    this.map.panTo(center, {
+                        animate: false
+                    });
+                }
+            }
+        }
+
+        // When Livewire updates the DOM, try to initialize the map if the container is present.
+        document.addEventListener('livewire:load', function() {
+            function tryInitMap() {
+                const container = document.getElementById('pin-map');
+                if (!container) return false;
+
+                // If Alpine has already initialized, call its initMap
+                if (container.__x && container.__x.$data && typeof container.__x.$data.initMap === 'function') {
+                    try {
+                        container.__x.$data.initMap();
+                    } catch (e) {
+                        /* ignore */
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+
+            // Try to init right away (covers page loads where step 13 is first)
+            tryInitMap();
+
+            // After any Livewire DOM update, retry a few times to handle transitions and Alpine mount timing
+            Livewire.hook('afterDomUpdate', () => {
+                let attempts = 0;
+                const interval = setInterval(() => {
+                    attempts++;
+                    if (tryInitMap() || attempts > 6) clearInterval(interval);
+                }, 250);
+            });
+        });
+    </script>
+@endpush
