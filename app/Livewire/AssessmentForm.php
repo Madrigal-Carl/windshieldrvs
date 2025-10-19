@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 class AssessmentForm extends Component
 {
     public array $selectedOptions = [];
-    public int $currentStep = 14;
+    public int $currentStep = 1;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;
@@ -30,6 +30,10 @@ class AssessmentForm extends Component
     public array $recommendations = [];
     public bool $allClear = false;
     public string $remarksMessage = '';
+    // Section bar visualization (10 sections)
+    public array $sectionBars = [];
+    public string $strokeColor = 'bg-green-500';
+    public string $textColorClass = 'text-green-600';
     // New: group vulnerabilities and remarks by assessment step
     public array $vulnerabilitiesByStep = [];
     public array $remarksByStep = [];
@@ -289,9 +293,14 @@ class AssessmentForm extends Component
 
     public function updatedTruss()
     {
-        if ($this->truss === 'not-present' && $this->roofMade !== 'concrete-slab') {
-            $this->handleOptionSelected($this->truss, 'present', 10);
-        }
+        unset(
+            $this->selectedOptions['trussMaterial'],
+            $this->selectedOptions['trussCondition']
+        );
+
+        $this->trussMaterial = null;
+        $this->trussCondition = null;
+        $this->dispatch('resetTrussOptions');
     }
 
     public function updatedWalls()
@@ -323,10 +332,15 @@ class AssessmentForm extends Component
     #[On('optionSelected')]
     public function handleOptionSelected($field, $value, $computedValue)
     {
-        $this->selectedOptions[$field] = $computedValue;
+        // For 'truss' we store only the presence value in the component property (present/not-present/not-applicable)
+        // Do NOT store a numeric score under selectedOptions['truss'] — truss presence is represented by $this->truss
+        if ($field !== 'truss') {
+            $this->selectedOptions[$field] = $computedValue;
+        }
         $this->$field = $value;
 
         if ($field === 'roofMade') {
+            // Clear dependent entries first
             unset(
                 $this->selectedOptions['truss'],
                 $this->selectedOptions['trussMaterial'],
@@ -334,31 +348,57 @@ class AssessmentForm extends Component
                 $this->selectedOptions['roofWallConnection'],
                 $this->selectedOptions['roofWallQuality']
             );
+
             $this->truss = null;
             $this->trussMaterial = null;
             $this->trussCondition = null;
             $this->roofWallConnection = null;
             $this->roofWallQuality = null;
 
-            // If concrete slab is selected, automatically set truss score to 0 (no vulnerability)
+            // If concrete slab is selected, set related fields to 0 vulnerability and mark truss not-applicable
             if ($value === 'concrete-slab') {
-                $this->selectedOptions['truss'] = 0;
+                $this->selectedOptions['trussMaterial'] = 0;
+                $this->selectedOptions['trussCondition'] = 0;
+                $this->selectedOptions['roofWallConnection'] = 0;
+                $this->selectedOptions['roofWallQuality'] = 0;
+
                 $this->truss = 'not-applicable';
+                // notify front-end to reset/hide dependent controls
+                $this->dispatch('resetTrussOptions');
+                $this->dispatch('resetRoofWallOptions');
+            } else {
+                // If changing away from concrete-slab, remove any automatic zeroed values so user can answer
+                unset(
+                    $this->selectedOptions['truss'],
+                    $this->selectedOptions['trussMaterial'],
+                    $this->selectedOptions['trussCondition'],
+                    $this->selectedOptions['roofWallConnection'],
+                    $this->selectedOptions['roofWallQuality']
+                );
+                $this->truss = null;
             }
         }
 
         if ($field === 'truss') {
+            // Reset dependent fields when truss selection changes so they can be re-computed or reanswered
             unset(
                 $this->selectedOptions['trussMaterial'],
-                $this->selectedOptions['trussCondition'],
+                $this->selectedOptions['trussCondition']
             );
             $this->trussMaterial = null;
             $this->trussCondition = null;
 
-            // If not concrete slab and no truss, assign maximum vulnerability score
+            // If not concrete slab and no truss, assign maximum vulnerability scores for truss-related fields
             if ($this->roofMade !== 'concrete-slab' && $value === 'not-present') {
-                $this->selectedOptions['truss'] = 10; // Maximum vulnerability
-                // Skip additional truss questions
+                // truss material and condition take their own maximums (4 and 6)
+                $this->selectedOptions['trussMaterial'] = 4;
+                $this->selectedOptions['trussCondition'] = 6;
+                // notify front-end to ensure material/condition questions remain hidden
+                $this->dispatch('resetTrussOptions');
+            }
+
+            // If roof is concrete-slab, ensure all truss-related keys remain 0
+            if ($this->roofMade === 'concrete-slab') {
                 $this->selectedOptions['trussMaterial'] = 0;
                 $this->selectedOptions['trussCondition'] = 0;
             }
@@ -368,31 +408,41 @@ class AssessmentForm extends Component
     #[On('optionTotal')]
     public function handleOptionTotal($field, $value)
     {
+        // For aggregated/total-style controls, store both the property and the selectedOptions
         $this->$field = $value;
+        $this->selectedOptions[$field] = $value;
     }
 
     public function evaluateAssessment()
     {
-        $totalScore = array_sum($this->selectedOptions);
-        $this->riskScore = $totalScore;
+        // Compute section bars first so we can derive a normalized overall percent
+        $this->computeSectionBars();
 
-        if ($totalScore >= 81 && $totalScore <= 100) {
+        // riskScore should be the normalized overall percent (sum of each section's contribution)
+        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
+        $this->riskScore = round($scorePercent, 2);
+
+        if ($this->riskScore >= 81 && $this->riskScore <= 100) {
             $this->riskLevel = 'Very High';
-        } elseif ($totalScore >= 61 && $totalScore <= 80) {
+        } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
             $this->riskLevel = 'High';
-        } elseif ($totalScore >= 41 && $totalScore <= 60) {
+        } elseif ($this->riskScore >= 41 && $this->riskScore <= 60) {
             $this->riskLevel = 'Medium';
-        } elseif ($totalScore >= 21 && $totalScore <= 40) {
+        } elseif ($this->riskScore >= 21 && $this->riskScore <= 40) {
             $this->riskLevel = 'Low';
         } else {
             $this->riskLevel = 'Very Low';
         }
 
+        // Prepare full report (this will re-run computeSectionBars internally but that's cheap)
         $this->prepareReport();
     }
 
     protected function prepareReport()
     {
+        // compute section bars early so we can base remarks/vulns on per-section percentages
+        $this->computeSectionBars();
+
         $vulns = [];
         $recs = [];
         $byStepVulns = [];
@@ -432,8 +482,6 @@ class AssessmentForm extends Component
             // Non-concrete roof without truss - maximum vulnerability
             $byStepVulns[4] = 'Critical: Missing roof trusses for non-concrete roof';
             $byStepRecs[4] = 'Add proper trusses or bracing to distribute loads - high priority';
-            // Ensure maximum score is reflected
-            $this->selectedOptions['truss'] = 10;
         } elseif ($this->truss === 'present') {
             // Normal truss evaluation for non-concrete roof with truss
             if ($isHighRisk('trussCondition', 6)) {
@@ -508,6 +556,39 @@ class AssessmentForm extends Component
             $byStepRecs[12] = sprintf($goodTemplate, 'Environmental exposure');
         }
 
+        // --- Enforce per-section vulnerability rule (50% threshold) ---
+        // Map section index (1..10) to assessment step (3..12) and friendly label
+        $sectionToStepMap = [
+            1 => ['step' => 3, 'label' => 'Roof'],
+            2 => ['step' => 4, 'label' => 'Truss / Roof framing'],
+            3 => ['step' => 5, 'label' => 'Roof-to-wall connections'],
+            4 => ['step' => 6, 'label' => 'Walls'],
+            5 => ['step' => 7, 'label' => 'Wall-to-foundation'],
+            6 => ['step' => 8, 'label' => 'Openings (doors & windows)'],
+            7 => ['step' => 9, 'label' => 'Columns and Beams'],
+            8 => ['step' => 10, 'label' => 'Building geometry'],
+            9 => ['step' => 11, 'label' => 'Overhangs & eaves'],
+            10 => ['step' => 12, 'label' => 'Location / Environment'],
+        ];
+
+        foreach ($this->sectionBars as $seg) {
+            $secIndex = $seg['index'];
+            if (!isset($sectionToStepMap[$secIndex])) continue;
+            $map = $sectionToStepMap[$secIndex];
+            $step = $map['step'];
+            $label = $map['label'];
+
+            // If section percent is 50 or higher -> vulnerability, otherwise mark as good
+            if (($seg['sectionPercent'] ?? 0) >= 50) {
+                $byStepVulns[$step] = sprintf($vulnTemplate, $label);
+                $byStepRecs[$step] = sprintf($actionTemplate, strtolower($label));
+            } else {
+                $byStepRecs[$step] = sprintf($goodTemplate, $label);
+                // ensure any previous vulnerability for this step is removed
+                if (isset($byStepVulns[$step])) unset($byStepVulns[$step]);
+            }
+        }
+
         // Overall assessment summary (step 14)
         if ($this->riskScore >= 50) {
             $byStepVulns[14] = 'Multiple aspects may affect wind resistance';
@@ -536,6 +617,124 @@ class AssessmentForm extends Component
         } else {
             $this->remarksMessage = '';
         }
+
+        // Compute the per-step section bars for the results visualization
+        $this->computeSectionBars();
+    }
+
+    /**
+     * Compute the 10 section vulnerability bars.
+     * Each section has a predefined weight (contribution to 100%).
+     * We use $this->selectedOptions to obtain values for each field; missing keys are treated as 0.
+     */
+    protected function computeSectionBars(): void
+    {
+        $weights = [20, 10, 8, 10, 7, 10, 12, 8, 5, 10];
+
+        // Map each of the 10 sections to fields and their maximum possible value.
+        // Sections correspond to assessment steps 3..12 respectively.
+        $sections = [
+            // 1 (step 3): Roof (type, made, anchor, condition)
+            ['roofType' => 6, 'roofMade' => 5, 'roofAnchor' => 5, 'roofCondition' => 4],
+            // 2 (step 4): Truss (material and condition)
+            ['trussMaterial' => 4, 'trussCondition' => 6],
+            // 3 (step 5): Roof-to-wall connection
+            ['roofWallConnection' => 4, 'roofWallQuality' => 4],
+            // 4 (step 6): Walls
+            ['wallType' => 3, 'wallCondition' => 3],
+            // 5 (step 7): Wall/Foundation signs
+            ['signsTilt' => 7],
+            // 6 (step 8): Openings - doors/windows
+            ['doorCondition' => 3, 'windowType' => 3, 'doorwindowFrame' => 2],
+            // 7 (step 9): Columns & beams (shape and condition)
+            ['columnShape' => 2, 'beamShape' => 2, 'columnbeamCondition' => 6],
+            // 8 (step 10): Building geometry
+            ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
+            // 9 (step 11): Overhangs & eaves
+            ['overhang' => 3, 'eaves' => 2],
+            // 10 (step 12): Location / Environment
+            ['houseNumber' => 5, 'houseLocation' => 5],
+        ];
+
+        switch ($this->riskLevel ?? 'Very Low') {
+            case 'Very High':
+                $stroke = 'bg-red-600';
+                $text = 'text-red-600';
+                break;
+            case 'High':
+                $stroke = 'bg-orange-500';
+                $text = 'text-orange-500';
+                break;
+            case 'Medium':
+                $stroke = 'bg-yellow-400';
+                $text = 'text-yellow-500';
+                break;
+            case 'Low':
+                $stroke = 'bg-green-500';
+                $text = 'text-green-600';
+                break;
+            default:
+                $stroke = 'bg-blue-500';
+                $text = 'text-blue-600';
+                break;
+        }
+
+        $bars = [];
+
+        // Color buckets (based on section percent)
+        $colorBuckets = [
+            [0, 19, '#3b82f6'],   // blue
+            [20, 39, '#22c55e'],  // green
+            [40, 59, '#eab308'],  // yellow
+            [60, 79, '#f97316'],  // orange
+            [80, 100, '#dc2626'], // red
+        ];
+
+        foreach ($sections as $index => $fields) {
+            $maxTotal = 0;
+            $valueTotal = 0;
+
+            foreach ($fields as $field => $maxValue) {
+                // Special handling: if truss does not apply for concrete slab roofs, exclude truss fields
+                if (in_array($field, ['trussMaterial', 'trussCondition'], true) && $this->roofMade === 'concrete-slab') {
+                    continue;
+                }
+
+                $maxTotal += $maxValue;
+                $val = $this->selectedOptions[$field] ?? 0;
+                // If non-concrete roof and truss not present, ensure maximum vulnerability (selectedOptions handled elsewhere)
+                $valueTotal += $val;
+            }
+
+            $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
+            $sectionPercent = min(100, max(0, $sectionPercent));
+            $overallPercent = ($sectionPercent / 100) * $weights[$index];
+            // pick a hex color from buckets
+            $fillHex = null;
+            foreach ($colorBuckets as $bucket) {
+                if ($sectionPercent >= $bucket[0] && $sectionPercent <= $bucket[1]) {
+                    $fillHex = $bucket[2];
+                    break;
+                }
+            }
+
+            $bars[] = [
+                'index' => $index + 1,
+                'weight' => $weights[$index],
+                'sectionPercent' => round($sectionPercent, 1),
+                // fillPercent used to drive the width of the colored fill inside the segment
+                'fillPercent' => round($sectionPercent, 1),
+                // contribution to the overall 100%
+                'overallPercent' => round($overallPercent, 1),
+                'strokeColor' => $stroke,
+                'textColor' => $text,
+                'fillColorHex' => $fillHex,
+            ];
+        }
+
+        $this->sectionBars = $bars;
+        $this->strokeColor = $stroke;
+        $this->textColorClass = $text;
     }
 
 
