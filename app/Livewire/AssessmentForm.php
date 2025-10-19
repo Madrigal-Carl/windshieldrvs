@@ -73,15 +73,15 @@ class AssessmentForm extends Component
 
                 case 3:
                     $this->validate([
-                        'roofType' => 'required',
                         'roofMade' => 'required',
-                        'roofAnchor' => 'required',
-                        'roofCondition' => 'required',
+                        'roofType' => 'required_unless:roofMade,concrete-slab',
+                        'roofAnchor' => 'required_unless:roofMade,concrete-slab',
+                        'roofCondition' => 'required_unless:roofMade,concrete-slab',
                     ], [
-                        'roofType.required' => 'Please specify the roof type.',
                         'roofMade.required' => 'Please specify the roof material.',
-                        'roofAnchor.required' => 'Please specify the roof anchor.',
-                        'roofCondition.required' => 'Please specify the roof condition.',
+                        'roofType.required_unless' => 'Please specify the roof type.',
+                        'roofAnchor.required_unless' => 'Please specify the roof anchor.',
+                        'roofCondition.required_unless' => 'Please specify the roof condition.',
                     ]);
                     break;
 
@@ -297,10 +297,20 @@ class AssessmentForm extends Component
             $this->selectedOptions['trussMaterial'],
             $this->selectedOptions['trussCondition']
         );
-
         $this->trussMaterial = null;
         $this->trussCondition = null;
-        $this->dispatch('resetTrussOptions');
+
+        if ($this->roofMade !== 'concrete-slab' && $this->truss === 'not-present') {
+            // truss material and condition take their own maximums (4 and 6)
+            $this->selectedOptions['trussMaterial'] = 4;
+            $this->selectedOptions['trussCondition'] = 6;
+        }
+
+        // If roof is concrete-slab, ensure all truss-related keys remain 0
+        if ($this->roofMade === 'concrete-slab') {
+            $this->selectedOptions['trussMaterial'] = 0;
+            $this->selectedOptions['trussCondition'] = 0;
+        }
     }
 
     public function updatedWalls()
@@ -332,11 +342,7 @@ class AssessmentForm extends Component
     #[On('optionSelected')]
     public function handleOptionSelected($field, $value, $computedValue)
     {
-        // For 'truss' we store only the presence value in the component property (present/not-present/not-applicable)
-        // Do NOT store a numeric score under selectedOptions['truss'] — truss presence is represented by $this->truss
-        if ($field !== 'truss') {
-            $this->selectedOptions[$field] = $computedValue;
-        }
+        $this->selectedOptions[$field] = $computedValue;
         $this->$field = $value;
 
         if ($field === 'roofMade') {
@@ -349,6 +355,9 @@ class AssessmentForm extends Component
                 $this->selectedOptions['roofWallQuality']
             );
 
+            $this->roofType = null;
+            $this->roofAnchor = null;
+            $this->roofCondition = null;
             $this->truss = null;
             $this->trussMaterial = null;
             $this->trussCondition = null;
@@ -357,50 +366,24 @@ class AssessmentForm extends Component
 
             // If concrete slab is selected, set related fields to 0 vulnerability and mark truss not-applicable
             if ($value === 'concrete-slab') {
+                $this->selectedOptions['roofType'] = 0;
+                $this->selectedOptions['roofAnchor'] = 0;
+                $this->selectedOptions['roofCondition'] = 0;
                 $this->selectedOptions['trussMaterial'] = 0;
                 $this->selectedOptions['trussCondition'] = 0;
                 $this->selectedOptions['roofWallConnection'] = 0;
                 $this->selectedOptions['roofWallQuality'] = 0;
-
-                $this->truss = 'not-applicable';
-                // notify front-end to reset/hide dependent controls
-                $this->dispatch('resetTrussOptions');
-                $this->dispatch('resetRoofWallOptions');
             } else {
                 // If changing away from concrete-slab, remove any automatic zeroed values so user can answer
                 unset(
-                    $this->selectedOptions['truss'],
+                    $this->selectedOptions['roofType'],
+                    $this->selectedOptions['roofAnchor'],
+                    $this->selectedOptions['roofCondition'],
                     $this->selectedOptions['trussMaterial'],
                     $this->selectedOptions['trussCondition'],
                     $this->selectedOptions['roofWallConnection'],
                     $this->selectedOptions['roofWallQuality']
                 );
-                $this->truss = null;
-            }
-        }
-
-        if ($field === 'truss') {
-            // Reset dependent fields when truss selection changes so they can be re-computed or reanswered
-            unset(
-                $this->selectedOptions['trussMaterial'],
-                $this->selectedOptions['trussCondition']
-            );
-            $this->trussMaterial = null;
-            $this->trussCondition = null;
-
-            // If not concrete slab and no truss, assign maximum vulnerability scores for truss-related fields
-            if ($this->roofMade !== 'concrete-slab' && $value === 'not-present') {
-                // truss material and condition take their own maximums (4 and 6)
-                $this->selectedOptions['trussMaterial'] = 4;
-                $this->selectedOptions['trussCondition'] = 6;
-                // notify front-end to ensure material/condition questions remain hidden
-                $this->dispatch('resetTrussOptions');
-            }
-
-            // If roof is concrete-slab, ensure all truss-related keys remain 0
-            if ($this->roofMade === 'concrete-slab') {
-                $this->selectedOptions['trussMaterial'] = 0;
-                $this->selectedOptions['trussCondition'] = 0;
             }
         }
     }

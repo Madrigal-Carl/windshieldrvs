@@ -339,21 +339,25 @@
                         ];
 
                     @endphp
-                    <livewire:image-question question="1.1 What type of roof does the house have?"
-                        subtitle="Ano ang uri ng bubong ng bahay?" :options="$roofTypeOptions" model="roofType"
-                        wire:key="roofType-question" :maxValue="6" :value="$roofType" />
 
-                    <livewire:image-question question="1.2  What is the roof made of?" subtitle="Saan gawa ang bubong?"
+                    <livewire:image-question question="1.1  What is the roof made of?" subtitle="Saan gawa ang bubong?"
                         :options="$roofMadeOptions" model="roofMade" wire:key="roofMade-question" :maxValue="5"
                         :value="$roofMade" />
 
-                    <livewire:image-question question="1.3  How is the roof anchored to the structure?"
-                        subtitle="Paano nakakabit ang bubong sa istruktura?" :options="$roofAnchorOptions" model="roofAnchor"
-                        wire:key="roofAnchor-question" :maxValue="5" :value="$roofAnchor" />
+                    @if ($roofMade !== 'concrete-slab')
+                        <livewire:image-question question="1.2 What type of roof does the house have?"
+                            subtitle="Ano ang uri ng bubong ng bahay?" :options="$roofTypeOptions" model="roofType"
+                            wire:key="roofType-question" :maxValue="6" :value="$roofType" />
 
-                    <livewire:image-question question="1.4  What is the current condition of the roof?"
-                        subtitle="Ano ang kasalukuyang kondisyon ng bubong?" :options="$roofConditionOptions" model="roofCondition"
-                        wire:key="roofCondition-question" :maxValue="4" :value="$roofCondition" />
+                        <livewire:image-question question="1.3  How is the roof anchored to the structure?"
+                            subtitle="Paano nakakabit ang bubong sa istruktura?" :options="$roofAnchorOptions" model="roofAnchor"
+                            wire:key="roofAnchor-question" :maxValue="5" :value="$roofAnchor" />
+
+                        <livewire:image-question question="1.4  What is the current condition of the roof?"
+                            subtitle="Ano ang kasalukuyang kondisyon ng bubong?" :options="$roofConditionOptions" model="roofCondition"
+                            wire:key="roofCondition-question" :maxValue="4" :value="$roofCondition" />
+                    @endif
+
                 </div>
             @endif
 
@@ -1719,9 +1723,9 @@
                     </div>
                 @endif
             </div>
-            <pre class="mt-20 bg-gray-50 p-3 rounded text-xs">
+            {{-- <pre class="mt-20 bg-gray-50 p-3 rounded text-xs">
     {{ json_encode($selectedOptions, JSON_PRETTY_PRINT) }}
-</pre>
+</pre> --}}
         </div>
     </div>
 </div>
