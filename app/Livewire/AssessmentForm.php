@@ -339,6 +339,12 @@ class AssessmentForm extends Component
             $this->trussCondition = null;
             $this->roofWallConnection = null;
             $this->roofWallQuality = null;
+
+            // If concrete slab is selected, automatically set truss score to 0 (no vulnerability)
+            if ($value === 'concrete-slab') {
+                $this->selectedOptions['truss'] = 0;
+                $this->truss = 'not-applicable';
+            }
         }
 
         if ($field === 'truss') {
@@ -348,6 +354,14 @@ class AssessmentForm extends Component
             );
             $this->trussMaterial = null;
             $this->trussCondition = null;
+
+            // If not concrete slab and no truss, assign maximum vulnerability score
+            if ($this->roofMade !== 'concrete-slab' && $value === 'not-present') {
+                $this->selectedOptions['truss'] = 10; // Maximum vulnerability
+                // Skip additional truss questions
+                $this->selectedOptions['trussMaterial'] = 0;
+                $this->selectedOptions['trussCondition'] = 0;
+            }
         }
     }
 
@@ -374,7 +388,6 @@ class AssessmentForm extends Component
             $this->riskLevel = 'Very Low';
         }
 
-        // Prepare human readable vulnerabilities and recommendations based on answers
         $this->prepareReport();
     }
 
@@ -385,146 +398,142 @@ class AssessmentForm extends Component
         $byStepVulns = [];
         $byStepRecs = [];
 
-        // Step 3: Roof issues
-        $step = 3;
-        $stepV = null;
-        $stepR = null;
-        if (in_array($this->roofCondition, ['poor', 'very-poor', 'damaged'])) {
-            $stepV = 'Roof in poor condition';
-            $stepR = 'Repair or replace damaged roofing to improve structural integrity';
-        } elseif (in_array($this->roofMade, ['light-material', 'thatch', 'corrugated-metal'])) {
-            $stepV = 'Lightweight or weak roofing material';
-            $stepR = 'Consider upgrading to stronger roofing materials or reinforcing attachments';
-        }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+        // Helper to check if an option's score is 50% or more of its max value
+        $isHighRisk = function ($field, $maxValue) {
+            return isset($this->selectedOptions[$field]) &&
+                ($this->selectedOptions[$field] / $maxValue) >= 0.5;
+        };
+
+        // Generic message templates
+        $vulnTemplate = '%s shows potential vulnerability';
+        $actionTemplate = 'Consider improvements to %s to enhance wind resistance';
+        $goodTemplate = '%s appears to be in acceptable condition';
+
+        // Step 3: Roof (max values: type=6, made=5, anchor=5, condition=4)
+        if ($isHighRisk('roofType', 6)) {
+            $byStepVulns[3] = sprintf($vulnTemplate, 'Roof type');
+            $byStepRecs[3] = sprintf($actionTemplate, 'roof type');
+        } elseif (isset($this->selectedOptions['roofType'])) {
+            $byStepRecs[3] = sprintf($goodTemplate, 'Roof type');
         }
 
-        if ($this->roofWallConnection === 'weak' || $this->roofWallConnection === 'none') {
-            $vulns[] = 'Poor roof-to-wall connections';
-            $recs[] = 'Install proper ties/anchors between roof and walls to reduce uplift risk';
+        if ($isHighRisk('roofMade', 5)) {
+            $byStepVulns[3] = sprintf($vulnTemplate, 'Roof material');
+            $byStepRecs[3] = sprintf($actionTemplate, 'roof material');
+        } elseif (isset($this->selectedOptions['roofMade'])) {
+            $byStepRecs[3] = sprintf($goodTemplate, 'Roof material');
         }
 
-        // Step 4: Truss / structure
-        $step = 4;
-        $stepV = null;
-        $stepR = null;
-        // Special rule: if roof is NOT concrete-slab and truss is not present -> vulnerability
-        if ($this->roofMade !== 'concrete-slab' && $this->truss === 'not-present') {
-            $stepV = 'Missing roof trusses for a non-concrete roof';
-            $stepR = 'Add proper trusses or bracing to distribute loads and resist wind uplift';
-        } elseif (in_array($this->trussCondition, ['poor', 'very-poor'])) {
-            $stepV = 'Truss members in poor condition';
-            $stepR = 'Repair or replace compromised truss members and check fasteners';
+        // Step 4: Truss handling for different roof scenarios
+        if ($this->roofMade === 'concrete-slab') {
+            // Concrete slab roof - no truss needed, no vulnerability
+            $byStepRecs[4] = 'Concrete slab roof does not require trusses';
+        } elseif ($this->truss === 'not-present') {
+            // Non-concrete roof without truss - maximum vulnerability
+            $byStepVulns[4] = 'Critical: Missing roof trusses for non-concrete roof';
+            $byStepRecs[4] = 'Add proper trusses or bracing to distribute loads - high priority';
+            // Ensure maximum score is reflected
+            $this->selectedOptions['truss'] = 10;
+        } elseif ($this->truss === 'present') {
+            // Normal truss evaluation for non-concrete roof with truss
+            if ($isHighRisk('trussCondition', 6)) {
+                $byStepVulns[4] = sprintf($vulnTemplate, 'Truss condition');
+                $byStepRecs[4] = sprintf($actionTemplate, 'truss system');
+            } elseif (isset($this->selectedOptions['trussCondition'])) {
+                $byStepRecs[4] = sprintf($goodTemplate, 'Truss system');
+            }
         }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+
+        // Step 5: Roof-Wall Connection (max=4 each)
+        if ($isHighRisk('roofWallConnection', 4) || $isHighRisk('roofWallQuality', 4)) {
+            $byStepVulns[5] = sprintf($vulnTemplate, 'Roof-to-wall connections');
+            $byStepRecs[5] = sprintf($actionTemplate, 'roof-to-wall connections');
+        } elseif (isset($this->selectedOptions['roofWallConnection']) || isset($this->selectedOptions['roofWallQuality'])) {
+            $byStepRecs[5] = sprintf($goodTemplate, 'Roof-to-wall connections');
         }
 
         // Step 6: Walls
-        $step = 6;
-        $stepV = null;
-        $stepR = null;
-        if (in_array($this->wallCondition, ['poor', 'very-poor'])) {
-            $stepV = 'Wall condition is poor';
-            $stepR = 'Repair cracks, repoint mortar, and strengthen wall connections to foundations';
-        } elseif ($this->wallType === 'lightweight' || $this->walls === 'not-present') {
-            $stepV = 'Inadequate wall construction';
-            $stepR = 'Consider reinforcing walls or adding shear elements to improve lateral resistance';
-        }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+        if ($isHighRisk('wallType', 3) || $isHighRisk('wallCondition', 3)) {
+            $byStepVulns[6] = sprintf($vulnTemplate, 'Wall system');
+            $byStepRecs[6] = sprintf($actionTemplate, 'wall construction');
+        } elseif (isset($this->selectedOptions['wallType']) || isset($this->selectedOptions['wallCondition'])) {
+            $byStepRecs[6] = sprintf($goodTemplate, 'Wall system');
         }
 
-        // Step 8: Openings (doors/windows)
-        $step = 8;
-        $stepV = null;
-        $stepR = null;
-        if (($this->windowTotal > 0 && ($this->windowType === 'large' || $this->doorwindowFrame === 'weak')) || ($this->doors > 0 && $this->doorwindowFrame === 'weak')) {
-            $stepV = 'Large or weak openings (doors/windows) or insufficient anchors';
-            $stepR = 'Reinforce frames or add shutters and secure anchors to reduce failure during wind events';
-        } elseif ($this->doorCondition === 'poor' || $this->windowType === 'poor') {
-            $stepV = 'Doors or windows in poor condition';
-            $stepR = 'Repair or replace damaged doors/windows and ensure secure fastening';
-        }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+        // Step 7: Wall-Foundation
+        if ($isHighRisk('signsTilt', 7)) {
+            $byStepVulns[7] = sprintf($vulnTemplate, 'Wall-to-foundation connection');
+            $byStepRecs[7] = sprintf($actionTemplate, 'wall-to-foundation connections');
+        } elseif (isset($this->selectedOptions['signsTilt'])) {
+            $byStepRecs[7] = sprintf($goodTemplate, 'Wall-to-foundation connection');
         }
 
-        // Step 9: Columns and beams
-        $step = 9;
-        $stepV = null;
-        $stepR = null;
-        if (isset($this->columnbeamCondition) && in_array($this->columnbeamCondition, ['poor', 'very-poor'])) {
-            $stepV = 'Columns or beams showing signs of distress';
-            $stepR = 'Have a structural assessment for columns/beams and apply retrofits where necessary';
-        }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+        // Step 8: Openings
+        if ($isHighRisk('doorCondition', 3) || $isHighRisk('windowType', 3) || $isHighRisk('doorwindowFrame', 2)) {
+            $byStepVulns[8] = sprintf($vulnTemplate, 'Door and window system');
+            $byStepRecs[8] = sprintf($actionTemplate, 'door and window installations');
+        } elseif (isset($this->selectedOptions['doorCondition']) || isset($this->selectedOptions['windowType'])) {
+            $byStepRecs[8] = sprintf($goodTemplate, 'Door and window system');
         }
 
-        // Step 10: House geometry/height
-        $step = 10;
-        $stepV = null;
-        $stepR = null;
-        if ($this->houseHeight && $this->houseHeight > 4) {
-            $stepV = 'Tall profile relative to plan area increases wind forces';
-            $stepR = 'Review geometry and consider aerodynamic or structural mitigation measures';
-        }
-        if ($stepV) {
-            $vulns[] = $stepV;
-            $recs[] = $stepR;
-            $byStepVulns[$step] = $stepV;
-            $byStepRecs[$step] = $stepR;
+        // Step 9: Columns/Beams
+        if ($isHighRisk('columnShape', 2) || $isHighRisk('beamShape', 2)) {
+            $byStepVulns[9] = sprintf($vulnTemplate, 'Column and beam configuration');
+            $byStepRecs[9] = sprintf($actionTemplate, 'column and beam system');
+        } elseif (isset($this->selectedOptions['columnShape']) || isset($this->selectedOptions['beamShape'])) {
+            $byStepRecs[9] = sprintf($goodTemplate, 'Column and beam system');
         }
 
-        // Generic low-score recommendations (summary)
-        if ($this->riskScore <= 40) {
-            $vulns[] = 'Overall low resilience to wind loads based on assessed attributes';
-            $recs[] = 'Prioritize inspections and phased strengthening for the most critical vulnerabilities';
-            // attach to step 14 summary
-            $byStepVulns[14] = 'Overall low resilience to wind loads based on assessed attributes';
-            $byStepRecs[14] = 'Prioritize inspections and phased strengthening for the most critical vulnerabilities';
+        // Step 10: House Shape
+        if ($isHighRisk('houseShape', 3) || $isHighRisk('houseHeight', 3) || $isHighRisk('houseRatio', 2)) {
+            $byStepVulns[10] = sprintf($vulnTemplate, 'Building geometry');
+            $byStepRecs[10] = sprintf($actionTemplate, 'overall building shape and proportions');
+        } elseif (isset($this->selectedOptions['houseShape'])) {
+            $byStepRecs[10] = sprintf($goodTemplate, 'Building geometry');
         }
 
-        // Deduplicate and assign (flat lists still available)
+        // Step 11: Overhangs
+        if ($isHighRisk('overhang', 3) || $isHighRisk('eaves', 2)) {
+            $byStepVulns[11] = sprintf($vulnTemplate, 'Roof overhang and eaves');
+            $byStepRecs[11] = sprintf($actionTemplate, 'roof overhangs and eaves');
+        } elseif (isset($this->selectedOptions['overhang']) || isset($this->selectedOptions['eaves'])) {
+            $byStepRecs[11] = sprintf($goodTemplate, 'Roof overhang and eaves');
+        }
+
+        // Step 12: Location/Environment
+        if ($isHighRisk('houseNumber', 5) || $isHighRisk('houseLocation', 5)) {
+            $byStepVulns[12] = sprintf($vulnTemplate, 'Environmental exposure');
+            $byStepRecs[12] = sprintf($actionTemplate, 'environmental protection measures');
+        } elseif (isset($this->selectedOptions['houseNumber']) || isset($this->selectedOptions['houseLocation'])) {
+            $byStepRecs[12] = sprintf($goodTemplate, 'Environmental exposure');
+        }
+
+        // Overall assessment summary (step 14)
+        if ($this->riskScore >= 50) {
+            $byStepVulns[14] = 'Multiple aspects may affect wind resistance';
+            $byStepRecs[14] = 'Consider addressing highlighted vulnerabilities in order of severity';
+        } elseif ($this->riskScore > 0) {
+            $byStepRecs[14] = 'Consider preventive maintenance to maintain current conditions';
+        }
+
+        // Assign to class properties (keep flat arrays for compatibility)
+        foreach ($byStepVulns as $vuln) {
+            $vulns[] = $vuln;
+        }
+        foreach ($byStepRecs as $rec) {
+            $recs[] = $rec;
+        }
+
         $this->vulnerabilities = array_values(array_unique($vulns));
         $this->recommendations = array_values(array_unique($recs));
-
-        // Assign grouped lists
-        ksort($byStepVulns);
-        ksort($byStepRecs);
         $this->vulnerabilitiesByStep = $byStepVulns;
         $this->remarksByStep = $byStepRecs;
 
-        // All clear / remarks logic
-        if (empty($this->vulnerabilitiesByStep)) {
-            $this->allClear = true;
-            $this->remarksMessage = 'All assessed components show acceptable conditions based on your responses.';
-            if (in_array($this->roofCondition, ['good', 'very-good']) && in_array($this->wallCondition, ['good', 'very-good'])) {
-                $this->remarksMessage = 'Your roof and walls appear to be in good condition.';
-            } elseif (in_array($this->roofCondition, ['good', 'very-good'])) {
-                $this->remarksMessage = 'Your roof appears to be in good condition.';
-            } elseif (in_array($this->wallCondition, ['good', 'very-good'])) {
-                $this->remarksMessage = 'Your walls appear to be in good condition.';
-            }
+        // All clear logic
+        $this->allClear = empty($this->vulnerabilitiesByStep);
+        if ($this->allClear) {
+            $this->remarksMessage = 'All assessed components show acceptable conditions based on the evaluation criteria.';
         } else {
-            $this->allClear = false;
             $this->remarksMessage = '';
         }
     }
