@@ -816,7 +816,6 @@ class AssessmentForm extends Component
 
         $maxWidthCm = 19;
         $maxHeightCm = 26.7;
-        $spacingCm = 0.1;
 
         foreach ($imagePaths as $index => $path) {
             [$widthPx, $heightPx] = getimagesize($path);
@@ -839,7 +838,6 @@ class AssessmentForm extends Component
             // Add small spacing after each image (except last)
             if ($index < count($imagePaths) - 1) {
                 $section->addTextBreak(1); // one line break
-                $section->addText('', [], ['spaceAfter' => Converter::cmToTwip($spacingCm)]);
             }
         }
 

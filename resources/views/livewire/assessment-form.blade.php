@@ -1757,8 +1757,19 @@
                         ];
                     @endphp
                     <!-- Content -->
-                    <div class="p-6 md:p-8 space-y-14">
-                        <div class="capture-section space-y-6" id="section-1">
+                    <div class="p-6 md:p-8 space-y-10">
+                        <div class="capture-section flex justify-between w-full" id="section-1">
+                            <div class="w-full md:w-2/3">
+                                <p>House ID: {{ $houseId ?? '' }}</p>
+                                <p>Assessor Name: {{ $assessorName ?? '' }}</p>
+                            </div>
+                            <div class="w-full md:w-1/3">
+                                <p>Date: {{ $this->formattedDate }}</p>
+                                <p>Address: {{ $address ?? '' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-2">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">1. Roof Type & Condition (Uri at
                                     Kondisyon ng
@@ -1854,7 +1865,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-2">
+                        <div class="capture-section space-y-6" id="section-3">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">2. Roof-Truss (Trases)</h2>
                                 <div class="flex justify-between items-center mt-1">
@@ -1923,7 +1934,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-3">
+                        <div class="capture-section space-y-6" id="section-4">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">3. Roof – to – Wall Connection
                                     (Koneksyon ng
@@ -1989,7 +2000,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-4">
+                        <div class="capture-section space-y-6" id="section-5">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">4. Wall Type and Integrity (Uri at
                                     Integridad ng
@@ -2050,7 +2061,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-5">
+                        <div class="capture-section space-y-6" id="section-6">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">5. Wall-to-Foundation Connection
                                     (Koneksyon ng
@@ -2096,7 +2107,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-6">
+                        <div class="capture-section space-y-6" id="section-7">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">6. Openings - Windows and Doors (Mga
                                     Bintana at
@@ -2187,7 +2198,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-7">
+                        <div class="capture-section space-y-6" id="section-8">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">7. Column and Beam System (Sistema
                                     ng mga Haligi
@@ -2288,7 +2299,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-8">
+                        <div class="capture-section space-y-6" id="section-9">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">8. Building Shape & Plan
                                     Configuration (Hugis ng
@@ -2363,7 +2374,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-9">
+                        <div class="capture-section space-y-6" id="section-10">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">9. Overhangs & Eaves (Bulada o
                                     Nakausling Bahagi
@@ -2423,7 +2434,7 @@
                             </div>
                         </div>
 
-                        <div class="capture-section space-y-6" id="section-10">
+                        <div class="capture-section space-y-6" id="section-11">
                             <div class="border-l-4 border-accent pl-4">
                                 <h2 class="text-lg font-bold text-primary">10. Location / Environmental
                                     Exposure (Lokasyon
