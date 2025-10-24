@@ -62,7 +62,7 @@ class AssessmentForm extends Component
         'houseNumber' => 2,
         'houseLocation' => 2,
     ];
-    public int $currentStep = 14;
+    public int $currentStep = 1;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;
@@ -460,23 +460,6 @@ class AssessmentForm extends Component
     {
         // Compute section bars first so we can derive a normalized overall percent
         $this->computeSectionBars();
-
-        // riskScore should be the normalized overall percent (sum of each section's contribution)
-        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
-        $this->riskScore = round($scorePercent, 2);
-
-        if ($this->riskScore >= 81 && $this->riskScore <= 100) {
-            $this->riskLevel = 'Very High';
-        } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
-            $this->riskLevel = 'High';
-        } elseif ($this->riskScore >= 41 && $this->riskScore <= 60) {
-            $this->riskLevel = 'Medium';
-        } elseif ($this->riskScore >= 21 && $this->riskScore <= 40) {
-            $this->riskLevel = 'Low';
-        } else {
-            $this->riskLevel = 'Very Low';
-        }
-
         // Prepare full report (this will re-run computeSectionBars internally but that's cheap)
         $this->prepareReport();
     }
@@ -670,16 +653,16 @@ class AssessmentForm extends Component
         $weights = [20, 10, 8, 10, 7, 10, 12, 8, 5, 10];
 
         $sectionKeys = [
-            'roof-type-and-condition',
-            'roof-truss',
-            'roof-to-wall-connection',
-            'wall-type-integrity',
-            'wall-to-foundation-connection',
-            'openings-windows-and-doors',
-            'column-and-beam-system',
-            'building-shape-and-plan-configuration',
-            'overhand-and-eaves',
-            'location-or-environmental-exposure',
+            'roof_type_and_condition',
+            'roof_truss',
+            'roof_to_wall_connection',
+            'wall_type_integrity',
+            'wall_to_foundation_connection',
+            'openings_windows_and_doors',
+            'column_and_beam_system',
+            'building_shape_and_plan_configuration',
+            'overhand_and_eaves',
+            'location_or_environmental_exposure',
         ];
 
         $sections = [
@@ -770,11 +753,26 @@ class AssessmentForm extends Component
         $this->strokeColor = $stroke;
         $this->textColorClass = $text;
 
+        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
+        $this->riskScore = round($scorePercent, 2);
+
+        if ($this->riskScore >= 81 && $this->riskScore <= 100) {
+            $this->riskLevel = 'Very High';
+        } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
+            $this->riskLevel = 'High';
+        } elseif ($this->riskScore >= 41 && $this->riskScore <= 60) {
+            $this->riskLevel = 'Medium';
+        } elseif ($this->riskScore >= 21 && $this->riskScore <= 40) {
+            $this->riskLevel = 'Low';
+        } else {
+            $this->riskLevel = 'Very Low';
+        }
+
         Assessment::updateOrCreate(
-            ['houseId' => $this->houseId],
+            ['house_id' => $this->houseId],
             array_merge($sectionValues, [
                 'address' => $this->address,
-                'assessorName' => $this->assessorName,
+                'assessor_name' => $this->assessorName,
                 'severity' => strtolower(str_replace(' ', '-', $this->riskLevel)),
                 'latitude' => round($this->latitude, 7),
                 'longitude' => round($this->longitude, 7),
@@ -838,23 +836,23 @@ class AssessmentForm extends Component
                 'height'    => Converter::cmToPoint($scaledHeightCm),
                 'alignment' => 'center',
             ]);
-
-            // Add small spacing after each image (except last)
-            if ($index < count($imagePaths) - 1) {
-                $section->addTextBreak(1); // one line break
-            }
         }
 
-        // Save the DOCX file
         $filename = 'assessment_' . now()->timestamp . '.docx';
-        $filePath = storage_path("app/public/reports/{$filename}");
+        $storagePath = "reports/{$filename}";
+        $absolutePath = storage_path("app/public/{$storagePath}");
 
-        if (!file_exists(dirname($filePath))) {
-            mkdir(dirname($filePath), 0755, true);
+        if (!file_exists(dirname($absolutePath))) {
+            mkdir(dirname($absolutePath), 0755, true);
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
-        $writer->save($filePath);
+        $writer->save($absolutePath);
+
+        Assessment::where('house_id', $this->houseId)
+            ->update(['path' => $storagePath]);
+
+        return redirect()->route('download.report', ['path' => $storagePath]);
     }
 
 

@@ -13,22 +13,23 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->string('houseId')->unique();
+            $table->string('house_id')->unique();
             $table->string('address');
-            $table->string('assessorName');
-            $table->decimal('roof-type-and-condition', 3, 2);
-            $table->decimal('roof-truss', 3, 2);
-            $table->decimal('roof-to-wall-connection', 3, 2);
-            $table->decimal('wall-type-integrity', 3, 2);
-            $table->decimal('wall-to-foundation-connection', 3, 2);
-            $table->decimal('openings-windows-and-doors', 3, 2);
-            $table->decimal('column-and-beam-system', 3, 2);
-            $table->decimal('building-shape-and-plan-configuration', 3, 2);
-            $table->decimal('overhand-and-eaves', 3, 2);
-            $table->decimal('location-or-environmental-exposure', 3, 7);
+            $table->string('assessor_name')->nullable();
+            $table->decimal('roof_type_and_condition', 4, 2);
+            $table->decimal('roof_truss', 4, 2);
+            $table->decimal('roof_to_wall_connection', 4, 2);
+            $table->decimal('wall_type_integrity', 4, 2);
+            $table->decimal('wall_to_foundation_connection', 4, 2);
+            $table->decimal('openings_windows_and_doors', 4, 2);
+            $table->decimal('column_and_beam_system', 4, 2);
+            $table->decimal('building_shape_and_plan_configuration', 4, 2);
+            $table->decimal('overhand_and_eaves', 4, 2);
+            $table->decimal('location_or_environmental_exposure', 4, 2);
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->enum('severity', ['very-low', 'low', 'moderate', 'high', 'very-high']);
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }

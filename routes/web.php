@@ -19,3 +19,13 @@ Route::middleware('auth')->group(function () {
         return view('admin_panel');
     })->name('admin.panel');
 });
+
+Route::get('/download/report/{path}', function ($path) {
+    $fullPath = storage_path('app/public/' . $path);
+
+    if (!file_exists($fullPath)) {
+        abort(404, 'Report not found.');
+    }
+
+    return response()->download($fullPath);
+})->where('path', '.*')->name('download.report');
