@@ -15,7 +15,7 @@
 
 
     <!-- Navigation -->
-    @if ($currentStep === 1 || $currentStep < $totalSteps)
+    @if ($currentStep === 1 || $currentStep >= $totalSteps)
         <a href="/" class="cursor-pointer w-14 h-14 absolute top-3 md:left-3 flex items-center justify-center">
             <x-feathericon-arrow-left class="w-8 h-8 text-primary" />
         </a>
@@ -2519,8 +2519,9 @@
 
                 @if ($currentStep > $totalSteps)
                     <div class="flex items-center justify-end w-full">
-                        <button type="button" class="cursor-pointer px-6 py-2 bg-primary text-white rounded-lg">
-                            Download</button>
+                        <a href="{{ route('landing.page') }}" type="button"
+                            class="cursor-pointer px-6 py-2 bg-primary text-white rounded-lg">
+                            Return</a>
                     </div>
                 @endif
             </div>

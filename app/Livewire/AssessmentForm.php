@@ -7,6 +7,9 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Shared\Converter;
 
 class AssessmentForm extends Component
 {
@@ -778,17 +781,78 @@ class AssessmentForm extends Component
 
     public function saveImagesToStorage($images)
     {
+        $paths = [];
+
         foreach ($images as $image) {
-            $filename = $image['filename'];
             $data = $image['data'];
+            $filename = $image['filename'];
 
-            // Remove base64 prefix
-            $data = preg_replace('/^data:image\/\w+;base64,/', '', $data);
-            $binary = base64_decode($data);
+            // Remove base64 header
+            $data = preg_replace('#^data:image/\w+;base64,#i', '', $data);
+            $imageData = base64_decode($data);
 
-            // Save to storage/app/public/assessments/
-            Storage::disk('public')->put("assessments/{$filename}", $binary);
+            $path = "reports/temp/{$filename}";
+            Storage::disk('public')->put($path, $imageData);
+            $paths[] = storage_path("app/public/{$path}");
         }
+
+        $this->generateDocx($paths);
+
+        Storage::disk('public')->deleteDirectory('reports/temp');
+    }
+
+    public function generateDocx($imagePaths)
+    {
+        $phpWord = new PhpWord();
+
+        $sectionStyle = [
+            'orientation'   => 'portrait',
+            'marginLeft'    => Converter::cmToTwip(1),
+            'marginRight'   => Converter::cmToTwip(1),
+            'marginTop'     => Converter::cmToTwip(1),
+            'marginBottom'  => Converter::cmToTwip(1),
+        ];
+        $section = $phpWord->addSection($sectionStyle);
+
+        $maxWidthCm = 19;
+        $maxHeightCm = 26.7;
+        $spacingCm = 0.1;
+
+        foreach ($imagePaths as $index => $path) {
+            [$widthPx, $heightPx] = getimagesize($path);
+
+            $widthCm = $widthPx / 96 * 2.54;
+            $heightCm = $heightPx / 96 * 2.54;
+
+            // Scale to fit page
+            $scale = min($maxWidthCm / $widthCm, $maxHeightCm / $heightCm, 1);
+            $scaledWidthCm = $widthCm * $scale;
+            $scaledHeightCm = $heightCm * $scale;
+
+            // Add the image
+            $section->addImage($path, [
+                'width'     => Converter::cmToPoint($scaledWidthCm),
+                'height'    => Converter::cmToPoint($scaledHeightCm),
+                'alignment' => 'center',
+            ]);
+
+            // Add small spacing after each image (except last)
+            if ($index < count($imagePaths) - 1) {
+                $section->addTextBreak(1); // one line break
+                $section->addText('', [], ['spaceAfter' => Converter::cmToTwip($spacingCm)]);
+            }
+        }
+
+        // Save the DOCX file
+        $filename = 'assessment_' . now()->timestamp . '.docx';
+        $filePath = storage_path("app/public/reports/{$filename}");
+
+        if (!file_exists(dirname($filePath))) {
+            mkdir(dirname($filePath), 0755, true);
+        }
+
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save($filePath);
     }
 
 
