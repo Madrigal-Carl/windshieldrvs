@@ -4,12 +4,13 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
+use App\Models\Assessment;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\Shared\Converter;
+use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
@@ -664,40 +665,37 @@ class AssessmentForm extends Component
         $this->computeSectionBars();
     }
 
-    /**
-     * Compute the 10 section vulnerability bars.
-     * Each section has a predefined weight (contribution to 100%).
-     * We use $this->selectedOptions to obtain values for each field; missing keys are treated as 0.
-     */
     protected function computeSectionBars(): void
     {
         $weights = [20, 10, 8, 10, 7, 10, 12, 8, 5, 10];
 
-        // Map each of the 10 sections to fields and their maximum possible value.
-        // Sections correspond to assessment steps 3..12 respectively.
+        $sectionKeys = [
+            'roof-type-and-condition',
+            'roof-truss',
+            'roof-to-wall-connection',
+            'wall-type-integrity',
+            'wall-to-foundation-connection',
+            'openings-windows-and-doors',
+            'column-and-beam-system',
+            'building-shape-and-plan-configuration',
+            'overhand-and-eaves',
+            'location-or-environmental-exposure',
+        ];
+
         $sections = [
-            // 1 (step 3): Roof (type, made, anchor, condition)
             ['roofType' => 6, 'roofMade' => 5, 'roofAnchor' => 5, 'roofCondition' => 4],
-            // 2 (step 4): Truss (material and condition)
             ['trussMaterial' => 4, 'trussCondition' => 6],
-            // 3 (step 5): Roof-to-wall connection
             ['roofWallConnection' => 4, 'roofWallQuality' => 4],
-            // 4 (step 6): Walls
             ['wallType' => 7, 'wallCondition' => 3],
-            // 5 (step 7): Wall/Foundation signs
             ['signsTilt' => 7],
-            // 6 (step 8): Openings - doors/windows
             ['doorType' => 3, 'doorCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
-            // 7 (step 9): Columns & beams (shape and condition)
             ['columnShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
-            // 8 (step 10): Building geometry
             ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
-            // 9 (step 11): Overhangs & eaves
             ['overhang' => 3, 'eaves' => 2],
-            // 10 (step 12): Location / Environment
             ['houseNumber' => 5, 'houseLocation' => 5],
         ];
 
+        // 🎨 Risk-level color setup
         switch ($this->riskLevel ?? 'Very Low') {
             case 'Very High':
                 $stroke = 'bg-red-600';
@@ -722,14 +720,14 @@ class AssessmentForm extends Component
         }
 
         $bars = [];
+        $sectionValues = []; // store section valueTotals
 
-        // Color buckets (based on section percent)
         $colorBuckets = [
-            [0, 19, '#3b82f6'],   // blue
-            [20, 39, '#22c55e'],  // green
-            [40, 59, '#eab308'],  // yellow
-            [60, 79, '#f97316'],  // orange
-            [80, 100, '#dc2626'], // red
+            [0, 19, '#3b82f6'],
+            [20, 39, '#22c55e'],
+            [40, 59, '#eab308'],
+            [60, 79, '#f97316'],
+            [80, 100, '#dc2626'],
         ];
 
         foreach ($sections as $index => $fields) {
@@ -737,47 +735,53 @@ class AssessmentForm extends Component
             $valueTotal = 0;
 
             foreach ($fields as $field => $maxValue) {
-                // Special handling: if truss does not apply for concrete slab roofs, exclude truss fields
-                if (in_array($field, ['trussMaterial', 'trussCondition'], true) && $this->roofMade === 'concrete-slab') {
-                    continue;
-                }
-
                 $maxTotal += $maxValue;
                 $val = $this->selectedOptions[$field] ?? 0;
-                // If non-concrete roof and truss not present, ensure maximum vulnerability (selectedOptions handled elsewhere)
                 $valueTotal += $val;
             }
 
+            // 🎯 Round the raw valueTotal
+            $valueTotal = round($valueTotal, 2);
+
             $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
-            $sectionPercent = min(100, max(0, $sectionPercent));
-            $overallPercent = ($sectionPercent / 100) * $weights[$index];
-            // pick a hex color from buckets
-            $fillHex = null;
-            foreach ($colorBuckets as $bucket) {
-                if ($sectionPercent >= $bucket[0] && $sectionPercent <= $bucket[1]) {
-                    $fillHex = $bucket[2];
-                    break;
-                }
-            }
+            $sectionPercent = round(min(100, max(0, $sectionPercent)));
+            $overallPercent = round(($sectionPercent / 100) * $weights[$index], 2);
+
+            // Determine fill color
+            $fillHex = collect($colorBuckets)
+                ->firstWhere(fn($b) => $sectionPercent >= $b[0] && $sectionPercent <= $b[1])[2]
+                ?? '#3b82f6';
 
             $bars[] = [
                 'index' => $index + 1,
                 'weight' => $weights[$index],
                 'sectionPercent' => round($sectionPercent, 1),
-                // fillPercent used to drive the width of the colored fill inside the segment
                 'fillPercent' => round($sectionPercent, 1),
-                // contribution to the overall 100%
                 'overallPercent' => round($overallPercent, 2),
                 'strokeColor' => $stroke,
                 'textColor' => $text,
                 'fillColorHex' => $fillHex,
             ];
+
+            $sectionValues[$sectionKeys[$index]] = $valueTotal;
         }
 
         $this->sectionBars = $bars;
         $this->strokeColor = $stroke;
         $this->textColorClass = $text;
+
+        Assessment::updateOrCreate(
+            ['houseId' => $this->houseId],
+            array_merge($sectionValues, [
+                'address' => $this->address,
+                'assessorName' => $this->assessorName,
+                'severity' => strtolower(str_replace(' ', '-', $this->riskLevel)),
+                'latitude' => round($this->latitude, 7),
+                'longitude' => round($this->longitude, 7),
+            ])
+        );
     }
+
 
     public function saveImagesToStorage($images)
     {
