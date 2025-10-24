@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
@@ -57,7 +58,7 @@ class AssessmentForm extends Component
         'houseNumber' => 2,
         'houseLocation' => 2,
     ];
-    public int $currentStep = 1;
+    public int $currentStep = 14;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;
@@ -321,6 +322,9 @@ class AssessmentForm extends Component
             if ($this->currentStep === $this->totalSteps - 1) {
                 $this->evaluateAssessment();
             }
+            if ($this->currentStep === $this->totalSteps) {
+                $this->dispatch('triggerSaveAllSectionsToServer');
+            }
             $this->currentStep++;
             $this->dispatch('scroll-to-top');
         }
@@ -438,12 +442,7 @@ class AssessmentForm extends Component
     #[On('optionTotal')]
     public function handleOptionTotal($field, $value)
     {
-        // For aggregated/total-style controls, store both the property and the selectedOptions
-        // Keep the numeric total on the component property (used for UI validation and counts)
         $this->$field = $value;
-        // NOTE: do NOT store aggregated totals from ImageQuestionV3 in selectedOptions
-        // These totals are counts (e.g., doorsTotal, windowTotal) and should not be treated
-        // as vulnerability scores that contribute to the overall risk sum.
     }
 
     public function evaluateAssessment()
@@ -674,13 +673,13 @@ class AssessmentForm extends Component
             // 3 (step 5): Roof-to-wall connection
             ['roofWallConnection' => 4, 'roofWallQuality' => 4],
             // 4 (step 6): Walls
-            ['wallType' => 3, 'wallCondition' => 3],
+            ['wallType' => 7, 'wallCondition' => 3],
             // 5 (step 7): Wall/Foundation signs
             ['signsTilt' => 7],
             // 6 (step 8): Openings - doors/windows
-            ['doorCondition' => 3, 'windowType' => 3, 'doorwindowFrame' => 2],
+            ['doorType' => 3, 'doorCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
             // 7 (step 9): Columns & beams (shape and condition)
-            ['columnShape' => 2, 'beamShape' => 2, 'columnbeamCondition' => 6],
+            ['columnShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
             // 8 (step 10): Building geometry
             ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
             // 9 (step 11): Overhangs & eaves
@@ -758,7 +757,7 @@ class AssessmentForm extends Component
                 // fillPercent used to drive the width of the colored fill inside the segment
                 'fillPercent' => round($sectionPercent, 1),
                 // contribution to the overall 100%
-                'overallPercent' => round($overallPercent, 1),
+                'overallPercent' => round($overallPercent, 2),
                 'strokeColor' => $stroke,
                 'textColor' => $text,
                 'fillColorHex' => $fillHex,
@@ -768,6 +767,21 @@ class AssessmentForm extends Component
         $this->sectionBars = $bars;
         $this->strokeColor = $stroke;
         $this->textColorClass = $text;
+    }
+
+    public function saveImagesToStorage($images)
+    {
+        foreach ($images as $image) {
+            $filename = $image['filename'];
+            $data = $image['data'];
+
+            // Remove base64 prefix
+            $data = preg_replace('/^data:image\/\w+;base64,/', '', $data);
+            $binary = base64_decode($data);
+
+            // Save to storage/app/public/assessments/
+            Storage::disk('public')->put("assessments/{$filename}", $binary);
+        }
     }
 
 

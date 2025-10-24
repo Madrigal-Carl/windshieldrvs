@@ -48,7 +48,7 @@
         });
     </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
+    {{-- <script>
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -84,7 +84,7 @@
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
         });
-    </script>
+    </script> --}}
     @stack('scripts')
 </body>
 
