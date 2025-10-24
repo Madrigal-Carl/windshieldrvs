@@ -14,55 +14,55 @@ use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
-    // public array $selectedOptions = [];
-    public array $selectedOptions = [
-        // Roof
-        'roofType' => 3,
-        'roofMade' => 3,
-        'roofAnchor' => 3,
-        'roofCondition' => 3,
+    public array $selectedOptions = [];
+    // public array $selectedOptions = [
+    //     // Roof
+    //     'roofType' => 3,
+    //     'roofMade' => 3,
+    //     'roofAnchor' => 3,
+    //     'roofCondition' => 3,
 
-        // Truss
-        'trussMaterial' => 3,
-        'trussCondition' => 3,
+    //     // Truss
+    //     'trussMaterial' => 3,
+    //     'trussCondition' => 3,
 
-        // Roof-Wall Connection
-        'roofWallConnection' => 3,
-        'roofWallQuality' => 3,
+    //     // Roof-Wall Connection
+    //     'roofWallConnection' => 3,
+    //     'roofWallQuality' => 3,
 
-        // Walls
-        'wallType' => 5,
-        'wallCondition' => 2,
+    //     // Walls
+    //     'wallType' => 5,
+    //     'wallCondition' => 2,
 
-        // Tilt
-        'signsTilt' => 3,
+    //     // Tilt
+    //     'signsTilt' => 3,
 
-        // Doors & Windows
-        'doorType' => 2,
-        'doorCondition' => 2,
-        'windowType' => 2,
-        'doorwindowFrame' => 2,
+    //     // Doors & Windows
+    //     'doorType' => 2,
+    //     'doorCondition' => 2,
+    //     'windowType' => 2,
+    //     'doorwindowFrame' => 2,
 
-        // Columns & Beams
-        'columnShape' => 1,
-        'columnMade' => 2,
-        'beamShape' => 1,
-        'beamMade' => 3,
-        'columnbeamCondition' => 3,
+    //     // Columns & Beams
+    //     'columnShape' => 1,
+    //     'columnMade' => 2,
+    //     'beamShape' => 1,
+    //     'beamMade' => 3,
+    //     'columnbeamCondition' => 3,
 
-        // House Shape & Dimensions
-        'houseShape' => 3,
-        'houseHeight' => 1,
-        'houseRatio' => 2,
+    //     // House Shape & Dimensions
+    //     'houseShape' => 3,
+    //     'houseHeight' => 1,
+    //     'houseRatio' => 2,
 
-        // Others
-        'overhang' => 1,
-        'eaves' => 2,
+    //     // Others
+    //     'overhang' => 1,
+    //     'eaves' => 2,
 
-        'houseNumber' => 2,
-        'houseLocation' => 2,
-    ];
-    public int $currentStep = 1;
+    //     'houseNumber' => 2,
+    //     'houseLocation' => 2,
+    // ];
+    public int $currentStep = 15;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;

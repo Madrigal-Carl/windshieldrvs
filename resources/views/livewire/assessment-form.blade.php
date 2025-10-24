@@ -1747,15 +1747,6 @@
                         <p class="text-gray-200 mt-1">Structural Assessment</p>
                     </div>
 
-                    @php
-                        $color = [
-                            'Very High' => ['bg-red-600/15', 'text-red-600'],
-                            'High' => ['bg-orange-500/15', 'text-orange-500'],
-                            'Medium' => ['bg-yellow-500/15', 'text-yellow-500'],
-                            'Low' => ['bg-green-500/15', 'text-green-500'],
-                            'Very Low' => ['bg-blue-500/15', 'text-blue-500'],
-                        ];
-                    @endphp
                     <!-- Content -->
                     <div class="p-6 md:p-8 space-y-10">
                         <div class="capture-section flex justify-between w-full" id="section-1">
@@ -1776,24 +1767,27 @@
                                     Bubong)</h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 20%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
-                                        $roofMax = 5 + 6 + 5 + 4; // roofMade + roofType + roofAnchor + roofCondition
+                                        $roofMax = 5 + 6 + 5 + 4;
                                         $roofSum =
                                             ($selectedOptions['roofMade'] ?? 0) +
                                             ($selectedOptions['roofType'] ?? 0) +
                                             ($selectedOptions['roofAnchor'] ?? 0) +
                                             ($selectedOptions['roofCondition'] ?? 0);
                                         $roofFill = $roofMax > 0 ? ($roofSum / $roofMax) * 100 : 0;
+
+                                        $risk = risk_style($roofFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $roofFill }}%;">
                                         <span class="text-xs text-white mr-2">
@@ -1870,21 +1864,24 @@
                                 <h2 class="text-lg font-bold text-primary">2. Roof-Truss (Trases)</h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 10%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $trussMax = 4 + 6; // trussMaterial + trussCondition
                                         $trussSum =
                                             ($selectedOptions['trussMaterial'] ?? 0) +
                                             ($selectedOptions['trussCondition'] ?? 0);
                                         $trussFill = $trussMax > 0 ? ($trussSum / $trussMax) * 100 : 0;
+
+                                        $risk = risk_style($trussFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $trussFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($trussSum, 2) }}%</span>
@@ -1942,22 +1939,25 @@
                                     at Pader)</h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 8%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $rwcMax = 4 + 4; // roofWallConnection + roofWallQuality
                                         $rwcSum =
                                             ($selectedOptions['roofWallConnection'] ?? 0) +
                                             ($selectedOptions['roofWallQuality'] ?? 0);
                                         $rwcFill = $rwcMax > 0 ? ($rwcSum / $rwcMax) * 100 : 0;
+
+                                        $risk = risk_style($rwcFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $rwcFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($rwcSum, 2) }}%</span>
@@ -2007,22 +2007,25 @@
                                     Pader) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 10%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $wallsMax = 7 + 3; // wallType + wallCondition
                                         $wallsSum =
                                             ($selectedOptions['wallType'] ?? 0) +
                                             ($selectedOptions['wallCondition'] ?? 0);
                                         $wallsFill = $wallsMax > 0 ? ($wallsSum / $wallsMax) * 100 : 0;
+
+                                        $risk = risk_style($wallsFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $wallsFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($wallsSum, 2) }}%</span>
@@ -2069,20 +2072,23 @@
                                     sa Pundasyon) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 7%</span>
+                                    @php
+                                        $tiltMax = 7; // signsTilt
+                                        $tiltSum = $selectedOptions['signsTilt'] ?? 0;
+                                        $tiltFill = $tiltMax > 0 ? ($tiltSum / $tiltMax) * 100 : 0;
+
+                                        $risk = risk_style($tiltFill);
+                                    @endphp
                                     <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
                                 </div>
                             </div>
 
                             <!-- Progress Bar -->
                             <div class="pb-2">
                                 <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                    @php
-                                        $tiltMax = 7; // signsTilt
-                                        $tiltSum = $selectedOptions['signsTilt'] ?? 0;
-                                        $tiltFill = $tiltMax > 0 ? ($tiltSum / $tiltMax) * 100 : 0;
-                                    @endphp
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $tiltFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($tiltSum, 2) }}%</span>
@@ -2114,15 +2120,6 @@
                                     Pinto) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 10%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $openMax = 3 + 2 + 3 + 2;
                                         $openSum =
@@ -2131,7 +2128,19 @@
                                             ($selectedOptions['windowType'] ?? 0) +
                                             ($selectedOptions['doorwindowFrame'] ?? 0);
                                         $openFill = $openMax > 0 ? ($openSum / $openMax) * 100 : 0;
+
+                                        $risk = risk_style($openFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $openFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($openSum, 2) }}%</span>
@@ -2205,15 +2214,6 @@
                                     at Biga) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 12%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $colMax = 2 + 2 + 2 + 2 + 4;
                                         $colSum =
@@ -2223,7 +2223,19 @@
                                             ($selectedOptions['beamMade'] ?? 0) +
                                             ($selectedOptions['columnbeamCondition'] ?? 0);
                                         $colFill = $colMax > 0 ? ($colSum / $colMax) * 100 : 0;
+
+                                        $risk = risk_style($colFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $colFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ $colSum }}%</span>
@@ -2306,15 +2318,6 @@
                                     Gusali at Plano) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 8%</span>
-                                    <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="pb-2">
-                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     @php
                                         $geomMax = 3 + 3 + 2;
                                         $geomSum =
@@ -2322,7 +2325,19 @@
                                             ($selectedOptions['houseHeight'] ?? 0) +
                                             ($selectedOptions['houseRatio'] ?? 0);
                                         $geomFill = $geomMax > 0 ? ($geomSum / $geomMax) * 100 : 0;
+
+                                        $risk = risk_style($geomFill);
                                     @endphp
+                                    <span
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $geomFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($geomSum, 2) }}%</span>
@@ -2381,21 +2396,24 @@
                                     ng Bubong)</h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 5%</span>
+                                    @php
+                                        $overMax = 3 + 2; // overhang + eaves
+                                        $overSum =
+                                            ($selectedOptions['overhang'] ?? 0) + ($selectedOptions['eaves'] ?? 0);
+                                        $overFill = $overMax > 0 ? ($overSum / $overMax) * 100 : 0;
+
+                                        $risk = risk_style($overFill);
+                                    @endphp
                                     <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
                                 </div>
                             </div>
 
                             <!-- Progress Bar -->
                             <div class="pb-2">
                                 <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                    @php
-                                        $overMax = 3 + 2; // overhang + eaves
-                                        $overSum =
-                                            ($selectedOptions['overhang'] ?? 0) + ($selectedOptions['eaves'] ?? 0);
-                                        $overFill = $overMax > 0 ? ($overSum / $overMax) * 100 : 0;
-                                    @endphp
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $overFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($overSum, 2) }}%</span>
@@ -2442,22 +2460,25 @@
                                     Kondisyon ng Kapaligiran) </h2>
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 10%</span>
+                                    @php
+                                        $locMax = 5 + 5;
+                                        $locSum =
+                                            ($selectedOptions['houseNumber'] ?? 0) +
+                                            ($selectedOptions['houseLocation'] ?? 0);
+                                        $locFill = $locMax > 0 ? ($locSum / $locMax) * 100 : 0;
+
+                                        $risk = risk_style($locFill);
+                                    @endphp
                                     <span
-                                        class="text-xs bg-yellow-500/15 text-yellow-500 px-2 py-1 rounded-full">Medium
-                                        Risk</span>
+                                        class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Risk
+                                    </span>
                                 </div>
                             </div>
 
                             <!-- Progress Bar -->
                             <div class="pb-2">
                                 <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                    @php
-                                        $locMax = 5 + 5; // houseNumber + houseLocation
-                                        $locSum =
-                                            ($selectedOptions['houseNumber'] ?? 0) +
-                                            ($selectedOptions['houseLocation'] ?? 0);
-                                        $locFill = $locMax > 0 ? ($locSum / $locMax) * 100 : 0;
-                                    @endphp
                                     <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
                                         style="width: {{ $locFill }}%;">
                                         <span class="text-xs text-white mr-1">{{ round($locSum, 2) }}%</span>
