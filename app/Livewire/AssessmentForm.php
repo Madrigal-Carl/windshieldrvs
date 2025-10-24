@@ -62,7 +62,7 @@ class AssessmentForm extends Component
     //     'houseNumber' => 2,
     //     'houseLocation' => 2,
     // ];
-    public int $currentStep = 15;
+    public int $currentStep = 1;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;
