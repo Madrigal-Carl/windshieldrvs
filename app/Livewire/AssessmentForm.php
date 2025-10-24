@@ -315,20 +315,27 @@ class AssessmentForm extends Component
     public function nextStep()
     {
         if ($this->validateStep() && $this->currentStep <= $this->totalSteps) {
+
             if ($this->currentStep === 3 && $this->roofMade === 'concrete-slab') {
                 $this->currentStep = 6;
                 return $this->dispatch('scroll-to-top');
             }
+
             if ($this->currentStep === $this->totalSteps - 1) {
                 $this->evaluateAssessment();
             }
+
+            // 👇 Before saving images, show the overlay
             if ($this->currentStep === $this->totalSteps) {
+                $this->dispatch('show-loading-overlay');
                 $this->dispatch('triggerSaveAllSectionsToServer');
             }
+
             $this->currentStep++;
             $this->dispatch('scroll-to-top');
         }
     }
+
 
     public function prevStep()
     {
