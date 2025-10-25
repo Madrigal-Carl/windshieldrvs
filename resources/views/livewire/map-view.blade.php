@@ -1,4 +1,4 @@
-<div wire:ignore id="view-map" class="w-full h-[600px] rounded-xl shadow-md relative" x-data="initMapComponent()"
+<div wire:ignore id="view-map" class="w-full h-[420px] rounded-xl shadow-md relative" x-data="initMapComponent()"
     x-init="initMap()" x-on:refresh-map.window="initMap()"></div>
 
 @push('scripts')
@@ -31,10 +31,10 @@
                                 iconSize: [28, 40],
                                 className: 'low-pin'
                             }),
-                            moderate: L.icon({
+                            medium: L.icon({
                                 iconUrl: '{{ asset('images/location-icon/location-medium.png') }}',
                                 iconSize: [28, 40],
-                                className: 'moderate-pin'
+                                className: 'medium-pin'
                             }),
                             high: L.icon({
                                 iconUrl: '{{ asset('images/location-icon/location-high.png') }}',

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->decimal('location_or_environmental_exposure', 4, 2);
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
-            $table->enum('severity', ['very-low', 'low', 'moderate', 'high', 'very-high']);
+            $table->enum('severity', ['very-low', 'low', 'medium', 'high', 'very-high']);
             $table->string('path')->nullable();
             $table->timestamps();
         });

@@ -1660,7 +1660,7 @@
                                         <!-- 2px divider on the right between segments -->
                                         @if (!$loop->last)
                                             <div class="absolute right-0 top-0 bottom-0 z-30 pointer-events-none"
-                                                style="border-right:2px solid rgba(34, 34, 34, 0.95);"></div>
+                                                style="border-right:2px solid rgba(229, 231, 235, 0.95);"></div>
                                         @endif
                                     </div>
                                 @endforeach
@@ -2495,7 +2495,7 @@
                                         lugar/) </p>
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
-                                            style="width: {{ (($selectedOptions['houseNumber'] ?? 0) / 3) * 100 }}%;">
+                                            style="width: {{ (($selectedOptions['houseNumber'] ?? 0) / 5) * 100 }}%;">
                                             <span
                                                 class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseNumber'], 2) ?? 0 }}%</span>
                                         </div>
@@ -2508,7 +2508,7 @@
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
                                             style="width:
-                                            {{ (($selectedOptions['houseLocation'] ?? 0) / 3) * 100 }}%;">
+                                            {{ (($selectedOptions['houseLocation'] ?? 0) / 5) * 100 }}%;">
                                             <span
                                                 class="absolute
                                             text-xs -right-0 top-3.5 text-gray-500">

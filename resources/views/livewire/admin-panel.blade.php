@@ -90,127 +90,235 @@
     </div>
 
 
-    <div class="flex-1 flex flex-col gap-6 p-8 overflow-auto h-screen">
+    <div class="flex-1 flex flex-col gap-6 p-8 overflow-auto h-screen bg-gray-50">
         @if ($activeTab === 'dashboard')
-            <h1 class="text-2xl font-bold text-primary">Dashboard Overview</h1>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">
+                Dashboard Overview</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Total Assessments -->
-                <div
-                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
-                    <div class="p-3 rounded-lg bg-primary/20">
-                        <x-feathericon-clipboard class="text-primary w-5 h-5 md:w-6 md:h-6" />
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-indigo-100 text-indigo-600">
+                            <x-feathericon-clipboard />
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Assessments</p>
+                            <p class="text-2xl font-bold text-gray-800">1,248</p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-xs md:text-sm font-medium text-gray-500">Total Assessments</p>
-                        <p class="text-xl md:text-2xl font-semibold text-dark">1,248</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Last 7 days</span>
+                        <span class="text-xs font-medium text-green-500">+12.5%</span>
                     </div>
                 </div>
 
                 <!-- High Risk -->
-                <div
-                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
-                    <div class="p-3 rounded-lg bg-red-500/20">
-                        <x-feathericon-alert-triangle class="text-red-500 w-5 h-5 md:w-6 md:h-6" />
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-red-100 text-red-600">
+                            <x-feathericon-alert-triangle />
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">High Risk</p>
+                            <p class="text-2xl font-bold text-gray-800">42</p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-xs md:text-sm font-medium text-gray-500">High Risk</p>
-                        <p class="text-xl md:text-2xl font-semibold text-red-600">42</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Critical issues</span>
+                        <span class="text-xs font-medium text-red-500">+5.2%</span>
                     </div>
                 </div>
 
                 <!-- Moderate Risk -->
-                <div
-                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
-                    <div class="p-3 rounded-lg bg-yellow-500/20">
-                        <x-feathericon-alert-circle class="text-yellow-500 w-5 h-5 md:w-6 md:h-6" />
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-yellow-100 text-yellow-600">
+                            <x-feathericon-alert-circle />
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Moderate Risk</p>
+                            <p class="text-2xl font-bold text-gray-800">120</p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-xs md:text-sm font-medium text-gray-500">Moderate Risk</p>
-                        <p class="text-xl md:text-2xl font-semibold text-yellow-600">120</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Needs attention</span>
+                        <span class="text-xs font-medium text-yellow-500">-2.3%</span>
                     </div>
                 </div>
 
                 <!-- Low Risk -->
-                <div
-                    class="bg-white rounded-md p-4 hover:shadow-md duration-300 border border-gray-200 flex items-center">
-                    <div class="p-3 rounded-lg bg-green-500/20">
-                        <x-feathericon-check-circle class="text-green-500 w-5 h-5 md:w-6 md:h-6" />
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-green-100 text-green-600">
+                            <x-feathericon-check-circle />
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Low Risk</p>
+                            <p class="text-2xl font-bold text-gray-800">982</p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-xs md:text-sm font-medium text-gray-500">Low Risk</p>
-                        <p class="text-xl md:text-2xl font-semibold text-green-600">982</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Stable</span>
+                        <span class="text-xs font-medium text-green-500">+8.7%</span>
                     </div>
                 </div>
             </div>
 
-            <h1 class="text-2xl font-bold text-primary">GIS Map</h1>
-            <livewire:map-view />
-        @elseif ($activeTab === 'assessment')
-            <h1 class="text-2xl font-bold text-primary">Assessment Reports</h1>
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- GIS Map Section -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">GIS Map Overview</h2>
+                            <button
+                                class="px-3 py-1 text-sm rounded-lg bg-indigo-50 text-primary hover:bg-indigo-100 transition-colors">
+                                <x-feathericon-filter class="w-4 h-4 mr-1 inline" />
+                                Filter
+                            </button>
+                        </div>
+                        <div class="rounded-lg overflow-hidden h-96 bg-gray-100 flex items-center justify-center">
+                            <livewire:map-view />
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Pie Chart Section -->
+                <div class="w-full lg:w-1/3">
+                    <div
+                        class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-fit flex flex-col items-center">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
+                            Structural Risk Breakdown
+                        </h2>
+
+                        <div id="Piechart" class="w-full flex justify-center items-center px-4" wire:ignore
+                            x-data="{}" x-init="() => {
+                                var options = {
+                                    series: [44, 55, 13, 43, 22, 43, 22],
+                                    chart: {
+                                        type: 'pie',
+                                        width: '100%',
+                                        height: 400,
+                                        toolbar: { show: false }
+                                    },
+                                    labels: [
+                                        'Roof Type & Condition',
+                                        'Roof Truss',
+                                        'Roof-Wall Connection',
+                                        'Wall Integrity',
+                                        'Wall-Foundation Connection',
+                                        'Openings & Doors',
+                                        'Building Shape'
+                                    ],
+                                    colors: ['#6366F1', '#8B5CF6', '#EC4899', '#F43F5E', '#F97316', '#F59E0B', '#10B981'],
+                                    legend: {
+                                        show: false
+                                    },
+                                    responsive: [{
+                                        breakpoint: 1024,
+                                        options: {
+                                            chart: { height: 350 }
+                                        }
+                                    }, {
+                                        breakpoint: 768,
+                                        options: {
+                                            chart: { height: 300 }
+                                        }
+                                    }],
+                                    dataLabels: {
+                                        enabled: true,
+                                        style: {
+                                            fontSize: '12px',
+                                            fontWeight: 'bold'
+                                        },
+                                        dropShadow: { enabled: false }
+                                    }
+                                };
+                            
+                                var chart = new ApexCharts(document.querySelector('#Piechart'), options);
+                                chart.render();
+                            }">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @elseif ($activeTab === 'assessment')
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">
+                Assessment Reports</h1>
             <div class="flex flex-col space-y-4">
                 <div class="flex flex-col md:flex-row space-y-4 sm:space-y-0 md:items-center justify-between pb-4">
                     <div>
-                        <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                            class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
-                            type="button">
-                            <svg class="w-3 h-3 text-gray-500 me-3" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                            </svg>
-                            Last 30 days
-                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
+                        <div class="relative">
+                            <button wire:click="toggleDropdown"
+                                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
+                                type="button">
+                                <svg class="w-3 h-3 text-gray-500 me-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                </svg>
+                                {{ $this->getFilterLabel() }}
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
 
-                        <div id="dropdownRadio"
-                            class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
-                            <ul class="p-3 space-y-1 text-sm text-gray-700" aria-labelledby="dropdownRadioButton">
-                                <li>
-                                    <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
-                                        <input checked="" id="filter-radio-example-2" type="radio"
-                                            value="" name="filter-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                                        <label for="filter-radio-example-2"
-                                            class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">Last 7
-                                            days</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
-                                        <input id="filter-radio-example-3" type="radio" value=""
-                                            name="filter-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                                        <label for="filter-radio-example-3"
-                                            class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">Last 30
-                                            days</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
-                                        <input id="filter-radio-example-4" type="radio" value=""
-                                            name="filter-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                                        <label for="filter-radio-example-4"
-                                            class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">Last
-                                            month</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center p-2 rounded-sm hover:bg-gray-100">
-                                        <input id="filter-radio-example-5" type="radio" value=""
-                                            name="filter-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                                        <label for="filter-radio-example-5"
-                                            class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">Last
-                                            year</label>
-                                    </div>
-                                </li>
-                            </ul>
+                            <div x-show="$wire.showFilterDropdown" @click.away="$wire.showFilterDropdown = false"
+                                class="absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
+                                <ul class="p-3 space-y-1 text-sm text-gray-700">
+                                    <li>
+                                        <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
+                                            wire:click="setDateFilter('7-days')">
+                                            <input type="radio" value="7-days" name="filter-radio"
+                                                {{ $dateFilter === '7-days' ? 'checked' : '' }}
+                                                {{ $dateFilter === '7-days' ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                            <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
+                                                Last 7 days
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
+                                            wire:click="setDateFilter('30-days')">
+                                            <input type="radio" value="30-days" name="filter-radio"
+                                                {{ $dateFilter === '30-days' ? 'checked' : '' }}
+                                                {{ $dateFilter === '30-days' ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                            <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
+                                                Last 30 days
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
+                                            wire:click="setDateFilter('month')">
+                                            <input type="radio" value="month" name="filter-radio"
+                                                {{ $dateFilter === 'month' ? 'checked' : '' }}
+                                                {{ $dateFilter === 'month' ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                            <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
+                                                Last month
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
+                                            wire:click="setDateFilter('year')">
+                                            <input type="radio" value="year" name="filter-radio"
+                                                {{ $dateFilter === 'year' ? 'checked' : '' }}
+                                                {{ $dateFilter === 'year' ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                            <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
+                                                Last year
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -224,9 +332,9 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </div>
-                        <input type="text" id="table-search"
+                        <input type="text" wire:model.live="search" id="table-search"
                             class="w-full md:w-80 block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Search for items">
+                            placeholder="Search assessments...">
                     </div>
                 </div>
 
@@ -234,13 +342,7 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all-search" type="checkbox"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
-                                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                    </div>
-                                </th>
+                                <th class="p-4"></th>
                                 <th class="px-6 py-3">House Id</th>
                                 <th class="px-6 py-3 text-center">Address / Brgy</th>
                                 <th class="px-6 py-3 text-center">Severity</th>
@@ -249,54 +351,66 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 6; $i++)
+                            @forelse($assessments as $assessment)
                                 <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
                                     <td class="w-4 p-4">
-                                        <div class="flex items-center">
-                                            <input id="checkbox-table-search-1" type="checkbox"
-                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
-                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                        </div>
                                     </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        House 1235
+                                        House {{ $assessment->house_id }}
                                     </th>
                                     <td class="px-6 py-4 text-center">
-                                        Santol, Gasan, Marinduque
+                                        {{ $assessment->address }}
                                     </td>
-                                    <td class="px-6 py-4 flex items-center justify-center">
-                                        <span class="inline-block px-3 py-1 rounded-full text-white bg-accent">
-                                            Moderate
-                                        </span>
+                                    <td class="px-6 py-4">
+                                        <div @class([
+                                            'flex items-center justify-center px-3 py-1 rounded-full w-fit mx-auto',
+                                            'bg-red-600' => $assessment->severity === 'very-high',
+                                            'bg-orange-500' => $assessment->severity === 'high',
+                                            'bg-yellow-500' => $assessment->severity === 'moderate',
+                                            'bg-green-500' => $assessment->severity === 'low',
+                                            'bg-blue-500' => $assessment->severity === 'very-low',
+                                        ])>
+                                            <span class="text-white text-sm font-medium">
+                                                {{ ucwords(str_replace('-', ' ', $assessment->severity)) }}
+                                            </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        October 4, 2025
+                                        {{ $assessment->created_at->format('F j, Y') }}
                                     </td>
                                     <td class="px-6 py-4 flex items-center gap-2">
-                                        <button
+                                        <button wire:click="downloadAssessment({{ $assessment->id }})"
                                             class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
                                             <x-feathericon-download class="text-blue-600 w-5 h-5" />
                                         </button>
-                                        <button
+                                        <button wire:click="deleteAssessment({{ $assessment->id }})"
                                             class="cursor-pointer font-medium transform transition-transform duration-200 hover:scale-110">
                                             <x-feathericon-trash-2 class="text-red-500 w-5 h-5" />
                                         </button>
                                     </td>
                                 </tr>
-                            @endfor
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                                        No assessments found
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
 
                 <div class="flex flex-col items-center mt-6">
                     <span class="text-sm text-gray-700">
-                        Showing <span class="font-semibold text-primary">1</span> to
-                        <span class="font-semibold text-primary">10</span> of
-                        <span class="font-semibold text-primary">100</span> Entries
+                        Showing <span class="font-semibold text-primary">{{ $assessments->firstItem() ?? 0 }}</span>
+                        to
+                        <span class="font-semibold text-primary">{{ $assessments->lastItem() ?? 0 }}</span> of
+                        <span class="font-semibold text-primary">{{ $assessments->total() }}</span> Entries
                     </span>
                     <div class="inline-flex mt-2 xs:mt-0">
-                        <button
-                            class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary rounded-s hover:bg-[#0b3357]">
+                        <button wire:click="previousPage" wire:loading.attr="disabled"
+                            @if ($assessments->onFirstPage()) disabled @endif
+                            class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary rounded-s hover:bg-[#0b3357] disabled:opacity-50 disabled:cursor-not-allowed">
                             <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -304,8 +418,9 @@
                             </svg>
                             Prev
                         </button>
-                        <button
-                            class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary border-0 border-s border-gray-700 rounded-e hover:bg-[#0b3357]">
+                        <button wire:click="nextPage" wire:loading.attr="disabled"
+                            @if (!$assessments->hasMorePages()) disabled @endif
+                            class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary border-0 border-s border-gray-700 rounded-e hover:bg-[#0b3357] disabled:opacity-50 disabled:cursor-not-allowed">
                             Next
                             <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -316,7 +431,6 @@
                     </div>
                 </div>
             </div>
-
         @endif
     </div>
 </div>

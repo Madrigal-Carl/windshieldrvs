@@ -62,6 +62,7 @@ class AssessmentForm extends Component
     //     'houseNumber' => 2,
     //     'houseLocation' => 2,
     // ];
+
     public int $currentStep = 1;
     public int $totalSteps = 14;
     public $isAccepted = '';
@@ -838,7 +839,7 @@ class AssessmentForm extends Component
             ]);
         }
 
-        $filename = 'assessment_' . now()->timestamp . '.docx';
+        $filename = 'assessment_report_' . $this->houseId . '_' . now()->format('Ymd_His') . '.docx';
         $storagePath = "reports/{$filename}";
         $absolutePath = storage_path("app/public/{$storagePath}");
 
