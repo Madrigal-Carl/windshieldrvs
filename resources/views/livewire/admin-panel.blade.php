@@ -104,12 +104,15 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Assessments</p>
-                            <p class="text-2xl font-bold text-gray-800">1,248</p>
+                            <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['total'] }}</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Last 7 days</span>
-                        <span class="text-xs font-medium text-green-500">+12.5%</span>
+                        <span
+                            class="text-xs font-medium {{ $dashboardStats['total_change'] >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                            {{ $dashboardStats['total_change'] >= 0 ? '+' : '' }}{{ $dashboardStats['total_change'] }}%
+                        </span>
                     </div>
                 </div>
 
@@ -121,12 +124,15 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">High Risk</p>
-                            <p class="text-2xl font-bold text-gray-800">42</p>
+                            <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['high_risk'] }}</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Critical issues</span>
-                        <span class="text-xs font-medium text-red-500">+5.2%</span>
+                        <span
+                            class="text-xs font-medium {{ $dashboardStats['high_risk_change'] >= 0 ? 'text-red-500' : 'text-green-500' }}">
+                            {{ $dashboardStats['high_risk_change'] >= 0 ? '+' : '' }}{{ $dashboardStats['high_risk_change'] }}%
+                        </span>
                     </div>
                 </div>
 
@@ -138,12 +144,15 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Moderate Risk</p>
-                            <p class="text-2xl font-bold text-gray-800">120</p>
+                            <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['moderate_risk'] }}</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Needs attention</span>
-                        <span class="text-xs font-medium text-yellow-500">-2.3%</span>
+                        <span
+                            class="text-xs font-medium {{ $dashboardStats['moderate_risk_change'] >= 0 ? 'text-yellow-500' : 'text-green-500' }}">
+                            {{ $dashboardStats['moderate_risk_change'] >= 0 ? '+' : '' }}{{ $dashboardStats['moderate_risk_change'] }}%
+                        </span>
                     </div>
                 </div>
 
@@ -155,12 +164,15 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Low Risk</p>
-                            <p class="text-2xl font-bold text-gray-800">982</p>
+                            <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['low_risk'] }}</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Stable</span>
-                        <span class="text-xs font-medium text-green-500">+8.7%</span>
+                        <span
+                            class="text-xs font-medium {{ $dashboardStats['low_risk_change'] >= 0 ? 'text-green-500' : 'text-yellow-500' }}">
+                            {{ $dashboardStats['low_risk_change'] >= 0 ? '+' : '' }}{{ $dashboardStats['low_risk_change'] }}%
+                        </span>
                     </div>
                 </div>
             </div>
@@ -190,54 +202,53 @@
                         <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
                             Structural Risk Breakdown
                         </h2>
-
                         <div id="Piechart" class="w-full flex justify-center items-center px-4" wire:ignore
-                            x-data="{}" x-init="() => {
-                                var options = {
-                                    series: [44, 55, 13, 43, 22, 43, 22],
-                                    chart: {
-                                        type: 'pie',
-                                        width: '100%',
-                                        height: 400,
-                                        toolbar: { show: false }
-                                    },
-                                    labels: [
-                                        'Roof Type & Condition',
-                                        'Roof Truss',
-                                        'Roof-Wall Connection',
-                                        'Wall Integrity',
-                                        'Wall-Foundation Connection',
-                                        'Openings & Doors',
-                                        'Building Shape'
-                                    ],
-                                    colors: ['#6366F1', '#8B5CF6', '#EC4899', '#F43F5E', '#F97316', '#F59E0B', '#10B981'],
-                                    legend: {
-                                        show: false
-                                    },
-                                    responsive: [{
-                                        breakpoint: 1024,
-                                        options: {
-                                            chart: { height: 350 }
-                                        }
-                                    }, {
-                                        breakpoint: 768,
-                                        options: {
-                                            chart: { height: 300 }
-                                        }
-                                    }],
-                                    dataLabels: {
-                                        enabled: true,
-                                        style: {
-                                            fontSize: '12px',
-                                            fontWeight: 'bold'
-                                        },
-                                        dropShadow: { enabled: false }
+                            x-data="{
+                                chart: null,
+                                init() {
+                                    // If chart already exists, destroy it before re-render
+                                    if (this.chart) {
+                                        this.chart.destroy();
                                     }
-                                };
                             
-                                var chart = new ApexCharts(document.querySelector('#Piechart'), options);
-                                chart.render();
-                            }">
+                                    const options = {
+                                        series: @js($structuralRiskData),
+                                        chart: {
+                                            type: 'pie',
+                                            width: '100%',
+                                            height: 400,
+                                            toolbar: { show: false }
+                                        },
+                                        labels: [
+                                            'Roof Type & Condition',
+                                            'Roof Truss',
+                                            'Roof-Wall Connection',
+                                            'Wall Integrity',
+                                            'Wall-Foundation Connection',
+                                            'Openings & Doors',
+                                            'Column & Beam System',
+                                            'Building Shape',
+                                            'Overhang & Eaves',
+                                            'Location / Exposure'
+                                        ],
+                                        colors: [
+                                            '#6366F1', '#8B5CF6', '#EC4899', '#F43F5E',
+                                            '#F97316', '#F59E0B', '#10B981', '#14B8A6',
+                                            '#0EA5E9', '#64748B'
+                                        ],
+                                        legend: { show: false },
+                                        dataLabels: {
+                                            enabled: true,
+                                            style: { fontSize: '12px', fontWeight: 'bold' },
+                                            dropShadow: { enabled: false }
+                                        }
+                                    };
+                            
+                                    // Create new chart instance
+                                    this.chart = new ApexCharts(this.$el, options);
+                                    this.chart.render();
+                                }
+                            }" x-init="init()" x-on:refresh-piechart.window="init()">
                         </div>
 
                     </div>
@@ -274,7 +285,6 @@
                                             wire:click="setDateFilter('7-days')">
                                             <input type="radio" value="7-days" name="filter-radio"
                                                 {{ $dateFilter === '7-days' ? 'checked' : '' }}
-                                                {{ $dateFilter === '7-days' ? 'checked' : '' }}
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
                                             <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
                                                 Last 7 days
@@ -285,7 +295,6 @@
                                         <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
                                             wire:click="setDateFilter('30-days')">
                                             <input type="radio" value="30-days" name="filter-radio"
-                                                {{ $dateFilter === '30-days' ? 'checked' : '' }}
                                                 {{ $dateFilter === '30-days' ? 'checked' : '' }}
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
                                             <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
@@ -298,7 +307,6 @@
                                             wire:click="setDateFilter('month')">
                                             <input type="radio" value="month" name="filter-radio"
                                                 {{ $dateFilter === 'month' ? 'checked' : '' }}
-                                                {{ $dateFilter === 'month' ? 'checked' : '' }}
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
                                             <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
                                                 Last month
@@ -309,7 +317,6 @@
                                         <div class="flex items-center p-2 rounded-sm hover:bg-gray-100 cursor-pointer"
                                             wire:click="setDateFilter('year')">
                                             <input type="radio" value="year" name="filter-radio"
-                                                {{ $dateFilter === 'year' ? 'checked' : '' }}
                                                 {{ $dateFilter === 'year' ? 'checked' : '' }}
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
                                             <label class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm">
