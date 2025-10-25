@@ -133,7 +133,7 @@
                             <x-feathericon-alert-triangle />
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">High Risk</p>
+                            <p class="text-sm font-medium text-gray-500">High</p>
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['high_risk'] }}</p>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                             <x-feathericon-alert-circle />
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">Moderate Risk</p>
+                            <p class="text-sm font-medium text-gray-500">Moderate</p>
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['moderate_risk'] }}</p>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                             <x-feathericon-check-circle />
                         </div>
                         <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-500">Low Risk</p>
+                            <p class="text-sm font-medium text-gray-500">Low</p>
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['low_risk'] }}</p>
                         </div>
                     </div>

@@ -49,6 +49,30 @@ class ImageQuestionV2 extends Component
         }
     }
 
+    #[On('resetColumnOptions')]
+    public function resetColumnOptions()
+    {
+        if (in_array($this->model, ['columnShape', 'columnMade'])) {
+            $this->value = '';
+        }
+    }
+
+    #[On('resetBeamOptions')]
+    public function resetBeamOptions()
+    {
+        if (in_array($this->model, ['beamShape', 'beamMade'])) {
+            $this->value = '';
+        }
+    }
+
+    #[On('resetNoEavesOptions')]
+    public function resetNoEavesOptions()
+    {
+        if (in_array($this->model, ['overhang', 'eaves'])) {
+            $this->value = '';
+        }
+    }
+
     public function render()
     {
         return view('livewire.image-question-v2');

@@ -75,7 +75,7 @@ class AssessmentForm extends Component
     public $doors, $doorType, $doorCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
     public $columns, $columnShape, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
     public $houseShape, $houseHeight, $houseRatio;
-    public $overhang, $eaves;
+    public $no_eaves, $overhang, $eaves;
     public $houseNumber, $houseLocation;
     public $latitude, $longitude;
     public $riskLevel, $riskScore;
@@ -258,9 +258,11 @@ class AssessmentForm extends Component
 
                 case 11:
                     $this->validate([
+                        'no_eaves' => 'required',
                         'overhang' => 'required',
                         'eaves' => 'required',
                     ], [
+                        'no_eaves.required' => 'Please enter the total eaves.',
                         'overhang.required' => 'Please specify the roof overhang length.',
                         'eaves.required' => 'Please describe the eaves or soffits condition.',
                     ]);
@@ -400,6 +402,45 @@ class AssessmentForm extends Component
         $this->doorCondition = null;
 
         $this->dispatch('resetDoorOptions');
+    }
+
+    public function updatedColumns()
+    {
+        unset(
+            $this->selectedOptions['columnShape'],
+            $this->selectedOptions['columnMade']
+        );
+
+        $this->columnShape = null;
+        $this->columnMade = null;
+
+        $this->dispatch('resetColumnOptions');
+    }
+
+    public function updatedBeams()
+    {
+        unset(
+            $this->selectedOptions['beamShape'],
+            $this->selectedOptions['beamMade']
+        );
+
+        $this->beamShape = null;
+        $this->beamMade = null;
+
+        $this->dispatch('resetBeamOptions');
+    }
+
+    public function updatedNoEaves()
+    {
+        unset(
+            $this->selectedOptions['overhang'],
+            $this->selectedOptions['eaves']
+        );
+
+        $this->overhang = null;
+        $this->eaves = null;
+
+        $this->dispatch('resetNoEavesOptions');
     }
 
     #[On('optionSelected')]

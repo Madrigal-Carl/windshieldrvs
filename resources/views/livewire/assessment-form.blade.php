@@ -1371,6 +1371,18 @@
                         <p class="p-8"><b>Overhangs & Eaves <i>(Bulada o Nakausling Bahagi ng Bubong)</i></b>
                         </p>
                     </div>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+                        <h3 class="font-semibold text-primary mb-4">How many eaves are there? <i>(Ilang bulada mayroon
+                                ang bahay?)</i></h3>
+                        <div class="relative w-1/2">
+                            <div class="relative">
+                                <input type="number" wire:model.live='no_eaves' min="1"
+                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                <span
+                                    class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
 
                     @php
                         $overhangOptions = [
@@ -1444,15 +1456,18 @@
                         ];
                     @endphp
 
-                    <livewire:image-question question="9.1 How long is the roof overhang?"
-                        subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
-                        model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang" />
+                    @if ($no_eaves)
+                        <livewire:image-question-v2 question="9.1 How long is the roof overhang?"
+                            subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
+                            model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang"
+                            :baseValue="$no_eaves" />
 
-                    <livewire:image-question
-                        question="9.2 What is the condition of the eaves and soffits of the house?"
-                        subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
-                        :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
-                        :value="$eaves" />
+                        <livewire:image-question-v2
+                            question="9.2 What is the condition of the eaves and soffits of the house?"
+                            subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
+                            :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
+                            :value="$eaves" :baseValue="$no_eaves" />
+                    @endif
                 </div>
             @endif
 
@@ -1722,9 +1737,9 @@
                                     hangin sa Marinduque.)</p>
                             </div>
 
-                            {{-- <div class="mt-6">
+                            <div class="mt-6">
                                 <h3 class="font-medium text-primary mb-2">
-                                    Any Additional Recommendations?
+                                    Any Additional Recommendations? (Optional)
                                 </h3>
                                 <p class="text-gray-600 mb-4 text-sm">
                                     Please share any suggestions or mitigation strategies that may help improve the
@@ -1734,7 +1749,7 @@
                                 <textarea id="additional-recommendations" rows="5"
                                     class="w-full resize-none px-3 py-2 text-gray-700 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                                     placeholder="E.g., Make the interface more user-friendly, add visual progress indicators, include more sample images, or improve loading speed..."></textarea>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1780,7 +1795,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -1875,7 +1890,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -1950,7 +1965,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2018,7 +2033,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2081,7 +2096,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2133,7 +2148,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2228,7 +2243,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2330,7 +2345,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2406,7 +2421,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
@@ -2471,7 +2486,7 @@
                                     @endphp
                                     <span
                                         class="text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                        {{ $risk['label'] }} Risk
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
