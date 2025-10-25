@@ -179,80 +179,74 @@
 
             <div class="flex flex-col lg:flex-row gap-6">
                 <!-- GIS Map Section -->
-                <div class="w-full lg:w-2/3">
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-xl font-bold text-gray-800">GIS Map Overview</h2>
-                            <button
-                                class="px-3 py-1 text-sm rounded-lg bg-indigo-50 text-primary hover:bg-indigo-100 transition-colors">
-                                <x-feathericon-filter class="w-4 h-4 mr-1 inline" />
-                                Filter
-                            </button>
-                        </div>
+                <div class="{{ $assessments->isEmpty() ? 'w-full' : 'w-full lg:w-2/3' }}">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-6">
+                        <h2 class="text-xl font-bold text-gray-800">GIS Map Overview</h2>
                         <div class="rounded-lg overflow-hidden h-96 bg-gray-100 flex items-center justify-center">
                             <livewire:map-view />
                         </div>
                     </div>
                 </div>
-
-                <!-- Pie Chart Section -->
-                <div class="w-full lg:w-1/3">
-                    <div
-                        class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-fit flex flex-col items-center">
-                        <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
-                            Structural Risk Breakdown
-                        </h2>
-                        <div id="Piechart" class="w-full flex justify-center items-center px-4" wire:ignore
-                            x-data="{
-                                chart: null,
-                                init() {
-                                    // If chart already exists, destroy it before re-render
-                                    if (this.chart) {
-                                        this.chart.destroy();
-                                    }
-                            
-                                    const options = {
-                                        series: @js($structuralRiskData),
-                                        chart: {
-                                            type: 'pie',
-                                            width: '100%',
-                                            height: 400,
-                                            toolbar: { show: false }
-                                        },
-                                        labels: [
-                                            'Roof Type & Condition',
-                                            'Roof Truss',
-                                            'Roof-Wall Connection',
-                                            'Wall Integrity',
-                                            'Wall-Foundation Connection',
-                                            'Openings & Doors',
-                                            'Column & Beam System',
-                                            'Building Shape',
-                                            'Overhang & Eaves',
-                                            'Location / Exposure'
-                                        ],
-                                        colors: [
-                                            '#6366F1', '#8B5CF6', '#EC4899', '#F43F5E',
-                                            '#F97316', '#F59E0B', '#10B981', '#14B8A6',
-                                            '#0EA5E9', '#64748B'
-                                        ],
-                                        legend: { show: false },
-                                        dataLabels: {
-                                            enabled: true,
-                                            style: { fontSize: '12px', fontWeight: 'bold' },
-                                            dropShadow: { enabled: false }
+                @if (!$assessments->isEmpty())
+                    <!-- Pie Chart Section -->
+                    <div class="w-full lg:w-1/3">
+                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-fit flex flex-col">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                                Structural Risk Breakdown
+                            </h2>
+                            <div id="Piechart" class="w-full flex justify-center items-center px-4" wire:ignore
+                                x-data="{
+                                    chart: null,
+                                    init() {
+                                        // If chart already exists, destroy it before re-render
+                                        if (this.chart) {
+                                            this.chart.destroy();
                                         }
-                                    };
-                            
-                                    // Create new chart instance
-                                    this.chart = new ApexCharts(this.$el, options);
-                                    this.chart.render();
-                                }
-                            }" x-init="init()" x-on:refresh-piechart.window="init()">
-                        </div>
+                                
+                                        const options = {
+                                            series: @js($structuralRiskData),
+                                            chart: {
+                                                type: 'pie',
+                                                width: '100%',
+                                                height: 400,
+                                                toolbar: { show: false }
+                                            },
+                                            labels: [
+                                                'Roof Type & Condition',
+                                                'Roof Truss',
+                                                'Roof-Wall Connection',
+                                                'Wall Integrity',
+                                                'Wall-Foundation Connection',
+                                                'Openings & Doors',
+                                                'Column & Beam System',
+                                                'Building Shape',
+                                                'Overhang & Eaves',
+                                                'Location / Exposure'
+                                            ],
+                                            colors: [
+                                                '#6366F1', '#8B5CF6', '#EC4899', '#F43F5E',
+                                                '#F97316', '#F59E0B', '#10B981', '#14B8A6',
+                                                '#0EA5E9', '#64748B'
+                                            ],
+                                            legend: { show: false },
+                                            dataLabels: {
+                                                enabled: true,
+                                                style: { fontSize: '12px', fontWeight: 'bold' },
+                                                dropShadow: { enabled: false }
+                                            }
+                                        };
+                                
+                                        // Create new chart instance
+                                        this.chart = new ApexCharts(this.$el, options);
+                                        this.chart.render();
+                                    }
+                                }" x-init="init()"
+                                x-on:refresh-piechart.window="init()">
+                            </div>
 
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         @elseif ($activeTab === 'assessment')
             <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">

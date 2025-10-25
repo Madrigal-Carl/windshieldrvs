@@ -23,12 +23,6 @@ class AdminPanel extends Component
     public function downloadAssessment($id)
     {
         $assessment = Assessment::findOrFail($id);
-
-        // if (!$assessment->path || !Storage::exists('public/' . $assessment->path)) {
-        //     notyf()->position('x', 'right')->position('y', 'top')->error('Document not found')
-        //         ->error('Document not found');
-        //     return;
-        // }
         notyf()->position('x', 'right')->position('y', 'top')->success('Download Completed');
         return response()->download(storage_path('app/public/' . $assessment->path));
     }
@@ -37,6 +31,9 @@ class AdminPanel extends Component
     {
         $assessment = Assessment::find($id);
         if ($assessment) {
+            if ($assessment->path && Storage::exists($assessment->path)) {
+                Storage::delete($assessment->path);
+            }
             $assessment->delete();
             notyf()->position('x', 'right')->position('y', 'top')->success('Successfully deleted assessment(s)');
         }

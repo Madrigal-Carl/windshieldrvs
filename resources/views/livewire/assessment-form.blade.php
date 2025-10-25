@@ -2693,10 +2693,20 @@
                             defaultCenter;
 
                         this.map = L.map(container, {
-                            center: startCoords,
+                            center: [13.4513, 121.8397],
                             zoom: 13,
                             zoomSnap: 0.1,
-                            zoomDelta: 0.5
+                            zoomDelta: 0.5,
+                            zoomControl: false,
+
+                            minZoom: 10,
+                            maxZoom: 18,
+
+                            maxBounds: [
+                                [13.10, 121.70],
+                                [13.65, 122.15],
+                            ],
+                            maxBoundsViscosity: 1.0,
                         });
 
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
