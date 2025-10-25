@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row w-full h-screen">
+<div class="flex flex-col md:flex-row w-full h-screen" x-data="{ isSidebarOpen: false }">
     <aside class="flex md:flex-col bg-primary md:h-screen w-full md:w-1/5 p-6 shadow-lg relative">
         <!-- Top Bar (Mobile) -->
         <div class="flex w-full items-center justify-between md:justify-center">
@@ -10,7 +10,7 @@
             </a>
 
             <!-- Burger Button (visible only on mobile) -->
-            <button id="burger-btn" class="md:hidden text-white focus:outline-none">
+            <button @click="isSidebarOpen = !isSidebarOpen" class="md:hidden text-white focus:outline-none">
                 <x-feathericon-menu class="w-7 h-7" />
             </button>
         </div>
@@ -48,14 +48,24 @@
     </aside>
 
     <!-- Mobile Sidebar Overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-40"></div>
+    <div x-show="isSidebarOpen" @click="isSidebarOpen = false"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
 
     <!-- Mobile Sidebar (same links as desktop) -->
-    <div id="mobile-sidebar"
-        class="fixed top-0 left-0 h-full w-64 bg-primary shadow-lg transform -translate-x-full transition-transform duration-300 z-50 p-6 flex flex-col text-white">
+    <div x-show="isSidebarOpen" @click.away="isSidebarOpen = false"
+        class="fixed top-0 left-0 h-full w-64 bg-primary shadow-lg z-50 p-6 flex flex-col text-white md:hidden"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform -translate-x-full"
+        x-transition:enter-end="opacity-100 transform translate-x-0"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform translate-x-0"
+        x-transition:leave-end="opacity-0 transform -translate-x-full">
         <div class="flex justify-between items-center mb-6">
             <p class="text-2xl font-bold">Menu</p>
-            <button id="close-sidebar" class="text-white">
+            <button @click="isSidebarOpen = false" class="text-white">
                 <x-feathericon-x class="w-6 h-6" />
             </button>
         </div>
@@ -95,7 +105,7 @@
             <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">
                 Dashboard Overview</h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <!-- Total Assessments -->
                 <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
@@ -157,7 +167,8 @@
                 </div>
 
                 <!-- Low Risk -->
-                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <div
+                    class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-green-100 text-green-600">
                             <x-feathericon-check-circle />
@@ -177,7 +188,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col lg:flex-row gap-6">
+            <div class="flex flex-col lg:flex-row-reverse gap-4 md:gap-6">
                 <!-- GIS Map Section -->
                 <div class="{{ $assessments->isEmpty() ? 'w-full' : 'w-full lg:w-2/3' }}">
                     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-6">
@@ -340,10 +351,10 @@
                 </div>
 
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <table class="min-w-[720px] md:min-w-full w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th class="p-4"></th>
+                                <th class="hidden md:block p-4"></th>
                                 <th class="px-6 py-3">House Id</th>
                                 <th class="px-6 py-3 text-center">Address / Brgy</th>
                                 <th class="px-6 py-3 text-center">Severity</th>
@@ -354,7 +365,7 @@
                         <tbody>
                             @forelse($assessments as $assessment)
                                 <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
-                                    <td class="w-4 p-4">
+                                    <td class="hidden md:block w-4 p-4">
                                     </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         House {{ $assessment->house_id }}

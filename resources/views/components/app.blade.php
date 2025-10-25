@@ -49,43 +49,6 @@
         });
     </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    {{-- <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-        });
-
-        // Optional: close menu when clicking a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            });
-        });
-
-        const burgerBtn = document.getElementById('burger-btn');
-        const sidebar = document.getElementById('mobile-sidebar');
-        const overlay = document.getElementById('mobile-overlay');
-        const closeBtn = document.getElementById('close-sidebar');
-
-        burgerBtn.addEventListener('click', () => {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        });
-
-        closeBtn.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        });
-    </script> --}}
     @stack('scripts')
 </body>
 
