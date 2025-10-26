@@ -240,25 +240,25 @@
                             [
                                 'value' => 'hip',
                                 'label' => 'Hip / compact (quatro aguas)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/hip.PNG'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'monoslope',
                                 'label' => 'Monoslope',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/mono.PNG'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'gable',
                                 'label' => 'Gable (dos aguas)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/gable.PNG'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'irregular',
                                 'label' => 'Irregular / complex',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/complex.JPG'),
                                 'percentage' => 75,
                             ],
                             [
@@ -273,31 +273,31 @@
                             [
                                 'value' => 'concrete-slab',
                                 'label' => 'Concrete slab',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/slab.JPG'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'concrete-tiles',
                                 'label' => 'Concrete tiles / heavy tile',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/tile.JPG'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'metal-sheets',
                                 'label' => 'Metal sheets with good overlap (yero)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/metal.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'old-metal',
                                 'label' => 'Corrugated thin metal / old metal (lumang yero)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/some-loose-panels.PNG'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'nipa',
                                 'label' => 'Light thatch / nipa or severely degraded material (nipa o pawid)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/nipa.JPG'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -306,28 +306,28 @@
                             [
                                 'value' => 'proper-bolted',
                                 'label' => 'Proper bolted / welded anchors & straps (Maayos at matatag ang pagkakabit)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/proper-bolted.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'embedded-anchors',
                                 'label' =>
                                     'Embedded anchors / mechanical anchors in good condition (Maganda ang kalagayan ng pagkakabit)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/embedded-anchors.JPG'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'some-achors',
                                 'label' =>
                                     'Some anchors present but partially corroded (May presensya ng mga anchor ngunit bahagyang kinakalawang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/some-achors.JPG'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'mostly-nails',
                                 'label' =>
                                     'Mostly nails only / weak fasteners (Pako lang ang ginamit/Mahina ang ginamit na pangkabit)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/mostly-nails.JPG'),
                                 'percentage' => 75,
                             ],
                             [
@@ -342,34 +342,34 @@
                             [
                                 'value' => 'no-corrosion',
                                 'label' => 'New / no corrosion (Bago/walang kalawang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/no-corrosion.JPG'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'minor-corrosion',
                                 'label' =>
                                     'Minor corrosion / with some repairs (Maliit na kalawang/may ilang pag-aayos)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/minor-corrosion.JPG'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'some-loose-panels',
                                 'label' =>
                                     'Some loose panels / patches (May ilang luma at maluluwang na panel/may tinagpiang mga panel)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/some-loose-panels.PNG'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'many-loose-panels',
                                 'label' =>
                                     'Many loose panels / lots of corrosion (Maraming maluluwang na panel/lubhang kinakalawang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/many-loose-panels.JPG'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'with-holes',
                                 'label' => 'With holes / large gaps (Butas-butas/malalaking mga puwang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/with-holes.JPG'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -414,28 +414,30 @@
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-6">2.1 Are there roof trusses present? <span
                                 class="italic">(May trases ba na ginamit sa bubong ng bahay?)</span></h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+                            <div class="relative h-full">
+                                <input type="radio" id="option-1" name="trusses" value="present"
+                                    wire:model.live='truss' class="hidden peer">
 
-                        <div class="space-y-4">
-                            <label class="flex items-center cursor-pointer select-none">
-                                <input id="option-1" name="trusses" type="radio" wire:model.live='truss'
-                                    value="present" class="hidden peer">
-                                <span
-                                    class="outer w-5 h-5 rounded-full border-2 flex items-center justify-center border-black/50 mr-3 p-0.5">
-                                    <span
-                                        class="inner w-full h-full rounded-full bg-secondary opacity-0 transform scale-100 transition-all duration-500"></span>
-                                </span>
-                                <span class="text-gray-700 text-sm">Yes (Meron)</span>
-                            </label>
-                            <label class="flex items-center cursor-pointer select-none">
-                                <input id="option-2" name="trusses" type="radio" wire:model.live="truss"
-                                    value="not-present" class="hidden peer" />
-                                <span
-                                    class="outer w-5 h-5 rounded-full border-2 flex items-center justify-center border-black/50 mr-3 p-0.5">
-                                    <span
-                                        class="inner w-full h-full rounded-full bg-secondary opacity-0 transform scale-100 transition-all duration-500"></span>
-                                </span>
-                                <span class="text-gray-700 text-sm">None (Wala)</span>
-                            </label>
+                                <label for="option-1"
+                                    class="flex flex-col justify-center items-center h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">
+                                    <img src="{{ asset('images/buildings/truss.jpg') }}"
+                                        class="w-auto h-32 object-cover rounded-md mb-2">
+                                    <span class="text-sm text-gray-700 font-medium text-center mb-auto">Yes
+                                        (Meron)</span>
+                                </label>
+                            </div>
+                            <div class="relative h-full">
+                                <input type="radio" id="option-2" name="trusses" value="not-present"
+                                    wire:model.live='truss' class="hidden peer">
+                                <label for="option-2"
+                                    class="flex flex-col justify-center items-center h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">
+                                    <img src="{{ asset('images/unknown_building.png') }}"
+                                        class="w-auto h-32 object-cover rounded-md mb-2">
+                                    <span class="text-sm text-gray-700 font-medium text-center mb-auto">None
+                                        (Wala)</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     @php
@@ -443,32 +445,32 @@
                             [
                                 'value' => 'truss-material-steel',
                                 'label' => 'Steel/Metal truss (Bakal o metal na trases)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-material-steel.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'truss-material-engineered-wood',
                                 'label' =>
                                     'Engineered/prefabricated wood truss (Prefabricated na trases na gawa sa kahoy)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-material-engineered-wood.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'truss-material-sawn-wood',
                                 'label' => 'Solid sawn wood truss (Karaniwang kahoy na trases)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-material-sawn-wood.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'truss-material-hybrid-wood',
                                 'label' => 'Hybrid Truss/Wood and steel (Pinagsamang trases na gawa sa kahoy at bakal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-material-hybrid-wood.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'unknown',
                                 'label' => 'Unknown or deteriorated material (Hindi tiyak o sira na materyales)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/unknown.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -478,35 +480,35 @@
                                 'value' => 'truss-condition-good',
                                 'label' =>
                                     'All connections and bracing are intact and in good condition (Buo at maayos ang lahat ng dugtungan at brace)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-condition-good.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'truss-condition-minor',
                                 'label' =>
                                     'Minor corrosion or slightly missing connectors/bracing (May kaunting kalawang o kulang na koneksyon/brace) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-condition-minor.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'truss-condition-weak',
                                 'label' =>
                                     'Several weak or loose connectios observed (Ilang dugtungan ang maluwag o mahina)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-condition-weak.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'truss-condition-missing',
                                 'label' =>
                                     'Many missing or severly corroded connectors/bracing (Maraming kulang o lubhang kalawangin na dugtungan/brace)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-condition-missing.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'truss-condition-no-visible',
                                 'label' =>
                                     'No visible bracing or failed connnections (Walang brace o sira ang mga dugtungan)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/truss-condition-no-visible.jpeg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -545,31 +547,26 @@
                                 'value' => 'roof-wall-hurricane-ties',
                                 'label' =>
                                     'Hurricane ties/ anchor bolts everywhere (Kumpleto at matibay ang koneksyon)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'roof-wall-present',
                                 'label' => 'Mostly present & correct (Mayroong ties at tama ang pagkakabit)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'roof-wall-partial',
                                 'label' => 'Partial coverage (Bahagya lang ang sakop ng koneksyon)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'roof-wall-rarely-present',
                                 'label' => 'Rarely present (Madalang ang maayos na koneksyon)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'roof-wall-absent',
                                 'label' => 'Absent (Walang maayos na koneksyon)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -579,34 +576,29 @@
                                 'value' => 'roof-wall-high-quality',
                                 'label' =>
                                     'High quality, adequate spacing, corrosion protected (Mataas ang kalidad, may tamang pagitan, walang kalawang)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'roof-wall-good-quality',
                                 'label' => 'Good quality, minor corrosion (Maganda ang kalidad, may konting kalawang)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'roof-wall-moderate-quality',
                                 'label' =>
                                     'Moderate (mixed fasteners) (Pangkaraniwang kalidad, magkahalong pako, turnilyo at bolts ang ginamit na fastener)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'roof-wall-low-quality',
                                 'label' =>
                                     'Low quality (nails only, some missing) (Mababa ang kalidad at marami ang kulang)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'roof-wall-very-quality',
                                 'label' =>
                                     'Very poor or missing fasteners (Sobrang baba ng kalidad, halos walang mga fastener)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -656,33 +648,33 @@
                             [
                                 'value' => 'wall-type-shear',
                                 'label' => 'Shear walls',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-type-shear.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'wall-type-mixed',
                                 'label' =>
                                     'Mixed (RC + CHB with steel reinforcement) (Magkahalong kongreto, hollow blocks at bakal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-type-mixed.JPG'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'wall-type-concrete',
                                 'label' =>
                                     'Concrete hollow block (CHB) with some reinforcement (Hollow blocks na may bakal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-type-concrete.JPG'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'wall-type-unreinforced',
                                 'label' => 'Unreinforced CHB / weak masonry (Hollow blocks)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-type-unreinforced.JPG'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'wall-type-lightweight',
                                 'label' => 'Lightweight / poor materials (Highly vulnerable) (Kahoy o pawid) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-type-lightweight.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -692,35 +684,35 @@
                                 'value' => 'wall-condition-no-damage',
                                 'label' =>
                                     'No visible cracks, deformation, or damage. Paint and Plaster are intact. (Walang bitak o pinsala, maayos ang pintura at palitada)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-condition-no-damage.JPG'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'wall-condition-minor',
                                 'label' =>
                                     'Minor hairline cracks or small surface wear, no structural concern. (May maliit na bitak o gasgas ngunit hindi nakakaapekto sa tibay ng pader)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-condition-minor.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'wall-condition-slight',
                                 'label' =>
                                     'Noticeable cracks (1-5mm), slightly bulging, or signs of moisture damage. (May kapansin-pansing bitak, paglobo, o bakas ng tubig)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-condition-slight.JPG'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'wall-condition-large',
                                 'label' =>
                                     'Large cracks (>5mm), spalling, or partial detachment of wall surface. (Malalaking bitak, nalalaglag na palitada, o lumuluwag na bahagi ng pader.)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-condition-large.JPG'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'wall-condition-severe',
                                 'label' =>
                                     'Walls show severe cracking, separation or signs of potential collapse. (Malubhang bitak o halos maghiwalay na bahagi; possibleng bumagsak ang pader)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/wall-condition-severe.JPG'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -760,32 +752,32 @@
                             [
                                 'value' => 'signs-tilt-none',
                                 'label' => 'None (wala)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/signs-tilt-none.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'signs-tilt-minor',
                                 'label' => 'Minor settlement (<10mm) (Maliit na paglubog) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/signs-tilt-minor.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'signs-tilt-moderate',
                                 'label' => 'Moderate settlement / cracking (May bahagyang paglubog at pagbitak)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/signs-tilt-moderate.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'signs-tilt-noticeable',
                                 'label' => 'Noticeable tilt / separation (Tabingi/HUmiwalay na pader) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/signs-tilt-noticeable.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'signs-tilt-severe',
                                 'label' =>
                                     'Severe settlement / separation (Malubhang paglubog / Halos bumagsak ang pader)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/signs-tilt-severe.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -830,31 +822,31 @@
                             [
                                 'value' => 'door-type-metal',
                                 'label' => 'Solid metal/Secure doors (Metal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-type-metal.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'door-type-sturdy',
                                 'label' => 'Sturdy wooden doors (Matibay na kahoy) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-type-sturdy.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'door-type-panel',
                                 'label' => 'Panel/Flush doors (Panel/Flush door)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-type-panel.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'door-type-fragile',
                                 'label' => 'Fragile doors / glass doors (Salamin na pinto)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-type-fragile.jpeg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'door-type-weak',
                                 'label' => 'Very weak / missing doors (Mahina/walang pinto)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-type-weak.jpeg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -863,34 +855,34 @@
                             [
                                 'value' => 'door-condition-secure',
                                 'label' => 'Well-fitted swing/secure sliding (Maayos ang pagbukas at paglapat)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-condition-secure.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'door-condition-good',
                                 'label' =>
                                     'Good operation with minor gaps (Maganda ang kondisyon ngunit may konting puwang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-condition-good.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'door-condition-loose',
                                 'label' =>
                                     'Operational issues / loose fittings (Hindi maayos ang pagbukas at maluwang ang pagkakakabit)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-condition-loosee.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'door-condition-poor',
                                 'label' =>
                                     'Poor seals / large gaps (Hindi Pulido ang kabit at may mga malalaking puwang)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-condition-poor.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'door-condition-detached',
                                 'label' => 'Easily blown / detached (Madaling tangayin o matumba)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/door-condition-detached.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -899,33 +891,33 @@
                                 'value' => 'window-type-protected',
                                 'label' =>
                                     'Fixed or protected glazing (impact resistant) (Fixed na bintana na mayroong proteksyon sa impact)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/window-type-protected.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'window-type-good',
                                 'label' => 'Casement with good frame (BIntana na may matibay na frame) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/window-type-good.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'window-type-standard',
                                 'label' => 'Sliding/standard windows/jalousie (Karaniwang mga bintana)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/window-type-standard.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'window-type-weak',
                                 'label' =>
                                     'Single-panel or weak glazing (Bintanang binubuo ng isang panel at mayroong mahinang proteksyon)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/window-type-weak.jpeg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'window-type-missing',
                                 'label' =>
                                     'Large fragile glazing / missing shutters (Malaking mga bintana na walang proteksyon)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/window-type-missing.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -934,34 +926,29 @@
                                 'value' => 'doorwindow-frame-string',
                                 'label' =>
                                     'String frames, anchored to structure (Matibay na frame at naka-angkla sa istruktura)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'doorwindow-frame-good',
                                 'label' =>
                                     'Good frames, minor gaps (Maayos na frame ngunit mayroong konting mga puwang)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'doorwindow-frame-moderate',
                                 'label' =>
                                     'Moderate anchorage, signs of looseness (Katamtamang pagkaka-angkla at mayroong senyales ng pagiging maluwag)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'doorwindow-frame-loose',
                                 'label' =>
                                     'Loose frames, missing anchors (Maluwag na mga frame at kulang ang pagkaka-angkla sa istrauktura)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'doorwindow-frame-detached',
                                 'label' => 'Frames detached / vulnerable to blowout (walang mga frame)',
-                                'image' => asset('images/unknown_building.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1024,59 +1011,59 @@
                             [
                                 'value' => 'column-shape-proper',
                                 'label' => 'Proper rectangular/square well-designed (Hugis parisukat o parihaba)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-shape-proper.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'column-shape-adequate',
                                 'label' =>
                                     'Slightly irregular but adequate (Hindi regular ang hugid ngunit sapat ang disenyo)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-shape-adequate.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'column-shape-mixed',
                                 'label' => 'Mixed/unkown (Magkakaiba ang hugis)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-shape-mixed.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'column-shape-undersized',
                                 'label' => 'Poor cross-section / undersized (Maliit dimension para sa istruktura)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-shape-undersized.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'column-shape-inadequate',
                                 'label' => 'Inadequate columns (Hindi akmang mga haligi)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-shape-inadequate.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
 
                         $columnMadeOptions = [
                             [
-                                'value' => 'column-condition-secure',
+                                'value' => 'column-condition-concrete',
                                 'label' => 'Reinforced concrete (Kongkreto)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-condition-concrete.jpg'),
                                 'percentage' => 0,
                             ],
                             [
-                                'value' => 'column-condition-good',
+                                'value' => 'column-condition-composite',
                                 'label' => 'Composite (Magkahalong materyales)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-condition-composite.jpg'),
                                 'percentage' => 33.33,
                             ],
                             [
-                                'value' => 'column-condition-loose',
+                                'value' => 'column-condition-metal',
                                 'label' => 'Steel only  (Metal o bakal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-condition-metal.jpg'),
                                 'percentage' => 66.66,
                             ],
                             [
-                                'value' => 'column-condition-poor',
+                                'value' => 'column-condition-damaged',
                                 'label' => 'Weak or damaged material (Mga materyales na may sira o mahina)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/column-condition-damaged.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1112,25 +1099,25 @@
                                 'value' => 'beam-shape-proper',
                                 'label' =>
                                     'T-beam or L-beam integrated with slab (T-beam or L-beam na konektado sa slab',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-shape-proper.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'beam-shape-reinforced',
                                 'label' => 'Rectangular reinforced beam',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-shape-reinforced.png'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'beam-shape-short',
                                 'label' => 'Short or undersized beam (Maikli o manipis ayon sa haba)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-shape-short.jpeg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'beam-shape-irregular',
                                 'label' => 'Irregular or non-standard beam (Hindi pantay ang pagkakagawa)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-shape-irregular.jpg'),
                                 'percentage' => 75,
                             ],
                             [
@@ -1145,25 +1132,25 @@
                             [
                                 'value' => 'beam-condition-secure',
                                 'label' => 'Reinforced concrete (Kongkreto)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-condition-secure.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'beam-condition-steel',
                                 'label' => 'Steel beam (Bakal)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-condition-steel.jpg'),
                                 'percentage' => 33.33,
                             ],
                             [
                                 'value' => 'beam-condition-wood',
                                 'label' => 'Treated timber/ wood beam  (Kahoy)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-condition-wood.jpg'),
                                 'percentage' => 66.66,
                             ],
                             [
                                 'value' => 'beam-condition-weak',
                                 'label' => 'Weak materials (Mahinang materyales katulad ng kawayan)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/beam-condition-weak.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1184,34 +1171,34 @@
                             [
                                 'value' => 'columnbeam-condition-no-defects',
                                 'label' => 'No visible defects (Walang nakikitang depekto)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/columnbeam-condition-no-defects.png'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'columnbeam-condition-minor',
                                 'label' => 'Minor hairline cracks (May maliliit na bitak)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/columnbeam-condition-minor.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'columnbeam-condition-moderate',
                                 'label' =>
                                     'Moderate cracks / repairs (May katamtamang bitak at isinaayos na bitak) (1.5mm to 5mm)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/columnbeam-condition-moderate.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'columnbeam-condition-major',
                                 'label' =>
                                     'Major cracks / spalling (Malalaking bitak o may natuklap na bahagi ng kongkreto) (Greater than o mas Malaki pa sa sukat na 5mm)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/columnbeam-condition-major.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'columnbeam-condition-severe',
                                 'label' =>
                                     'Severe deterioration / compromised (Matinding pagkasira at hindi na matibay ang estruktura)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/columnbeam-condition-severe.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1245,32 +1232,32 @@
                             [
                                 'value' => 'house-shape-regular',
                                 'label' => 'Regular rectangular/square (Parihaba/parisukat)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-shape-regular.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'house-shape-mostly-regular',
                                 'label' =>
                                     'Mostly regular with small projections (Karamihan ay regular na may nakausling maliit na bahagi)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-shape-mostly-regular.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'house-shape-lt-projections',
                                 'label' => 'L/T projections (Hugis L/T)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-shape-lt-projections.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'house-shape-irregular',
                                 'label' => 'Irregular plan with re-entrant corners',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-shape-irregular.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'house-shape-highly-irregular',
                                 'label' => 'Highly irregular complex',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-shape-highly-irregular.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1279,31 +1266,31 @@
                             [
                                 'value' => 'house-height-2.4',
                                 'label' => '2.4 - 3.0 m',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-height-2.4.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'house-height-3.1',
                                 'label' => '3.1 - 4.7 m ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-height-3.1.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'house-height-4.8',
                                 'label' => '4.8 - 6.0 m ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-height-4.8.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'house-height-6.1',
                                 'label' => '6.1 - 7.1 m ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-height-6.1.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'house-height-7.2',
                                 'label' => '≥ 7.2 m ',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-height-7.2.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1312,31 +1299,31 @@
                             [
                                 'value' => 'house-ratio-low',
                                 'label' => 'Low-rise wide base (stable) (Mababa na may malapad na pundasyon)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-ratio-low.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'house-ratio-slightly',
                                 'label' => 'Slightly tall but stable (Medyo mataas pero metatag)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-ratio-slightly.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'house-ratio-moderate',
                                 'label' => 'Moderate slenderness (Katamtamang proprosyon ng taas at lapad ng bahay)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-ratio-moderate.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'house-ratio-tall',
                                 'label' => 'Tall and narrow for a one-storey (Mataas at makitid)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-ratio-tall.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'house-ratio-unbalanced',
                                 'label' => 'Extremely unbalanced (Lubhang hindi balance)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-ratio-unbalanced.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1389,31 +1376,31 @@
                             [
                                 'value' => 'overhang-minimal',
                                 'label' => 'Minimal (≤300 mm wood / (≤450 mm concrete) (Maiksi)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/overhang-minimal.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'overhang-moderate',
                                 'label' => 'Moderate Length ( 450-500 mm) (Katamtamang haba)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/overhang-moderate.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'overhang-slightly',
                                 'label' => 'Slightly long (510mm-600mm)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/overhang-slightly.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'overhang-long',
                                 'label' => 'Long overhangs (610mm-1m) (Mahaba)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/overhang-long.png'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'overhang-very-long',
-                                'label' => 'Very Long / Unsupported overhangs (>1m) (Sobrang haba) ',
-                                'image' => asset('images/unknown_building.png'),
+                                'label' => 'Very Long / Unsupported overhangs (>1m) (Sobrang haba)',
+                                'image' => asset('images/buildings/overhang-very-long.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1423,34 +1410,34 @@
                                 'value' => 'eaves-resistant',
                                 'label' =>
                                     'Well anchored, corrosion resistant (Maayos ang pagkakakabit, walang senyales ng pangangalawang/pagkasira)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/eaves-resistant.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'eaves-minor',
                                 'label' =>
                                     'Good condition with minor corrosion (Maayos ang kondisyon, may kaunting senyales ng pangangalawang /pagkasira)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/eaves-minor.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'eaves-moderate',
                                 'label' =>
                                     'Moderate corrosion / some loose elements (May katamtamang senyales ng pangangalawang o pagkasira, lumuluwag na ang pagkakakabit)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/eaves-moderate.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'eaves-loose',
                                 'label' => 'Loose / corroded fasteners (Maluwag/kinakalawang na ang mga turnilyo/pako)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/eaves-loose.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'eaves-detached',
                                 'label' =>
                                     'Detached or falling elements (HUmihiwalay/nahuhulog na ang ilang mga parte)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/eaves-detached.jpg'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1492,31 +1479,31 @@
                             [
                                 'value' => 'house-number-high',
                                 'label' => 'High density (Many obstructions / sheltered) (Marami ang bilang ng bahay)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-high.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'house-number-medium',
                                 'label' => 'Medium density (Katamtaman lamang ang bilang ng bahay)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-medium.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'house-number-low',
                                 'label' => 'Low density (some shelter) (Kaunti lamang ang bahay)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-low.jpg'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'house-number-sparse',
                                 'label' => 'Sparse isolated (less shelter) (Kaunti lamang ang bahay)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-sparse.jpg'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'house-number-isolated',
                                 'label' => 'Isolated house in open terrain (nakahiwalay na bahay sa kapatagan',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-isolated.png'),
                                 'percentage' => 100,
                             ],
                         ];
@@ -1525,32 +1512,32 @@
                             [
                                 'value' => 'house-location-sheltered',
                                 'label' =>
-                                    'Sheltered inland, many obstructions (Panloobna lugar na hindi direktang tinatamaan ng hangin mula sa dagat)',
-                                'image' => asset('images/unknown_building.png'),
+                                    'Sheltered inland, many obstructions (Panloob na lugar na hindi direktang tinatamaan ng hangin mula sa dagat)',
+                                'image' => asset('images/buildings/house-number-sparse.jpg'),
                                 'percentage' => 0,
                             ],
                             [
                                 'value' => 'house-location-urban',
                                 'label' => 'Urban area with surrounding buildings (Bayan na may mga gusali)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-high.jpg'),
                                 'percentage' => 25,
                             ],
                             [
                                 'value' => 'house-location-mixed',
                                 'label' => 'Mixed terrain / partial exposure',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-location-mixed.png'),
                                 'percentage' => 50,
                             ],
                             [
                                 'value' => 'house-location-open',
                                 'label' => 'Open terrain (Kapatagan)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-number-isolated.png'),
                                 'percentage' => 75,
                             ],
                             [
                                 'value' => 'house-location-coastal',
                                 'label' => 'Coastal (Baybayin/Tabing dagat)',
-                                'image' => asset('images/unknown_building.png'),
+                                'image' => asset('images/buildings/house-location-coastal.jpg'),
                                 'percentage' => 100,
                             ],
                         ];

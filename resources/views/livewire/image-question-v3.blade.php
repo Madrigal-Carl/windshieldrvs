@@ -9,12 +9,15 @@
     <div class="grid grid-cols-1 gap-2">
         @foreach ($options as $option)
             <div class="flex flex-col items-center space-y-4 p-4 w-full">
-                <img src="{{ $option['image'] }}" alt="{{ $option['label'] }}" class="w-2/3 h-40 object-cover rounded-md">
-                <div class="flex justify-start gap-4 w-full">
+                @if (!empty($option['image']))
+                    <img src="{{ $option['image'] }}" alt="{{ $option['label'] }}"
+                        class="w-2/3 h-40 object-cover rounded-md">
+                @endif
+                <div class="flex justify-start gap-6 w-full">
                     <div class="relative w-20">
                         <div class="relative">
                             <input type="number" min="0" wire:model.live="counts.{{ $option['value'] }}"
-                                class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent text-center" />
+                                class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-18 bg-transparent text-center" />
                             <span
                                 class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full">
                             </span>
