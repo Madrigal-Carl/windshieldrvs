@@ -631,18 +631,6 @@
                         <p class="p-8"><b>Wall Type and Integrity <i>(Uri at Integridad ng Pader)</i></b>
                         </p>
                     </div>
-
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">How many wall sections are there?</h3>
-                        <div class="relative w-1/2">
-                            <div class="relative">
-                                <input type="number" wire:model.live='walls' min="1"
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
-                                <span
-                                    class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
-                            </div>
-                        </div>
-                    </div>
                     @php
                         $wallTypeOptions = [
                             [
@@ -679,7 +667,7 @@
                             ],
                         ];
 
-                        $wallConditionOptions = [
+                        $wallsConditionOptions = [
                             [
                                 'value' => 'wall-condition-no-damage',
                                 'label' =>
@@ -718,16 +706,20 @@
                         ];
                     @endphp
 
-                    @if ($walls)
-                        <livewire:image-question-v2 question="4.1 What type of material are the walls made of?"
+                    {{-- <livewire:image-question-v2 question="4.1 What type of material are the walls made of?"
                             subtitle="Anong materyales ang ginamit sa pader?" :options="$wallTypeOptions" model="wallType"
-                            wire:key="wallType-question" :maxValue="7" :value="$wallType" :baseValue="$walls" />
-
-                        <livewire:image-question-v2 question="4.2 What is the condition of the walls?"
+                            wire:key="wallType-question" :maxValue="7" :value="$wallType" :baseValue="$walls" /> --}}
+                    <livewire:image-question-v3 question="4.1 How many walls are made from each material type?"
+                        subtitle="Ilan ang mga pader na gawa sa bawat uri ng materyales?" :options="$wallTypeOptions"
+                        model="wallType" wire:key="wallType-question" :counts="$wallType ?? []" :maxValue="7" />
+                    {{-- <livewire:image-question-v2 question="4.2 What is the condition of the walls?"
                             subtitle="Ano ang kondisyon ng pader?" :options="$wallConditionOptions" model="wallCondition"
                             wire:key="wallCondition-question" :maxValue="3" :value="$wallCondition"
-                            :baseValue="$walls" />
-                    @endif
+                            :baseValue="$walls" /> --}}
+                    <livewire:image-question-v3 question="4.2 Ilan ang mga pader ayon sa kanilang kondisyon?"
+                        subtitle="Ano ang kondisyon ng pader?" :options="$wallsConditionOptions" model="wallsCondition"
+                        wire:key="wallsCondition-question" :counts="$wallsCondition ?? []" :maxValue="3" />
+
                 </div>
             @endif
 
@@ -993,7 +985,7 @@
                         </p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+                    {{-- <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-4">How many columns are there? <i>(Ilang haligi
                                 mayroon ang bahay?)</i></h3>
                         <div class="relative w-1/2">
@@ -1004,7 +996,7 @@
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @php
                         $columnShapeOptions = [
@@ -1068,16 +1060,18 @@
                             ],
                         ];
                     @endphp
-
-                    @if ($columns)
-                        <livewire:image-question-v2 question="7.1 What is the shape of the columns? "
-                            subtitle="Ano ang hugis ng haligi?" :options="$columnShapeOptions" model="columnShape"
-                            wire:key="columnShape-question" :maxValue="2" :value="$columnShape" :baseValue="$columns" />
-
-                        <livewire:image-question-v2 question="7.2 What is the material of the columns? "
-                            subtitle="Anong materyales ang ginagamit sa haligi?" :options="$columnMadeOptions" model="columnMade"
-                            wire:key="columnMade-question" :maxValue="2" :value="$columnMade" :baseValue="$columns" />
-                    @endif
+                    <livewire:image-question-v3 question="7.1 How many columns are there for each shape?"
+                        subtitle="Ilan ang mga haligi sa bawat hugis?" :options="$columnShapeOptions" model="columnShape"
+                        wire:key="columnShape-question" :counts="$columnShape ?? []" :maxValue="2" />
+                    {{-- <livewire:image-question-v2 question="7.1 What is the shape of the columns?"
+                        subtitle="Ano ang hugis ng haligi?" :options="$columnShapeOptions" model="columnShape"
+                        wire:key="columnShape-question" :maxValue="2" :value="$columnShape" :baseValue="$columns" /> --}}
+                    <livewire:image-question-v3 question="7.2 How many columns are made from each material type?"
+                        subtitle="Ilan ang mga haligi na gawa sa bawat uri ng materyales?" :options="$columnMadeOptions"
+                        model="columnMade" wire:key="columnMade-question" :counts="$columnMade ?? []" :maxValue="2" />
+                    {{-- <livewire:image-question-v2 question="7.2 What is the material of the columns? "
+                        subtitle="Anong materyales ang ginagamit sa haligi?" :options="$columnMadeOptions" model="columnMade"
+                        wire:key="columnMade-question" :maxValue="2" :value="$columnMade" :baseValue="$columns" /> --}}
 
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-4">How many beams are there? <i>(Ilang biga
@@ -1358,7 +1352,7 @@
                         <p class="p-8"><b>Overhangs & Eaves <i>(Bulada o Nakausling Bahagi ng Bubong)</i></b>
                         </p>
                     </div>
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+                    {{-- <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-4">How many eaves are there? <i>(Ilang bulada mayroon
                                 ang bahay?)</i></h3>
                         <div class="relative w-1/2">
@@ -1369,7 +1363,7 @@
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @php
                         $overhangOptions = [
@@ -1443,18 +1437,23 @@
                         ];
                     @endphp
 
-                    @if ($no_eaves)
-                        <livewire:image-question-v2 question="9.1 How long is the roof overhang?"
-                            subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
-                            model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang"
-                            :baseValue="$no_eaves" />
+                    {{-- <livewire:image-question-v2 question="9.1 How long is the roof overhang?"
+                        subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
+                        model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang"
+                        :baseValue="$no_eaves" /> --}}
+                    <livewire:image-question-v3 question="9.1 How many roofs have each overhang length?"
+                        subtitle="Ilan ang mga bubong ayon sa haba ng overhang?" :options="$overhangOptions" model="overhang"
+                        wire:key="overhang-question" :counts="$overhang ?? []" :maxValue="3" />
 
-                        <livewire:image-question-v2
-                            question="9.2 What is the condition of the eaves and soffits of the house?"
-                            subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
-                            :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
-                            :value="$eaves" :baseValue="$no_eaves" />
-                    @endif
+                    {{-- <livewire:image-question-v2
+                        question="9.2 What is the condition of the eaves and soffits of the house?"
+                        subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
+                        :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
+                        :value="$eaves" :baseValue="$no_eaves" /> --}}
+                    <livewire:image-question-v3
+                        question="9.2 How many houses have each condition of eaves and soffits?"
+                        subtitle="Ilan ang mga bahay ayon sa kondisyon ng eaves at soffits?" :options="$eavesOptions"
+                        model="eaves" wire:key="eaves-question" :counts="$eaves ?? []" :maxValue="2" />
                 </div>
             @endif
 
@@ -2010,10 +2009,10 @@
                                 <div class="flex justify-between items-center mt-1">
                                     <span class="text-sm text-gray-500">Total Vulnerability Score: 10%</span>
                                     @php
-                                        $wallsMax = 7 + 3; // wallType + wallCondition
+                                        $wallsMax = 7 + 3; // wallType + wallsCondition
                                         $wallsSum =
                                             ($selectedOptions['wallType'] ?? 0) +
-                                            ($selectedOptions['wallCondition'] ?? 0);
+                                            ($selectedOptions['wallsCondition'] ?? 0);
                                         $wallsFill = $wallsMax > 0 ? ($wallsSum / $wallsMax) * 100 : 0;
 
                                         $risk = risk_style($wallsFill);
@@ -2057,9 +2056,9 @@
                                         ang kondisyon ng pader?) </p>
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
-                                            style="width: {{ (($selectedOptions['wallCondition'] ?? 0) / 3) * 100 }}%;">
+                                            style="width: {{ (($selectedOptions['wallsCondition'] ?? 0) / 3) * 100 }}%;">
                                             <span
-                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallCondition'], 2) ?? 0 }}%</span>
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallsCondition'], 2) ?? 0 }}%</span>
                                         </div>
                                     </div>
                                 </div>

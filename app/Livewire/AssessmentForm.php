@@ -32,7 +32,7 @@ class AssessmentForm extends Component
 
     //     // Walls
     //     'wallType' => 5,
-    //     'wallCondition' => 2,
+    //     'wallsCondition' => 2,
 
     //     // Tilt
     //     'signsTilt' => 3,
@@ -63,19 +63,19 @@ class AssessmentForm extends Component
     //     'houseLocation' => 2,
     // ];
 
-    public int $currentStep = 1;
+    public int $currentStep = 11;
     public int $totalSteps = 14;
     public $isAccepted = '';
     public $houseId, $address, $date, $assessorName;
     public $roofType, $roofMade, $roofAnchor, $roofCondition;
     public $truss, $trussMaterial, $trussCondition;
     public $roofWallConnection, $roofWallQuality;
-    public $walls, $wallType, $wallCondition;
+    public $wallTotal, $wallType, $wallsTotal, $wallsCondition;
     public $signsTilt;
     public $doors, $doorType, $doorCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
-    public $columns, $columnShape, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
+    public $columnsTotal, $columnShape, $columnTotal, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
     public $houseShape, $houseHeight, $houseRatio;
-    public $no_eaves, $overhang, $eaves;
+    public $overhangTotal, $overhang, $eavesTotal, $eaves;
     public $houseNumber, $houseLocation;
     public $latitude, $longitude;
     public $riskLevel, $riskScore;
@@ -169,14 +169,19 @@ class AssessmentForm extends Component
 
                 case 6:
                     $this->validate([
-                        'walls' => 'required',
                         'wallType' => 'required',
-                        'wallCondition' => 'required',
+                        'wallsCondition' => 'required',
                     ], [
-                        'walls.required' => 'Please specify the type of foundation.',
                         'wallType.required' => 'Please specify the type of the wall.',
-                        'wallCondition.required' => 'Please specify the condition of the wall.',
+                        'wallsCondition.required' => 'Please specify the condition of the wall.',
                     ]);
+                    if ($this->wallTotal !== $this->wallsTotal) {
+                        notyf()
+                            ->position('x', 'right')
+                            ->position('y', 'top')
+                            ->error('The total number of wall types should be equal to the total number of wall conditions.');
+                        return false;
+                    }
                     break;
 
                 case 7:
@@ -216,7 +221,6 @@ class AssessmentForm extends Component
 
                 case 9:
                     $this->validate([
-                        'columns' => 'required',
                         'columnShape' => 'required',
                         'columnMade' => 'required',
                         'beams' => 'required',
@@ -224,7 +228,6 @@ class AssessmentForm extends Component
                         'beamMade' => 'required',
                         'columnbeamCondition' => 'required',
                     ], [
-                        'columns.required' => 'Please enter the total columns.',
                         'columnShape.required' => 'Please specify the column type.',
                         'columnMade.required' => 'Please specify the column material.',
                         'beams.required' => 'Please enter the total beams.',
@@ -232,7 +235,15 @@ class AssessmentForm extends Component
                         'beamMade.required' => 'Please specify the beam material.',
                         'columnbeamCondition.required' => 'Please specify the number of column/beam condition.',
                     ]);
-                    $columns = $this->columns;
+
+                    if ($this->columnsTotal !== $this->columnTotal) {
+                        notyf()
+                            ->position('x', 'right')
+                            ->position('y', 'top')
+                            ->error('The number of column shapes made must match the total number of columns.');
+                        return false;
+                    }
+                    $columns = $this->columnsTotal;
                     $beams = $this->beams;
                     $columnbeamTotal = $this->columnbeamTotal;
                     if (($columns + $beams) !== $columnbeamTotal) {
@@ -258,14 +269,19 @@ class AssessmentForm extends Component
 
                 case 11:
                     $this->validate([
-                        'no_eaves' => 'required',
                         'overhang' => 'required',
                         'eaves' => 'required',
                     ], [
-                        'no_eaves.required' => 'Please enter the total eaves.',
                         'overhang.required' => 'Please specify the roof overhang length.',
                         'eaves.required' => 'Please describe the eaves or soffits condition.',
                     ]);
+                    if ($this->overhangTotal !== $this->eavesTotal) {
+                        notyf()
+                            ->position('x', 'right')
+                            ->position('y', 'top')
+                            ->error('The number of roof overhangs must match the number of eaves and soffits.');
+                        return false;
+                    }
                     break;
 
                 case 12:
@@ -378,19 +394,6 @@ class AssessmentForm extends Component
         }
     }
 
-    public function updatedWalls()
-    {
-        unset(
-            $this->selectedOptions['wallType'],
-            $this->selectedOptions['wallCondition']
-        );
-
-        $this->wallType = null;
-        $this->wallCondition = null;
-
-        $this->dispatch('resetWallOptions');
-    }
-
     public function updatedDoors()
     {
         unset(
@@ -404,18 +407,31 @@ class AssessmentForm extends Component
         $this->dispatch('resetDoorOptions');
     }
 
-    public function updatedColumns()
-    {
-        unset(
-            $this->selectedOptions['columnShape'],
-            $this->selectedOptions['columnMade']
-        );
+    // public function updatedWalls()
+    // {
+    //     unset(
+    //         $this->selectedOptions['wallType'],
+    //         $this->selectedOptions['wallsCondition']
+    //     );
 
-        $this->columnShape = null;
-        $this->columnMade = null;
+    //     $this->wallType = null;
+    //     $this->wallsCondition = null;
 
-        $this->dispatch('resetColumnOptions');
-    }
+    //     $this->dispatch('resetWallOptions');
+    // }
+
+    // public function updatedColumns()
+    // {
+    //     unset(
+    //         $this->selectedOptions['columnShape'],
+    //         $this->selectedOptions['columnMade']
+    //     );
+
+    //     $this->columnShape = null;
+    //     $this->columnMade = null;
+
+    //     $this->dispatch('resetColumnOptions');
+    // }
 
     public function updatedBeams()
     {
@@ -430,18 +446,18 @@ class AssessmentForm extends Component
         $this->dispatch('resetBeamOptions');
     }
 
-    public function updatedNoEaves()
-    {
-        unset(
-            $this->selectedOptions['overhang'],
-            $this->selectedOptions['eaves']
-        );
+    // public function updatedNoEaves()
+    // {
+    //     unset(
+    //         $this->selectedOptions['overhang'],
+    //         $this->selectedOptions['eaves']
+    //     );
 
-        $this->overhang = null;
-        $this->eaves = null;
+    //     $this->overhang = null;
+    //     $this->eaves = null;
 
-        $this->dispatch('resetNoEavesOptions');
-    }
+    //     $this->dispatch('resetNoEavesOptions');
+    // }
 
     #[On('optionSelected')]
     public function handleOptionSelected($field, $value, $computedValue)
@@ -569,10 +585,10 @@ class AssessmentForm extends Component
         }
 
         // Step 6: Walls
-        if ($isHighRisk('wallType', 3) || $isHighRisk('wallCondition', 3)) {
+        if ($isHighRisk('wallType', 3) || $isHighRisk('wallsCondition', 3)) {
             $byStepVulns[6] = sprintf($vulnTemplate, 'Wall system');
             $byStepRecs[6] = sprintf($actionTemplate, 'wall construction');
-        } elseif (isset($this->selectedOptions['wallType']) || isset($this->selectedOptions['wallCondition'])) {
+        } elseif (isset($this->selectedOptions['wallType']) || isset($this->selectedOptions['wallsCondition'])) {
             $byStepRecs[6] = sprintf($goodTemplate, 'Wall system');
         }
 
@@ -711,7 +727,7 @@ class AssessmentForm extends Component
             ['roofType' => 6, 'roofMade' => 5, 'roofAnchor' => 5, 'roofCondition' => 4],
             ['trussMaterial' => 4, 'trussCondition' => 6],
             ['roofWallConnection' => 4, 'roofWallQuality' => 4],
-            ['wallType' => 7, 'wallCondition' => 3],
+            ['wallType' => 7, 'wallsCondition' => 3],
             ['signsTilt' => 7],
             ['doorType' => 3, 'doorCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
             ['columnShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
