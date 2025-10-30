@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'email' => 'admin@gmail.com',
-            'password' => 'admin123',
-        ]);
+            User::factory()->create([
+                'email' => 'admin@gmail.com',
+                'password' => 'admin123',
+            ]);
 
         // $baseLat = 13.4750;
         // $baseLng = 121.8380;
