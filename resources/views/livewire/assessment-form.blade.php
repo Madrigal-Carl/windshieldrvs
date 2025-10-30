@@ -1552,7 +1552,7 @@
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
                         <div class="p-4">
                             <!-- MAP -->
-                            <div wire:ignore id="pin-map" class="w-full h-[350px] md:h-[500px] rounded-lg shadow-md"
+                            <div wire:ignore id="pin-map" class="w-full h-[500px] rounded-lg shadow-md"
                                 x-data="pinMapComponent(@this, {{ $latitude ?? 'null' }}, {{ $longitude ?? 'null' }})" x-init="initMap()"
                                 x-on:refresh-map.window="refreshMap()"></div>
 
