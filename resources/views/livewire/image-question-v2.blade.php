@@ -1,4 +1,4 @@
-<div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+<div class="bg-white rounded-xl shadow-md overflow-hidden p-8 text-sm md:text-base">
     <h3 class="font-semibold text-primary mb-6">
         {{ $question }}
         @if ($subtitle)
@@ -15,8 +15,8 @@
                 <label for="{{ $option['value'] }}"
                     class="flex flex-col h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">
                     <img src="{{ $option['image'] }}" alt="{{ $option['label'] }}"
-                        class="w-full h-32 object-cover rounded-md mb-2">
-                    <span class="text-sm text-gray-700 font-medium text-center mb-auto">{{ $option['label'] }}</span>
+                        class="w-full h-24 md:h-32 object-cover rounded-md mb-2">
+                    <span class="text-xs md:text-sm text-gray-700 font-medium text-center mb-auto">{{ $option['label'] }}</span>
                 </label>
             </div>
         @endforeach

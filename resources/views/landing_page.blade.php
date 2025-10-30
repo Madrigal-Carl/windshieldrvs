@@ -1,12 +1,11 @@
 <x-app>
     <!-- Navigation -->
-    <!-- Navigation -->
     <nav class="fixed w-full bg-primary/90 backdrop-blur-md z-50 shadow-lg p-2 md:p-0">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2">
-                <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-8">
-                <p class="text-white text-2xl font-bold">WindShield<span class="text-accent">RVS</span></p>
+                <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-6 md:w-8">
+                <p class="text-white text-lg md:text-2xl font-bold">WindShield<span class="text-accent">RVS</span></p>
             </a>
 
             <!-- Desktop Links -->
@@ -32,7 +31,7 @@
 
         <!-- Mobile Dropdown Menu -->
         <div id="mobile-menu"
-            class="hidden flex-col font-medium items-center space-y-4 bg-primary/95 px-6 py-4 md:hidden shadow-lg border-t border-white/10">
+            class="hidden flex-col text-sm font-medium items-center space-y-4 bg-primary/95 px-6 py-4 md:hidden shadow-lg border-t border-white/10">
             <a href="#home" class="text-white hover:text-accent transition">Home</a>
             <a href="#about" class="text-white hover:text-accent transition">About</a>
             <a href="#features" class="text-white hover:text-accent transition">Features</a>
@@ -48,7 +47,7 @@
 
     <!-- Hero Section -->
     <section id="home"
-        class="relative min-h-screen flex items-center bg-gradient-to-br from-dark via-primary to-secondary text-white overflow-hidden">
+        class="relative h-[650px] md:min-h-screen flex items-center bg-gradient-to-br from-dark via-primary to-secondary text-white overflow-hidden">
         <div
             class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000')] bg-cover bg-center opacity-15 mix-blend-overlay">
         </div>
@@ -70,17 +69,18 @@
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col items-center text-center py-32">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight max-w-4xl">
+                <h1 class="text-3xl md:text-7xl font-bold mb-6 leading-tight max-w-4xl">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">WindShield</span>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-accent">RVS</span>
                 </h1>
-                <p class="text-xl md:text-2xl mb-10 max-w-2xl backdrop-blur-sm bg-white/5 px-6 py-3 rounded-full">
+                <p
+                    class="text-sm md:text-2xl mb-10 max-w-3xl backdrop-blur-sm bg-white/5 px-6 py-3 md:py-5 rounded-full">
                     <span class="text-accent font-medium">Scientific</span> wind vulnerability assessment for safer
                     homes
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-2 md:gap-4">
                     <a href="/assessment"
-                        class="relative group bg-accent hover:bg-orange-600 text-white px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-xl">
+                        class="relative group bg-accent hover:bg-orange-600 text-white text-sm md:text-base px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-xl">
                         <span class="relative z-10 flex items-center justify-center gap-2">
                             <x-feathericon-clipboard class="w-5 h-5" />
                             Start Assessment
@@ -90,7 +90,7 @@
                         </div>
                     </a>
                     <a href="#about"
-                        class="relative group border-2 border-white/20 hover:border-accent text-white px-8 py-4 rounded-full font-medium transition-all">
+                        class="relative group border-2 border-white/20 hover:border-accent text-white text-sm md:text-base px-8 py-4 rounded-full font-medium transition-all">
                         <span class="relative z-10 flex items-center justify-center gap-2">
                             <x-feathericon-book-open class="w-5 h-5" />
                             Learn More
@@ -111,21 +111,23 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
+    <section id="about" class="py-16 md:py-20 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-16 text-primary">About The Project</h2>
-            <div class="flex flex-col md:flex-row items-center gap-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-16 text-primary">About The Project</h2>
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
                 <div class="md:w-1/2">
                     <div class="rounded-xl overflow-hidden shadow-lg">
                         <img src="http://static.photos/people/640x360/23" alt="Research team" class="w-full h-auto">
                     </div>
                 </div>
                 <div class="md:w-1/2">
-                    <h3 class="text-2xl font-semibold mb-4 text-dark">Understanding Wind Vulnerability</h3>
-                    <p class="mb-6 text-gray-700">This Rapid Visual Screening (RVS) tool is designed specifically for
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4 text-dark">Understanding Wind Vulnerability</h3>
+                    <p class="mb-6 text-gray-700 text-sm">This Rapid Visual Screening (RVS) tool is designed
+                        specifically for
                         one-storey concrete houses in Boac, Marinduque. Our research aims to develop a standardized
                         methodology for assessing wind vulnerability using visual indicators.</p>
-                    <p class="mb-8 text-gray-700">The tool follows guidelines from FEMA P-2062, National Structural Code
+                    <p class="mb-6 text-gray-700 text-sm">The tool follows guidelines from FEMA P-2062, National
+                        Structural Code
                         of the Philippines (NSCP), and National Building Code (NBC) to provide reliable risk assessments
                         that can inform community preparedness strategies.</p>
                     <a href="#features" class="text-accent font-medium flex items-center hover:text-orange-600">
@@ -140,18 +142,21 @@
     <!-- Features Section -->
     <section id="features" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-primary">Key Features</h2>
-            <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">Comprehensive wind vulnerability assessment
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 md:mb-4 text-primary">Key Features</h2>
+            <p class="text-center text-gray-600 mb-12 md:mb-16 max-w-2xl mx-auto text-sm">Comprehensive wind
+                vulnerability
+                assessment
                 with user-friendly interface</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div
                     class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                    <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-3 md:mb-6">
                         <x-feathericon-map class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">GIS Mapping Integration</h3>
-                    <p class="text-gray-600">View and analyze assessed locations across Boac, Marinduque with our
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">GIS Mapping Integration</h3>
+                    <p class="text-sm md:text-base text-gray-600">View and analyze assessed locations across Boac,
+                        Marinduque with our
                         interactive GIS mapping system.</p>
                 </div>
                 <!-- Feature 2 -->
@@ -160,8 +165,9 @@
                     <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                         <x-feathericon-home class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Structural Assessment</h3>
-                    <p class="text-gray-600">Evaluate critical components including roofs, walls, foundations, and
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">Structural Assessment</h3>
+                    <p class="text-sm md:text-base text-gray-600">Evaluate critical components including roofs, walls,
+                        foundations, and
                         openings for wind resistance.</p>
                 </div>
                 <!-- Feature 3 -->
@@ -170,8 +176,9 @@
                     <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                         <x-feathericon-bar-chart-2 class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Risk Scoring System</h3>
-                    <p class="text-gray-600">Automated scoring ranks houses from Very Low Risk to Very High Risk based
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">Risk Scoring System</h3>
+                    <p class="text-sm md:text-base text-gray-600">Automated scoring ranks houses from Very Low Risk to
+                        Very High Risk based
                         on structural characteristics.</p>
                 </div>
                 <!-- Feature 4 -->
@@ -180,8 +187,9 @@
                     <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                         <x-feathericon-shield class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Data Privacy Compliant</h3>
-                    <p class="text-gray-600">Adheres to RA 10173 (Data Privacy Act of 2012) ensuring all collected data
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">Data Privacy Compliant</h3>
+                    <p class="text-sm md:text-base text-gray-600">Adheres to RA 10173 (Data Privacy Act of 2012)
+                        ensuring all collected data
                         is securely handled.</p>
                 </div>
                 <!-- Feature 5 -->
@@ -190,8 +198,9 @@
                     <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                         <x-feathericon-book class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Standards-Based</h3>
-                    <p class="text-gray-600">Follows FEMA P-2062, NSCP, and NBC guidelines for reliable and
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">Standards-Based</h3>
+                    <p class="text-sm md:text-base text-gray-600">Follows FEMA P-2062, NSCP, and NBC guidelines for
+                        reliable and
                         standardized
                         assessments.</p>
                 </div>
@@ -201,8 +210,9 @@
                     <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                         <x-feathericon-cloud-rain class="w-8 h-8 text-accent" />
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Disaster Preparedness</h3>
-                    <p class="text-gray-600">Contributes to resilient housing strategies and community disaster
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 text-dark">Disaster Preparedness</h3>
+                    <p class="text-sm md:text-base text-gray-600">Contributes to resilient housing strategies and
+                        community disaster
                         preparedness planning.</p>
                 </div>
             </div>
@@ -212,8 +222,12 @@
     <!-- Map Section -->
     <section id="map" class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-primary">Explore Wind Vulnerability Data</h2>
-            <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">Visualize assessed houses across Boac,
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 md:mb-4 text-primary">Explore Wind Vulnerability
+                Data
+            </h2>
+            <p class="text-sm md:text-base text-center text-gray-600 mb-12 md:mb-16 max-w-2xl mx-auto">Visualize
+                assessed houses
+                across Boac,
                 Marinduque to guide community preparedness</p>
             <livewire:map-view />
         </div>
@@ -222,59 +236,67 @@
     <!-- How It Works Section -->
     <section id="process" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-16 text-primary">How The Assessment Works</h2>
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-start space-y-12 md:space-y-0">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 md:mb-16 text-primary">How The Assessment Works
+            </h2>
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
                 <!-- Step 1 -->
                 <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4">
                     <div
-                        class="bg-white w-20 h-20 rounded-full shadow-md flex items-center justify-center mb-6 text-accent">
-                        <span class="text-2xl font-bold">1</span>
+                        class="bg-white w-18 md:w-20 h-18 md:h-20 rounded-full shadow-md flex items-center justify-center mb-3 md:mb-6 text-accent">
+                        <span class="text-xl md:text-2xl font-bold">1</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Consent & Introduction</h3>
-                    <p class="text-gray-600">Participants agree to join the assessment and understand the process.</p>
+                    <h3 class="text-lg md:text-xl font-semibold mb-1 md:mb-3 text-dark">Consent & Introduction</h3>
+                    <p class="text-sm md:text-base text-gray-600">Participants agree to join the assessment and
+                        understand the process.</p>
                 </div>
                 <!-- Step 2 -->
                 <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4">
                     <div
-                        class="bg-white w-20 h-20 rounded-full shadow-md flex items-center justify-center mb-6 text-accent">
-                        <span class="text-2xl font-bold">2</span>
+                        class="bg-white w-18 md:w-20 h-18 md:h-20 rounded-full shadow-md flex items-center justify-center mb-3 md:mb-6 text-accent">
+                        <span class="text-xl md:text-2xl font-bold">2</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">House Information</h3>
-                    <p class="text-gray-600">Basic details including address, assessor name, and assessment date.</p>
+                    <h3 class="text-lg md:text-xl font-semibold mb-1 md:mb-3 text-dark">House Information</h3>
+                    <p class="text-sm md:text-base text-gray-600">Basic details including address, assessor name, and
+                        assessment date.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4">
                     <div
-                        class="bg-white w-20 h-20 rounded-full shadow-md flex items-center justify-center mb-6 text-accent">
-                        <span class="text-2xl font-bold">3</span>
+                        class="bg-white w-18 md:w-20 h-18 md:h-20 rounded-full shadow-md flex items-center justify-center mb-3 md:mb-6 text-accent">
+                        <span class="text-xl md:text-2xl font-bold">3</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Structural Assessment</h3>
-                    <p class="text-gray-600">Evaluation of roof, walls, foundation, openings, and other structural
+                    <h3 class="text-lg md:text-xl font-semibold mb-1 md:mb-3 text-dark">Structural Assessment</h3>
+                    <p class="text-sm md:text-base text-gray-600">Evaluation of roof, walls, foundation, openings, and
+                        other structural
                         elements.</p>
                 </div>
                 <!-- Step 4 -->
                 <div class="flex flex-col items-center text-center w-full md:w-1/4 px-4">
                     <div
-                        class="bg-white w-20 h-20 rounded-full shadow-md flex items-center justify-center mb-6 text-accent">
-                        <span class="text-2xl font-bold">4</span>
+                        class="bg-white w-18 md:w-20 h-18 md:h-20 rounded-full shadow-md flex items-center justify-center mb-3 md:mb-6 text-accent">
+                        <span class="text-xl md:text-2xl font-bold">4</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Risk Scoring</h3>
-                    <p class="text-gray-600">System generates vulnerability score and recommendations.</p>
+                    <h3 class="text-lg md:text-xl font-semibold mb-1 md:mb-3 text-dark">Risk Scoring</h3>
+                    <p class="text-sm md:text-base text-gray-600">System generates vulnerability score and
+                        recommendations.</p>
                 </div>
             </div>
-            <div class="text-center mt-16">
+            <div class="text-center mt-14 md:mt-16">
                 <a href="/assessment"
-                    class="bg-accent text-white px-8 py-3 rounded-full font-medium hover:bg-orange-600 transition inline-block">Start
+                    class="text-sm md:text-base bg-accent text-white px-8 py-3 rounded-full font-medium hover:bg-orange-600 transition inline-block">Start
                     Your Assessment</a>
             </div>
         </div>
     </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-gradient-to-br from-primary to-dark text-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Meet The Research Team</h2>
-                <p class="text-lg text-white/80 max-w-2xl mx-auto">Connect with our dedicated researchers for inquiries
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2 md:mb-4">Meet The Research Team</h2>
+                <p class="text-sm md:text-base text-white/80 max-w-2xl mx-auto">Connect with our dedicated researchers
+                    for
+                    inquiries
                     about the WindShield RVS methodology</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -357,17 +379,20 @@
             </div>
         </div>
     </section>
+
     <!-- Footer -->
     <footer class="bg-dark text-white py-12">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between">
-                <div class="mb-8 md:mb-0">
-                    <h3 class="text-2xl font-bold mb-4">WindShield<span class="text-accent">RVS</span></h3>
-                    <p class="text-gray-400 max-w-md">Marinduque State University<br>Civil Engineering Department</p>
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">WindShield<span
+                            class="text-accent">RVS</span></h3>
+                    <p class="text-sm md:text-base text-gray-400 max-w-md">Marinduque State University<br>Civil
+                        Engineering Department</p>
                 </div>
-                <div class="mb-8 md:mb-0">
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
+                <div class="mb-6 md:mb-0">
+                    <h4 class="md:text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm md:text-base">
                         <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
                         <li><a href="#about" class="text-gray-400 hover:text-white transition">About</a></li>
                         <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
@@ -376,28 +401,29 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <h4 class="text-base md:text-lg font-semibold mb-4">Connect With Us</h4>
                     <div class="flex space-x-4">
                         <a href="#"
-                            class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
+                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
                             <x-feathericon-facebook class="w-5 h-5" />
                         </a>
                         <a href="#"
-                            class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
+                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
                             <x-feathericon-twitter class="w-5 h-5" />
                         </a>
                         <a href="#"
-                            class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
+                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
                             <x-feathericon-linkedin class="w-5 h-5" />
                         </a>
                         <a href="#"
-                            class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
+                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
                             <x-feathericon-youtube class="w-5 h-5" />
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <div
+                class="border-t border-gray-800 mt-8 md:mt-12 pt-6 md:pt-8 text-center text-gray-400 text-sm md:text-base">
                 <p>© 2025 The Researchers. All Rights Reserved.</p>
             </div>
         </div>
@@ -412,3 +438,20 @@
         </a>
     </div>
 </x-app>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+
+        toggle.addEventListener('click', function() {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+            } else {
+                menu.classList.remove('flex');
+                menu.classList.add('hidden');
+            }
+        });
+    });
+</script>

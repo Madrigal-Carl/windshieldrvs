@@ -44,7 +44,7 @@ class AssessmentForm extends Component
     //     'doorwindowFrame' => 2,
 
     //     // Columns & Beams
-    //     'columnShape' => 1,
+    //     'columnsShape' => 1,
     //     'columnMade' => 2,
     //     'beamShape' => 1,
     //     'beamMade' => 3,
@@ -73,7 +73,7 @@ class AssessmentForm extends Component
     public $wallTotal, $wallType, $wallsTotal, $wallsCondition;
     public $signsTilt;
     public $doors, $doorType, $doorCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
-    public $columnsTotal, $columnShape, $columnTotal, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
+    public $columnsTotal, $columnsShape, $columnTotal, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
     public $houseShape, $houseHeight, $houseRatio;
     public $overhangTotal, $overhang, $eavesTotal, $eaves;
     public $houseNumber, $houseLocation;
@@ -221,14 +221,14 @@ class AssessmentForm extends Component
 
                 case 9:
                     $this->validate([
-                        'columnShape' => 'required',
+                        'columnsShape' => 'required',
                         'columnMade' => 'required',
                         'beams' => 'required',
                         'beamShape' => 'required',
                         'beamMade' => 'required',
                         'columnbeamCondition' => 'required',
                     ], [
-                        'columnShape.required' => 'Please specify the column type.',
+                        'columnsShape.required' => 'Please specify the column type.',
                         'columnMade.required' => 'Please specify the column material.',
                         'beams.required' => 'Please enter the total beams.',
                         'beamShape.required' => 'Please specify the beam type.',
@@ -423,11 +423,11 @@ class AssessmentForm extends Component
     // public function updatedColumns()
     // {
     //     unset(
-    //         $this->selectedOptions['columnShape'],
+    //         $this->selectedOptions['columnsShape'],
     //         $this->selectedOptions['columnMade']
     //     );
 
-    //     $this->columnShape = null;
+    //     $this->columnsShape = null;
     //     $this->columnMade = null;
 
     //     $this->dispatch('resetColumnOptions');
@@ -609,10 +609,10 @@ class AssessmentForm extends Component
         }
 
         // Step 9: Columns/Beams
-        if ($isHighRisk('columnShape', 2) || $isHighRisk('beamShape', 2)) {
+        if ($isHighRisk('columnsShape', 2) || $isHighRisk('beamShape', 2)) {
             $byStepVulns[9] = sprintf($vulnTemplate, 'Column and beam configuration');
             $byStepRecs[9] = sprintf($actionTemplate, 'column and beam system');
-        } elseif (isset($this->selectedOptions['columnShape']) || isset($this->selectedOptions['beamShape'])) {
+        } elseif (isset($this->selectedOptions['columnsShape']) || isset($this->selectedOptions['beamShape'])) {
             $byStepRecs[9] = sprintf($goodTemplate, 'Column and beam system');
         }
 
@@ -730,7 +730,7 @@ class AssessmentForm extends Component
             ['wallType' => 7, 'wallsCondition' => 3],
             ['signsTilt' => 7],
             ['doorType' => 3, 'doorCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
-            ['columnShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
+            ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
             ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
             ['overhang' => 3, 'eaves' => 2],
             ['houseNumber' => 5, 'houseLocation' => 5],

@@ -17,7 +17,7 @@
     <!-- Navigation -->
     @if ($currentStep === 1 || $currentStep >= $totalSteps)
         <a href="/" class="cursor-pointer w-14 h-14 absolute top-3 md:left-3 flex items-center justify-center">
-            <x-feathericon-arrow-left class="w-8 h-8 text-primary" />
+            <x-feathericon-arrow-left class="w-6 md:w-8 h-6 md:h-8 text-primary" />
         </a>
     @endif
 
@@ -26,8 +26,9 @@
         @if ($currentStep <= $totalSteps)
             <div class="mb-8 mt-8">
                 <div class="flex justify-between mb-2 md:mt-2">
-                    <span class="text-primary font-medium">Progress</span>
-                    <span class="text-primary font-medium">{{ $currentStep }}/{{ $totalSteps }}</span>
+                    <span class="text-primary font-medium text-sm md:text-base">Progress</span>
+                    <span
+                        class="text-primary font-medium text-sm md:text-base">{{ $currentStep }}/{{ $totalSteps }}</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
                     <div class="h-2.5 rounded-full transition-all duration-500 bg-primary"
@@ -40,105 +41,71 @@
             @if ($currentStep === 1)
                 <div class="bg-white rounded-xl shadow-md p-8">
                     <div class="text-gray-600 mb-6 space-y-4">
-                        <h2 class="text-2xl font-bold text-primary mb-4 pb-6 border-b border-gray-200">Rapid Visual
+                        <h2 class="text-lg md:text-2xl font-bold text-primary mb-4 pb-6 border-b border-gray-200">Rapid
+                            Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
-                        <p><b>Dear Ma’am/Sir,</b></p>
-                        <p><b>Greetings!</b></p>
-                        <p>
-                            We are students from the <b>Bachelor of Science in Civil Engineering at Marinduque State
-                                University (MarSU),</b> currently conducting our Capstone study entitled:
-                        </p>
-                        <p><b>“Development and Validation of a Rapid Visual Screening (RVS) Tool for Assessing Wind
-                                Vulnerability of One-Storey Concrete Houses in Boac, Marinduque.”</b></p>
-                        <p>
-                            The purpose of this study is to create a simple, practical, and standards-based tool
-                            that
-                            can
-                            help identify the level of wind vulnerability of residential houses, particularly in
-                            areas
-                            exposed to typhoons. This tool follows the guidelines set by <b>FEMA P-2062</b>, the
-                            <b>National
-                                Structural Code of the Philippines (NSCP)</b>, and the <b>National Building Code
-                                (NBC)</b>,
-                            adapted to the local context of Marinduque.
-                        </p>
-                        <p>
-                            Through this form, we respectfully invite you to take part in the assessment process.
-                            You
-                            will
-                            be asked to provide information about the structural condition of your house (such as
-                            roof,
-                            walls, foundation, openings, and other features). Each section contains simple questions
-                            in
-                            both
-                            English and Filipino to make it easier to understand. Your responses will be scored
-                            based on
-                            vulnerability levels ranging from <b>Very Low Risk (Mababa ang Panganib) to Very High
-                                Risk
-                                (Mataas ang Panganib).</b>
-                        </p>
-                        <p>
-                            By participating in this study, you will play an important role in testing and refining
-                            the
-                            <b>Rapid Visual Screening (RVS) tool</b> to ensure its accuracy and usefulness. Your
-                            involvement
-                            will also contribute to the broader efforts of disaster preparedness and resilience in
-                            Boac,
-                            Marinduque, by providing valuable information that can guide risk reduction strategies.
-                            In
-                            addition, your participation will support initiatives that aim to develop safer housing
-                            designs
-                            and preventive measures against wind hazards, ultimately helping to protect communities
-                            from
-                            the
-                            destructive impacts of typhoons.
-                        </p>
-                        <p>
+                        <p class="text-sm md:text-base break-words md:text-justify">
+                            <span class="font-bold">Dear Ma’am/Sir,</span><br><br>
+                            <span class="font-bold">Greetings!</span><br><br>
+                            We are students from the <span class="font-bold">Bachelor of Science in Civil Engineering at
+                                Marinduque State University (MarSU),</span>
+                            currently conducting our Capstone study entitled:
+                            <br><br>
+                            <span class="font-bold">“Development and Validation of a Rapid Visual Screening (RVS) Tool
+                                for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac,
+                                Marinduque.”</span>
+                            <br><br>
+                            The purpose of this study is to create a simple, practical, and standards-based tool that
+                            can help identify the level of wind vulnerability of residential houses, particularly in
+                            areas exposed to typhoons. This tool follows the guidelines set by <span
+                                class="font-bold">FEMA P-2062</span>, the <span class="font-bold">National Structural
+                                Code of the Philippines (NSCP)</span>, and the <span class="font-bold">National Building
+                                Code (NBC)</span>, adapted to the local context of Marinduque.
+                            <br><br>
+                            Through this form, we respectfully invite you to take part in the assessment process. You
+                            will be asked to provide information about the structural condition of your house (such as
+                            roof, walls, foundation, openings, and other features). Each section contains simple
+                            questions in both English and Filipino to make it easier to understand. Your responses will
+                            be scored based on vulnerability levels ranging from <span class="font-bold">Very Low Risk
+                                (Mababa ang Panganib)</span> to <span class="font-bold">Very High Risk (Mataas ang
+                                Panganib).</span>
+                            <br><br>
+                            By participating in this study, you will play an important role in testing and refining the
+                            <span class="font-bold">Rapid Visual Screening (RVS) tool</span> to ensure its accuracy and
+                            usefulness. Your involvement will also contribute to the broader efforts of disaster
+                            preparedness and resilience in Boac, Marinduque, by providing valuable information that can
+                            guide risk reduction strategies. In addition, your participation will support initiatives
+                            that aim to develop safer housing designs and preventive measures against wind hazards,
+                            ultimately helping to protect communities from the destructive impacts of typhoons.
+                            <br><br>
                             Your participation in this study is entirely voluntary. You may choose to participate or
-                            not,
-                            and your decision will be respected without any consequence. All information gathered
-                            will
-                            be
-                            treated with the highest level of confidentiality, in compliance with <b>Republic Act
-                                No.
-                                10173
-                                (Data Privacy Act of 2012).</b> The results will only be used for academic purposes
-                            and
-                            disaster risk reduction planning.
-                        </p>
-                        <p>
-                            Should you have any questions or concerns about the study, please feel free to contact
-                            us:
-                        </p>
-                        <p><b>Contact Information</b></p>
-                        <p>
-                            <b>Researcher:</b> Wilmer Anjaneya D. Imperio IV<br>
-                            <b>Email Address:</b> imperiowadi@gmail.com<br>
-                            <b>Contact No.:</b> 09453045255
-                        </p>
-                        <p>
-                            <b>Researcher:</b> Denielle Marie V. Peñaroyo<br>
-                            <b>Email Address:</b> penaroyodeniellemarie09@gmail.com<br>
-                            <b>Contact No.:</b> 09776219505
-                        </p>
-                        <p>
-                            <b>Researcher:</b> Art Heaverleen R. Ricohermoso<br>
-                            <b>Email Address:</b> artheaverleenricohermoso@gmail.com<br>
-                            <b>Contact No.:</b> 09561501511
-                        </p>
-                        <p>
-                            <b>Researcher:</b> Samuel V. Valdepeña<br>
-                            <b>Email Address:</b> samvaldepena003@gmail.com<br>
-                            <b>Contact No.:</b> 09389484323
-                        </p>
-                        <p>
-                            We sincerely thank you for your valuable time and support. With your participation, we
-                            can
+                            not, and your decision will be respected without any consequence. All information gathered
+                            will be treated with the highest level of confidentiality, in compliance with <span
+                                class="font-bold">Republic Act No. 10173 (Data Privacy Act of 2012).</span> The results
+                            will only be used for academic purposes and disaster risk reduction planning.
+                            <br><br>
+                            Should you have any questions or concerns about the study, please feel free to contact us:
+                            <br><br>
+                            <span class="font-bold">Contact Information</span><br><br>
+                            <span class="font-bold">Researcher:</span> Wilmer Anjaneya D. Imperio IV<br>
+                            <span class="font-bold">Email Address:</span> imperiowadi@gmail.com<br>
+                            <span class="font-bold">Contact No.:</span> 09453045255<br><br>
+                            <span class="font-bold">Researcher:</span> Denielle Marie V. Peñaroyo<br>
+                            <span class="font-bold">Email Address:</span> penaroyodeniellemarie09@gmail.com<br>
+                            <span class="font-bold">Contact No.:</span> 09776219505<br><br>
+                            <span class="font-bold">Researcher:</span> Art Heaverleen R. Ricohermoso<br>
+                            <span class="font-bold">Email Address:</span> artheaverleenricohermoso@gmail.com<br>
+                            <span class="font-bold">Contact No.:</span> 09561501511<br><br>
+                            <span class="font-bold">Researcher:</span> Samuel V. Valdepeña<br>
+                            <span class="font-bold">Email Address:</span> samvaldepena003@gmail.com<br>
+                            <span class="font-bold">Contact No.:</span> 09389484323
+                            <br><br>
+                            We sincerely thank you for your valuable time and support. With your participation, we can
                             help strengthen the resilience of our communities against strong winds and typhoons.
-                            Respectfully yours,
-                            The Researchers
+                            <br><br>
+                            <span class="font-bold">Respectfully yours,<br>The Researchers</span>
                         </p>
                     </div>
 
@@ -148,7 +115,7 @@
                                 <input id="terms" type="checkbox" wire:model.live="isAccepted"
                                     class="w-4 h-4 rounded-full border-2 border-secondary accent-secondary">
                             </div>
-                            <label for="terms" class="ml-2 text-sm font-medium text-gray-700 text-justify">
+                            <label for="terms" class="ml-2 text-sm font-medium text-gray-700 md:text-justify">
                                 I have read and understood the information above and agree to participate in this
                                 study.
                                 (Nabasa at naunawaan ko ang impormasyong nasa itaas at ako ay sumasang-ayon na
@@ -163,56 +130,57 @@
             @if ($currentStep === 2)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>House Information <i>(Impormasyon ng Bahay)</i></b></p>
+                        <p class="text-sm md:text-base p-8"><b>House Information <i>(Impormasyon ng Bahay)</i></b></p>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">Date</h3>
-                        <div class="relative w-1/2">
+                        <h3 class="font-semibold text-primary mb-2 md:mb-4">Date</h3>
+                        <div class="relative w-full md:w-1/2">
                             <div class="relative">
                                 <input type="text" disabled value="{{ $this->formattedDate }}"
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                    class="text-sm md:text-base peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
                                 <span
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">House ID</h3>
-                        <div class="relative w-1/2">
+                        <h3 class="font-semibold text-primary mb-2 md:mb-4">House ID</h3>
+                        <div class="relative w-full md:w-1/2">
                             <div class="relative">
                                 <input type="text" wire:model.live='houseId'
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                    class="text-sm md:text-base peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
                                 <span
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">Address / Barangay</h3>
-                        <div class="relative w-1/2">
+                        <h3 class="font-semibold text-primary mb-2 md:mb-4">Address / Barangay</h3>
+                        <div class="relative w-full md:w-1/2">
                             <div class="relative">
                                 <input type="text" wire:model.live='address'
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                    class="text-sm md:text-base peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
                                 <span
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">Assessor Name <span class="italic">(Tagasuri)</span>
+                        <h3 class="font-semibold text-primary mb-2 md:mb-4">Assessor Name <span
+                                class="italic">(Tagasuri)</span>
                             (Optional)</h3>
-                        <div class="relative w-1/2">
+                        <div class="relative w-full md:w-1/2">
                             <div class="relative">
                                 <input type="text" wire:model.live='assessorName'
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                    class="text-sm md:text-base peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
                                 <span
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
@@ -224,15 +192,16 @@
             @if ($currentStep === 3)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Roof Type & Condition <i>(Uri at Kondisyon ng Bubong)</i></b></p>
+                        <p class="text-sm md:text-base p-8"><b>Roof Type & Condition <i>(Uri at Kondisyon ng
+                                    Bubong)</i></b></p>
                     </div>
 
                     @php
@@ -376,9 +345,9 @@
 
                     @endphp
 
-                    <livewire:image-question question="1.1  What is the roof made of?" subtitle="Saan gawa ang bubong?"
-                        :options="$roofMadeOptions" model="roofMade" wire:key="roofMade-question" :maxValue="5"
-                        :value="$roofMade" />
+                    <livewire:image-question question="1.1  What is the roof made of?"
+                        subtitle="Saan gawa ang bubong?" :options="$roofMadeOptions" model="roofMade"
+                        wire:key="roofMade-question" :maxValue="5" :value="$roofMade" />
 
                     @if ($roofMade !== 'concrete-slab')
                         <livewire:image-question question="1.2 What type of roof does the house have?"
@@ -390,8 +359,9 @@
                             wire:key="roofAnchor-question" :maxValue="5" :value="$roofAnchor" />
 
                         <livewire:image-question question="1.4  What is the current condition of the roof?"
-                            subtitle="Ano ang kasalukuyang kondisyon ng bubong?" :options="$roofConditionOptions" model="roofCondition"
-                            wire:key="roofCondition-question" :maxValue="4" :value="$roofCondition" />
+                            subtitle="Ano ang kasalukuyang kondisyon ng bubong?" :options="$roofConditionOptions"
+                            model="roofCondition" wire:key="roofCondition-question" :maxValue="4"
+                            :value="$roofCondition" />
                     @endif
 
                 </div>
@@ -400,30 +370,29 @@
             @if ($currentStep === 4)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Roof- Truss <i>(Trases)</i></b></p>
+                        <p class="text-sm md:text-base p-8"><b>Roof- Truss <i>(Trases)</i></b></p>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-6">2.1 Are there roof trusses present? <span
-                                class="italic">(May trases ba na ginamit sa bubong ng bahay?)</span></h3>
+                        <h3 class="font-semibold text-primary mb-6 text-sm md:text-base">2.1 Are there roof trusses
+                            present? <span class="italic">(May trases ba na ginamit sa bubong ng bahay?)</span></h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                             <div class="relative h-full">
                                 <input type="radio" id="option-1" name="trusses" value="present"
                                     wire:model.live='truss' class="hidden peer">
-
                                 <label for="option-1"
                                     class="flex flex-col justify-center items-center h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">
                                     <img src="{{ asset('images/buildings/truss.jpg') }}"
-                                        class="w-auto h-32 object-cover rounded-md mb-2">
-                                    <span class="text-sm text-gray-700 font-medium text-center mb-auto">Yes
+                                        class="w-auto h-24 md:h-32 object-cover rounded-md mb-2">
+                                    <span class="text-xs md:text-sm text-gray-700 font-medium text-center mb-auto">Yes
                                         (Meron)</span>
                                 </label>
                             </div>
@@ -433,8 +402,8 @@
                                 <label for="option-2"
                                     class="flex flex-col justify-center items-center h-full cursor-pointer rounded-lg border border-gray-200 p-4 hover:border-secondary peer-checked:border-secondary peer-checked:ring-2 peer-checked:ring-secondary transition-all">
                                     <img src="{{ asset('images/unknown_building.png') }}"
-                                        class="w-auto h-32 object-cover rounded-md mb-2">
-                                    <span class="text-sm text-gray-700 font-medium text-center mb-auto">None
+                                        class="w-auto h-24 md:h-32 object-cover rounded-md mb-2">
+                                    <span class="text-xs md:text-sm text-gray-700 font-medium text-center mb-auto">None
                                         (Wala)</span>
                                 </label>
                             </div>
@@ -529,15 +498,16 @@
             @if ($currentStep === 5)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Roof - to - Wall Connection <i>(Koneksyon ng Bubong at Pader)</i></b>
+                        <p class="text-sm md:text-base p-8"><b>Roof - to - Wall Connection <i>(Koneksyon ng Bubong at
+                                    Pader)</i></b>
                         </p>
                     </div>
 
@@ -620,15 +590,16 @@
             @if ($currentStep === 6)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Wall Type and Integrity <i>(Uri at Integridad ng Pader)</i></b>
+                        <p class="text-sm md:text-base p-8"><b>Wall Type and Integrity <i>(Uri at Integridad ng
+                                    Pader)</i></b>
                         </p>
                     </div>
                     @php
@@ -726,15 +697,15 @@
             @if ($currentStep === 7)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House)</h2>
-                        <p class="p-8"><b>Wall-to-Foundation Connection <i>(Koneksyon ng Pader sa
+                        <p class="text-sm md:text-base p-8"><b>Wall-to-Foundation Connection <i>(Koneksyon ng Pader sa
                                     Pundasyon)</i></b>
                         </p>
                     </div>
@@ -783,26 +754,28 @@
             @if ($currentStep === 8)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Openings - Windows and Doors <i>(Mga Bintana at Pinto)</i></b>
+                        <p class="text-sm md:text-base p-8"><b>Openings - Windows and Doors <i>(Mga Bintana at
+                                    Pinto)</i></b>
                         </p>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
-                        <h3 class="font-semibold text-primary mb-4">How many doors does the house have? <i>(Ilang
+                        <h3 class="font-semibold text-primary mb-4 text-sm md:text-base">How many doors does the house
+                            have? <i>(Ilang
                                 pinto
                                 mayroon sa bahay?)</i></h3>
-                        <div class="relative w-1/2">
+                        <div class="relative w-full md:w-1/2">
                             <div class="relative">
                                 <input type="number" wire:model.live='doors' min="1"
-                                    class="peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
+                                    class=" text-sm md:text-base peer text-gray-700 border-b border-gray-300 focus:outline-none w-full bg-transparent" />
                                 <span
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
@@ -973,15 +946,16 @@
             @if ($currentStep === 9)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Column and Beam System <i>(Sistema ng mga Haligi at Biga)</i></b>
+                        <p class="text-sm md:text-base p-8"><b>Column and Beam System <i>(Sistema ng mga Haligi at
+                                    Biga)</i></b>
                         </p>
                     </div>
 
@@ -999,7 +973,7 @@
                     </div> --}}
 
                     @php
-                        $columnShapeOptions = [
+                        $columnsShapeOptions = [
                             [
                                 'value' => 'column-shape-proper',
                                 'label' => 'Proper rectangular/square well-designed (Hugis parisukat o parihaba)',
@@ -1061,11 +1035,11 @@
                         ];
                     @endphp
                     <livewire:image-question-v3 question="7.1 How many columns are there for each shape?"
-                        subtitle="Ilan ang mga haligi sa bawat hugis?" :options="$columnShapeOptions" model="columnShape"
-                        wire:key="columnShape-question" :counts="$columnShape ?? []" :maxValue="2" />
+                        subtitle="Ilan ang mga haligi sa bawat hugis?" :options="$columnsShapeOptions" model="columnsShape"
+                        wire:key="columnsShape-question" :counts="$columnsShape ?? []" :maxValue="2" />
                     {{-- <livewire:image-question-v2 question="7.1 What is the shape of the columns?"
-                        subtitle="Ano ang hugis ng haligi?" :options="$columnShapeOptions" model="columnShape"
-                        wire:key="columnShape-question" :maxValue="2" :value="$columnShape" :baseValue="$columns" /> --}}
+                        subtitle="Ano ang hugis ng haligi?" :options="$columnsShapeOptions" model="columnsShape"
+                        wire:key="columnsShape-question" :maxValue="2" :value="$columnsShape" :baseValue="$columns" /> --}}
                     <livewire:image-question-v3 question="7.2 How many columns are made from each material type?"
                         subtitle="Ilan ang mga haligi na gawa sa bawat uri ng materyales?" :options="$columnMadeOptions"
                         model="columnMade" wire:key="columnMade-question" :counts="$columnMade ?? []" :maxValue="2" />
@@ -1208,15 +1182,16 @@
             @if ($currentStep === 10)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Building Shape & Plan Configuration <i>(Hugis ng Gusali at
+                        <p class="test-sm md:text-base p-8"><b>Building Shape & Plan Configuration <i>(Hugis ng Gusali
+                                    at
                                     Plano)</i></b>
                         </p>
                     </div>
@@ -1341,15 +1316,16 @@
             @if ($currentStep === 11)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Overhangs & Eaves <i>(Bulada o Nakausling Bahagi ng Bubong)</i></b>
+                        <p class="text-sm md:text-base p-8"><b>Overhangs & Eaves <i>(Bulada o Nakausling Bahagi ng
+                                    Bubong)</i></b>
                         </p>
                     </div>
                     {{-- <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
@@ -1460,15 +1436,16 @@
             @if ($currentStep === 12)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">Rapid Visual
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">Rapid Visual
                             Screening (RVS)
                             Tool
                             for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque</h2>
                     </div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">WIND
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">WIND
                             VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House) </h2>
-                        <p class="p-8"><b>Location / Environmental Exposure <i>(Lokasyon at Kondisyon ng
+                        <p class="text-sm md:text-base p-8"><b>Location / Environmental Exposure <i>(Lokasyon at
+                                    Kondisyon ng
                                     Kapaligiran)</i></b>
                         </p>
                     </div>
@@ -1555,17 +1532,17 @@
             @if ($currentStep === 13)
                 <div class="flex flex-col gap-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 border-t-12 border-primary">
-                        <h2 class="text-2xl font-bold text-primary">
+                        <h2 class="text-xl md:text-2xl font-bold text-primary">
                             Rapid Visual Screening (RVS)
                             Tool for Assessing Wind Vulnerability of One-Storey Concrete Houses in Boac, Marinduque
                         </h2>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <h2 class="text-lg font-bold text-white p-8 bg-primary">
+                        <h2 class="md:text-lg font-bold text-white p-8 bg-primary">
                             WIND VULNERABILITY ASSESSMENT FORM — RVS (One-Storey Concrete House)
                         </h2>
-                        <p class="p-8">
+                        <p class="text-sm md:text-base p-8">
                             <b>Please pin your house location on the map below.
                                 <i>I-pin ang lokasyon ng iyong bahay sa mapa sa ibaba</i>
                             </b>
@@ -1575,12 +1552,12 @@
                     <div class="bg-white rounded-xl shadow-md overflow-hidden">
                         <div class="p-4">
                             <!-- MAP -->
-                            <div wire:ignore id="pin-map" class="w-full h-[500px] rounded-lg shadow-md"
+                            <div wire:ignore id="pin-map" class="w-full h-[350px] md:h-[500px] rounded-lg shadow-md"
                                 x-data="pinMapComponent(@this, {{ $latitude ?? 'null' }}, {{ $longitude ?? 'null' }})" x-init="initMap()"
                                 x-on:refresh-map.window="refreshMap()"></div>
 
                             <!-- LOCATION DISPLAY -->
-                            <div class="mt-4 text-sm text-gray-600 text-center">
+                            <div class="mt-4 text-xs md:text-sm text-gray-600 text-center">
                                 @if ($latitude && $longitude)
                                     📍 <b>Selected Location:</b>
                                     {{ number_format($latitude, 5) }}, {{ number_format($longitude, 5) }}
@@ -1596,11 +1573,11 @@
             @if ($currentStep === 14)
                 <div class="flex flex-col gap-4 bg-white rounded-xl shadow-md overflow-hidden pt-8 px-8">
                     <div class="text-center mb-8">
-                        <h2 class="text-2xl font-bold text-primary mb-2">Assessment Complete!</h2>
-                        <p class="text-gray-600">Your security vulnerability score</p>
+                        <h2 class="text-xl md:text-2xl font-bold text-primary mb-2">Assessment Complete!</h2>
+                        <p class="text-sm md:text-base text-gray-600">Your security vulnerability score</p>
                     </div>
 
-                    <div class="flex flex-col items-center justify-between gap-8 mb-12">
+                    <div class="flex flex-col items-center justify-between gap-4 md:gap-8 mb-12">
                         <div class="relative w-54 h-54">
                             @php
                                 [$strokeColor, $textColorClass] = match ($riskLevel) {
@@ -1622,12 +1599,13 @@
                                     stroke-linecap="round" transform="rotate(180 50 50)" />
                             </svg>
 
-
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-3xl font-bold mb-2 {{ $textColorClass }}" id="score-percentage">
+                                <span class="text-2xl md:text-3xl font-bold mb-2 {{ $textColorClass }}"
+                                    id="score-percentage">
                                     {{ $riskLevel }}
                                 </span>
-                                <span class="text-gray-500">{{ number_format($riskScore, 2) ?? 0 }}%</span>
+                                <span
+                                    class="text-gray-500 text-sm md:text-base">{{ number_format($riskScore, 2) ?? 0 }}%</span>
                             </div>
                         </div>
 
@@ -1636,7 +1614,7 @@
                         <!-- Segmented vulnerability bar (10 sections) -->
                         <div class="w-full mb-6">
                             <div
-                                class="w-full bg-gray-200 rounded-md h-8 flex relative overflow-hidden border-2 border-gray-300">
+                                class="w-full bg-gray-200 rounded-md h-6 md:h-8 flex relative overflow-hidden border-2 border-gray-300">
                                 @foreach ($sectionBars as $seg)
                                     <div style="flex: {{ $seg['weight'] }}; position: relative; min-width:0;">
                                         <!-- filled portion -->
@@ -1671,47 +1649,52 @@
                             <div class="mt-2 flex w-full text-xs text-gray-600">
                                 @foreach ($sectionBars as $seg)
                                     <div style="flex: {{ $seg['weight'] }}; text-align: center; min-width:0;">
-                                        <div class="{{ $seg['textColor'] }}">{{ $seg['overallPercent'] }}%</div>
+                                        <div class="{{ $seg['textColor'] }} text-sm md:text-base">
+                                            {{ $seg['overallPercent'] }}%</div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
 
                         <div class="flex-1 text-left">
-                            <h3 class="text-xl font-semibold text-primary mb-4 text-center">Vulnerability Rating
+                            <h3 class="text-lg md:text-xl font-semibold text-primary mb-4 text-center">
+                                Vulnerability Rating
                             </h3>
-                            <div class="mb-4">
+                            <div class="mb-2 md:mb-4">
                                 <h4 class="font-medium text-primary mb-2">Key Vulnerabilities:</h4>
                                 @if (!empty($vulnerabilities))
-                                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm md:text-base">
                                         @foreach ($vulnerabilities as $v)
                                             <li>{{ $v }}</li>
                                         @endforeach
                                     </ul>
                                 @else
-                                    <p class="text-gray-600">No specific vulnerabilities identified based on your
+                                    <p class="text-gray-600 text-sm md:text-base">No specific vulnerabilities
+                                        identified based on your
                                         answers.</p>
                                 @endif
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-2 md:mb-4">
                                 <h4 class="font-medium text-primary mb-2">Remarks:</h4>
                                 @if ($allClear)
                                     <p class="text-gray-700">{{ $remarksMessage }}</p>
                                 @elseif(!empty($recommendations))
-                                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm md:text-base">
                                         @foreach ($recommendations as $r)
                                             <li>{{ $r }}</li>
                                         @endforeach
                                     </ul>
                                 @else
-                                    <p class="text-gray-600">No specific remarks available. Review assessment
+                                    <p class="text-gray-600 text-sm md:text-base">No specific remarks available. Review
+                                        assessment
                                         details for guidance.</p>
                                 @endif
                             </div>
 
-                            <div class="mt-10">
-                                <p class="text-gray-700 text-sm">Thank you for taking the time to participate in
+                            <div class="mt-6 md:mt-10">
+                                <p class="text-gray-700 text-xs md:text-sm">Thank you for taking the time to
+                                    participate in
                                     our
                                     study.
                                     Your responses will
@@ -1724,16 +1707,15 @@
                             </div>
 
                             <div class="mt-6">
-                                <h3 class="font-medium text-primary mb-2">
+                                <h3 class="font-medium text-primary mb-2 text-sm md:text-base">
                                     Any Additional Recommendations? (Optional)
                                 </h3>
-                                <p class="text-gray-600 mb-4 text-sm">
-                                    Please share any suggestions or mitigation strategies that may help improve the
-                                    assessment.
+                                <p class="text-gray-600 mb-4 text-xs md:text-sm">
+                                    Please share any suggestions that may help improve the assessment.
                                 </p>
 
-                                <textarea id="additional-recommendations" rows="5"
-                                    class="w-full resize-none px-3 py-2 text-gray-700 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                                <textarea id="additional-recommendations" rows="6"
+                                    class="text-xs md:text-sm w-full resize-none px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                                     placeholder="E.g., Make the interface more user-friendly, add visual progress indicators, include more sample images, or improve loading speed..."></textarea>
                             </div>
                         </div>
@@ -2218,7 +2200,7 @@
                                     @php
                                         $colMax = 2 + 2 + 2 + 2 + 4;
                                         $colSum =
-                                            ($selectedOptions['columnShape'] ?? 0) +
+                                            ($selectedOptions['columnsShape'] ?? 0) +
                                             ($selectedOptions['columnMade'] ?? 0) +
                                             ($selectedOptions['beamShape'] ?? 0) +
                                             ($selectedOptions['beamMade'] ?? 0) +
@@ -2253,9 +2235,9 @@
                                         hugis ng haligi?) </p>
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
-                                            style="width: {{ (($selectedOptions['columnShape'] ?? 0) / 2) * 100 }}%;">
+                                            style="width: {{ (($selectedOptions['columnsShape'] ?? 0) / 2) * 100 }}%;">
                                             <span
-                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnShape'], 2) ?? 0 }}%</span>
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnsShape'], 2) ?? 0 }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -2526,11 +2508,11 @@
             <div id="clone-container" style="position: fixed; left: -9999px; top: 0;"></div>
 
             <!-- Navigation Buttons -->
-            <div class="flex justify-between mt-8">
+            <div class="flex justify-between mt-8 text-sm md:text-base">
                 @if ($currentStep > 1 && $currentStep < $totalSteps)
                     <button type="button" wire:click="prevStep"
                         class="cursor-pointer flex items-center px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                        <x-feathericon-chevron-left class="inline" /> Back
+                        <x-feathericon-chevron-left class="inline w-5 md:w-6 h-5 md:h-6" /> Back
                     </button>
                 @endif
 
@@ -2538,7 +2520,7 @@
                     <button type="button" id="next-btn" wire:click="nextStep"
                         class="cursor-pointer flex items-center ml-auto px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50">
                         {{ $currentStep !== $totalSteps - 1 ? 'Next' : 'Submit' }}<x-feathericon-chevron-right
-                            class="inline" />
+                            class="inline w-5 md:w-6 h-5 md:h-6" />
                     </button>
                 @endif
 
@@ -2559,9 +2541,6 @@
                 @endif
             </div>
         </div>
-        {{-- <pre class="mt-20 bg-gray-50 p-3 rounded text-xs">
-    {{ json_encode($selectedOptions, JSON_PRETTY_PRINT) }}
-</pre> --}}
     </div>
 </div>
 
@@ -2657,8 +2636,6 @@
         console.log('✅ All images sent to server');
     }
 </script>
-
-
 <script>
     document.addEventListener('livewire:init', () => {
         Livewire.on('scroll-to-top', () => {

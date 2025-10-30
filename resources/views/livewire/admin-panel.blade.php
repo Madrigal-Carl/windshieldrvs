@@ -3,15 +3,15 @@
         <!-- Top Bar (Mobile) -->
         <div class="flex w-full items-center justify-between md:justify-center">
             <a href="/admin" class="flex items-center gap-2 md:mt-6 md:mb-10">
-                <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-6 md:w-7">
-                <p class="text-white text-xl md:text-2xl font-bold tracking-wide">
+                <img src="{{ asset('images/logo_white.png') }}" alt="logo.png" class="w-5 md:w-7">
+                <p class="text-white text-lg md:text-2xl font-bold tracking-wide">
                     WindShield<span class="text-accent">RVS</span>
                 </p>
             </a>
 
             <!-- Burger Button (visible only on mobile) -->
             <button @click="isSidebarOpen = !isSidebarOpen" class="md:hidden text-white focus:outline-none">
-                <x-feathericon-menu class="w-7 h-7" />
+                <x-feathericon-menu class="md:w-7 md:h-7" />
             </button>
         </div>
 
@@ -99,15 +99,16 @@
         </button>
     </div>
 
-
-    <div class="flex-1 flex flex-col gap-6 p-8 overflow-auto h-screen bg-gray-50">
+    <div class="flex-1 flex flex-col gap-4 md:gap-6 p-6 md:p-8 overflow-auto h-screen bg-gray-50">
         @if ($activeTab === 'dashboard')
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">
+            <h1
+                class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/50 md:to-primary/20 bg-clip-text text-transparent">
                 Dashboard Overview</h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                 <!-- Total Assessments -->
-                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <div
+                    class="bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-indigo-100 text-indigo-600">
                             <x-feathericon-clipboard />
@@ -117,7 +118,7 @@
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['total'] }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="mt-2 md:mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Last 7 days</span>
                         <span
                             class="text-xs font-medium {{ $dashboardStats['total_change'] >= 0 ? 'text-green-500' : 'text-red-500' }}">
@@ -127,7 +128,8 @@
                 </div>
 
                 <!-- High Risk -->
-                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <div
+                    class="bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-red-100 text-red-600">
                             <x-feathericon-alert-triangle />
@@ -137,7 +139,7 @@
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['high_risk'] }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="mt-2 md:mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Critical issues</span>
                         <span
                             class="text-xs font-medium {{ $dashboardStats['high_risk_change'] >= 0 ? 'text-red-500' : 'text-green-500' }}">
@@ -147,7 +149,8 @@
                 </div>
 
                 <!-- Moderate Risk -->
-                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <div
+                    class="bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-yellow-100 text-yellow-600">
                             <x-feathericon-alert-circle />
@@ -157,7 +160,7 @@
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['moderate_risk'] }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="mt-2 md:mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Needs attention</span>
                         <span
                             class="text-xs font-medium {{ $dashboardStats['moderate_risk_change'] >= 0 ? 'text-yellow-500' : 'text-green-500' }}">
@@ -168,7 +171,7 @@
 
                 <!-- Low Risk -->
                 <div
-                    class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    class="bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-green-100 text-green-600">
                             <x-feathericon-check-circle />
@@ -178,7 +181,7 @@
                             <p class="text-2xl font-bold text-gray-800">{{ $dashboardStats['low_risk'] }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="mt-2 md:mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <span class="text-xs text-gray-500">Stable</span>
                         <span
                             class="text-xs font-medium {{ $dashboardStats['low_risk_change'] >= 0 ? 'text-green-500' : 'text-yellow-500' }}">
@@ -191,8 +194,9 @@
             <div class="flex flex-col lg:flex-row-reverse gap-4 md:gap-6">
                 <!-- GIS Map Section -->
                 <div class="{{ $assessments->isEmpty() ? 'w-full' : 'w-full lg:w-2/3' }}">
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-6">
-                        <h2 class="text-xl font-bold text-gray-800">GIS Map Overview</h2>
+                    <div
+                        class="bg-white rounded-xl p-3 md:p-6 shadow-sm border border-gray-100 space-y-2 md:space-y-4">
+                        <h2 class="text-lg md:text-xl font-bold text-gray-800">GIS Map Overview</h2>
                         <div class="rounded-lg overflow-hidden h-96 bg-gray-100 flex items-center justify-center">
                             <livewire:map-view />
                         </div>
@@ -201,8 +205,9 @@
                 @if (!$assessments->isEmpty())
                     <!-- Pie Chart Section -->
                     <div class="w-full lg:w-1/3">
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-fit flex flex-col">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                        <div
+                            class="bg-white rounded-xl p-3 md:p-6 shadow-sm border border-gray-100 h-fit flex flex-col">
+                            <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-2 md:mb-4">
                                 Structural Risk Breakdown
                             </h2>
                             <div id="Piechart" class="w-full flex justify-center items-center px-4" wire:ignore
@@ -260,7 +265,8 @@
                 @endif
             </div>
         @elseif ($activeTab === 'assessment')
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-primary/20 bg-clip-text text-transparent">
+            <h1
+                class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/50 md:to-primary/20 bg-clip-text text-transparent">
                 Assessment Reports</h1>
             <div class="flex flex-col space-y-4">
                 <div class="flex flex-col md:flex-row space-y-4 sm:space-y-0 md:items-center justify-between pb-4">

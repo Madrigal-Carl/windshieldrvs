@@ -1,4 +1,4 @@
-<div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+<div class="bg-white rounded-xl shadow-md overflow-hidden p-8 text-sm md:text-base">
     <h3 class="font-semibold text-primary mb-6">
         {{ $question }}
         @if ($subtitle)
@@ -11,9 +11,9 @@
             <div class="flex flex-col items-center space-y-4 p-4 w-full">
                 @if (!empty($option['image']))
                     <img src="{{ $option['image'] }}" alt="{{ $option['label'] }}"
-                        class="w-2/3 h-40 object-cover rounded-md">
+                        class="w-full md:w-2/3 h-30 md:h-42 object-cover rounded-md">
                 @endif
-                <div class="flex justify-start gap-6 w-full">
+                <div class="flex flex-col md:flex-row items-center justify-start gap-2 md:gap-6 w-full">
                     <div class="relative w-20">
                         <div class="relative">
                             <input type="number" min="0" wire:model.live="counts.{{ $option['value'] }}"
@@ -23,7 +23,8 @@
                             </span>
                         </div>
                     </div>
-                    <span class="text-sm text-gray-700 font-medium">{{ $option['label'] }}</span>
+                    <span
+                        class="text-xs md:text-sm md:text-justify text-gray-700 font-medium">{{ $option['label'] }}</span>
                 </div>
             </div>
         @endforeach
