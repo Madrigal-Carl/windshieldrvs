@@ -16,29 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-            User::factory()->create([
-                'email' => 'admin@gmail.com',
-                'password' => 'admin123',
-            ]);
-
-        // $baseLat = 13.4750;
-        // $baseLng = 121.8380;
-        // $severities = ['very-low', 'low', 'moderate', 'high', 'very-high'];
-
-        // $entries = 10;
-
-        // for ($i = 0; $i < $entries; $i++) {
-        //     if ($i < count($severities)) {
-        //         $severity = $severities[$i];
-        //     } else {
-        //         $severity = $severities[array_rand($severities)];
-        //     }
-
-        //     Assessment::create([
-        //         'latitude' => $baseLat + (rand(-50, 50) / 1000),
-        //         'longitude' => $baseLng + (rand(-50, 50) / 1000),
-        //         'severity' => $severity,
-        //     ]);
-        // }
+        User::factory()->create([
+            'email' => 'admin@gmail.com',
+            'password' => 'admin123',
+        ]);
     }
 }
