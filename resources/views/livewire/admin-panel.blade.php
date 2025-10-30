@@ -384,7 +384,7 @@
                                             'flex items-center justify-center px-3 py-1 rounded-full w-fit mx-auto',
                                             'bg-red-600' => $assessment->severity === 'very-high',
                                             'bg-orange-500' => $assessment->severity === 'high',
-                                            'bg-yellow-500' => $assessment->severity === 'moderate',
+                                            'bg-yellow-500' => $assessment->severity === 'medium',
                                             'bg-green-500' => $assessment->severity === 'low',
                                             'bg-blue-500' => $assessment->severity === 'very-low',
                                         ])>

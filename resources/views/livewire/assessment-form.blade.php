@@ -484,8 +484,9 @@
                     @endphp
 
                     @if ($truss === 'present' && $roofMade !== 'concrete-slab')
-                        <livewire:image-question question="2.2 Truss Material ?" :options="$trussMaterialOptions"
-                            model="trussMaterial" wire:key="trussMaterial-question" :maxValue="4" />
+                        <livewire:image-question question="2.2 What are the truss material?"
+                            subtitle="Saan gawa ang trases?" :options="$trussMaterialOptions" model="trussMaterial"
+                            wire:key="trussMaterial-question" :maxValue="4" />
 
                         <livewire:image-question
                             question="2.3 What is the condition of the truss connection and bracing?"
@@ -613,7 +614,7 @@
                             [
                                 'value' => 'wall-type-mixed',
                                 'label' =>
-                                    'Mixed (RC + CHB with steel reinforcement) (Magkahalong kongreto, hollow blocks at bakal)',
+                                    'Shear wall + Concrete Hollow Block (Magkahalong shear wall at concrete Hollow Block )',
                                 'image' => asset('images/buildings/wall-type-mixed.JPG'),
                                 'percentage' => 25,
                             ],
@@ -931,8 +932,8 @@
                         subtitle="Ilang uri ng bintana ang nakakabit?" :options="$windowTypeOptions" model="windowType"
                         :counts="$windowType ?? []" wire:key="windowType-question" :maxValue="3" />
 
-                    <livewire:image-question-v3 question="6.4 How many secured and anchored door/window frames?"
-                        subtitle="Ilan ang matibay at maayos ang nakakabit ang mga frame ng bintana at pinto?"
+                    <livewire:image-question-v3 question="6.4 How secured and anchored are the door/window frames?"
+                        subtitle="Matibay at maayos bang nakakabit ang mga frame ng bintana at pinto?"
                         :options="$doorwindowFrameOptions" model="doorwindowFrame" :counts="$doorwindowFrame ?? []"
                         wire:key="doorwindowFrame-question" :maxValue="2" />
                 </div>
@@ -1023,7 +1024,7 @@
                             ],
                             [
                                 'value' => 'column-condition-damaged',
-                                'label' => 'Weak or damaged material (Mga materyales na may sira o mahina)',
+                                'label' => 'Wood (Kahoy) ',
                                 'image' => asset('images/buildings/column-condition-damaged.jpg'),
                                 'percentage' => 100,
                             ],
@@ -1042,7 +1043,7 @@
                         subtitle="Anong materyales ang ginagamit sa haligi?" :options="$columnMadeOptions" model="columnMade"
                         wire:key="columnMade-question" :maxValue="2" :value="$columnMade" :baseValue="$columns" /> --}}
 
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+                    {{-- <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-4">How many beams are there? <i>(Ilang biga
                                 mayroon
                                 ang bahay?)</i></h3>
@@ -1054,7 +1055,7 @@
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @php
                         $beamShapeOptions = [
@@ -1091,7 +1092,7 @@
                             ],
                         ];
 
-                        $beamMadeOptions = [
+                        $beamsMadeOptions = [
                             [
                                 'value' => 'beam-condition-secure',
                                 'label' => 'Reinforced concrete (Kongkreto)',
@@ -1119,15 +1120,19 @@
                         ];
                     @endphp
 
-                    @if ($beams)
-                        <livewire:image-question-v2 question="7.3 What is the shape of the beams? "
-                            subtitle="Ano ang hugis ng biga?" :options="$beamShapeOptions" model="beamShape"
-                            wire:key="beamShape-question" :maxValue="2" :value="$beamShape" :baseValue="$beams" />
+                    {{-- <livewire:image-question-v2 question="7.3 What is the shape of the beams? "
+                        subtitle="Ano ang hugis ng biga?" :options="$beamShapeOptions" model="beamShape"
+                        wire:key="beamShape-question" :maxValue="2" :value="$beamShape" :baseValue="$beams" /> --}}
+                    <livewire:image-question-v3 question="7.3 What is the shape of the beams? "
+                        subtitle="Ano ang hugis ng biga?" :options="$beamShapeOptions" model="beamShape"
+                        wire:key="beamShape-question" :counts="$beamShape ?? []" :maxValue="2" />
 
-                        <livewire:image-question-v2 question="7.4 What is the material of the beams? "
-                            subtitle="Anong materyales ang ginagamit sa biga?" :options="$beamMadeOptions" model="beamMade"
-                            wire:key="beamMade-question" :maxValue="2" :value="$beamMade" :baseValue="$beams" />
-                    @endif
+                    {{-- <livewire:image-question-v2 question="7.4 What is the material of the beams? "
+                            subtitle="Anong materyales ang ginagamit sa biga?" :options="$beamsMadeOptions" model="beamsMade"
+                            wire:key="beamsMade-question" :maxValue="2" :value="$beamsMade" :baseValue="$beams" /> --}}
+                    <livewire:image-question-v3 question="7.4 What is the material of the beams? "
+                        subtitle="Anong materyales ang ginagamit sa biga?" :options="$beamsMadeOptions" model="beamsMade"
+                        wire:key="beamsMade-question" :counts="$beamsMade ?? []" :maxValue="2" />
 
                     @php
                         $columnbeamConditionOptions = [
@@ -2199,7 +2204,7 @@
                                             ($selectedOptions['columnsShape'] ?? 0) +
                                             ($selectedOptions['columnMade'] ?? 0) +
                                             ($selectedOptions['beamShape'] ?? 0) +
-                                            ($selectedOptions['beamMade'] ?? 0) +
+                                            ($selectedOptions['beamsMade'] ?? 0) +
                                             ($selectedOptions['columnbeamCondition'] ?? 0);
                                         $colFill = $colMax > 0 ? ($colSum / $colMax) * 100 : 0;
 
@@ -2269,9 +2274,9 @@
                                         materyales ang ginagamit sa biga?) </p>
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
-                                            style="width: {{ (($selectedOptions['beamMade'] ?? 0) / 3) * 100 }}%;">
+                                            style="width: {{ (($selectedOptions['beamsMade'] ?? 0) / 3) * 100 }}%;">
                                             <span
-                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamMade'], 2) ?? 0 }}%</span>
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamsMade'], 2) ?? 0 }}%</span>
                                         </div>
                                     </div>
                                 </div>

@@ -57,13 +57,13 @@ class ImageQuestionV2 extends Component
     //     }
     // }
 
-    #[On('resetBeamOptions')]
-    public function resetBeamOptions()
-    {
-        if (in_array($this->model, ['beamShape', 'beamMade'])) {
-            $this->value = '';
-        }
-    }
+    // #[On('resetBeamOptions')]
+    // public function resetBeamOptions()
+    // {
+    //     if (in_array($this->model, ['beamShape', 'beamMade'])) {
+    //         $this->value = '';
+    //     }
+    // }
 
     // #[On('resetNoEavesOptions')]
     // public function resetNoEavesOptions()

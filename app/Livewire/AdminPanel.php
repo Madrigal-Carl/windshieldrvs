@@ -110,7 +110,7 @@ class AdminPanel extends Component
         $stats = [
             'total' => Assessment::count(),
             'high_risk' => Assessment::whereIn('severity', ['high', 'very-high'])->count(),
-            'moderate_risk' => Assessment::where('severity', 'moderate')->count(),
+            'moderate_risk' => Assessment::where('severity', 'medium')->count(),
             'low_risk' => Assessment::whereIn('severity', ['low', 'very-low'])->count(),
         ];
 
@@ -129,10 +129,10 @@ class AdminPanel extends Component
             ->whereBetween('created_at', [$today->copy()->subDays(14), $today->copy()->subDays(7)])
             ->count();
 
-        $last7DaysModerate = Assessment::where('severity', 'moderate')
+        $last7DaysModerate = Assessment::where('severity', 'medium')
             ->where('created_at', '>=', $today->copy()->subDays(7))
             ->count();
-        $previous7DaysModerate = Assessment::where('severity', 'moderate')
+        $previous7DaysModerate = Assessment::where('severity', 'medium')
             ->whereBetween('created_at', [$today->copy()->subDays(14), $today->copy()->subDays(7)])
             ->count();
 

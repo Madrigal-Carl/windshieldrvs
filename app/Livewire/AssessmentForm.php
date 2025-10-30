@@ -47,7 +47,7 @@ class AssessmentForm extends Component
     //     'columnsShape' => 1,
     //     'columnMade' => 2,
     //     'beamShape' => 1,
-    //     'beamMade' => 3,
+    //     'beamsMade' => 3,
     //     'columnbeamCondition' => 3,
 
     //     // House Shape & Dimensions
@@ -73,7 +73,7 @@ class AssessmentForm extends Component
     public $wallTotal, $wallType, $wallsTotal, $wallsCondition;
     public $signsTilt;
     public $doorTotal, $doorType, $doorsTotal, $doorsCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
-    public $columnsTotal, $columnsShape, $columnTotal, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
+    public $columnsTotal, $columnsShape, $columnTotal, $columnMade, $beamTotal, $beamShape, $beamsTotal, $beamsMade, $columnbeamCondition, $columnbeamTotal;
     public $houseShape, $houseHeight, $houseRatio;
     public $overhangTotal, $overhang, $eavesTotal, $eaves;
     public $houseNumber, $houseLocation;
@@ -117,7 +117,6 @@ class AssessmentForm extends Component
                     $this->validate([
                         'houseId' => 'required',
                         'address' => 'required',
-                        'assessorName' => 'required',
                     ], [
                         'houseId.required' => 'The House ID is required.',
                         'address.required' => 'The address or barangay is required.',
@@ -218,16 +217,14 @@ class AssessmentForm extends Component
                     $this->validate([
                         'columnsShape' => 'required',
                         'columnMade' => 'required',
-                        'beams' => 'required',
                         'beamShape' => 'required',
-                        'beamMade' => 'required',
+                        'beamsMade' => 'required',
                         'columnbeamCondition' => 'required',
                     ], [
                         'columnsShape.required' => 'Please specify the column type.',
                         'columnMade.required' => 'Please specify the column material.',
-                        'beams.required' => 'Please enter the total beams.',
                         'beamShape.required' => 'Please specify the beam type.',
-                        'beamMade.required' => 'Please specify the beam material.',
+                        'beamsMade.required' => 'Please specify the beam material.',
                         'columnbeamCondition.required' => 'Please specify the number of column/beam condition.',
                     ]);
 
@@ -235,11 +232,20 @@ class AssessmentForm extends Component
                         notyf()
                             ->position('x', 'right')
                             ->position('y', 'top')
-                            ->error('The number of column shapes made must match the total number of columns.');
+                            ->error('The number of column shapes and made must match the total number of columns.');
                         return false;
                     }
+
+                    if ($this->breamsTotal !== $this->beamTotal) {
+                        notyf()
+                            ->position('x', 'right')
+                            ->position('y', 'top')
+                            ->error('The number of beam shapes and made must match the total number of beams.');
+                        return false;
+                    }
+
                     $columns = $this->columnsTotal;
-                    $beams = $this->beams;
+                    $beams = $this->beamTotal;
                     $columnbeamTotal = $this->columnbeamTotal;
                     if (($columns + $beams) !== $columnbeamTotal) {
                         notyf()
@@ -428,18 +434,18 @@ class AssessmentForm extends Component
     //     $this->dispatch('resetColumnOptions');
     // }
 
-    public function updatedBeams()
-    {
-        unset(
-            $this->selectedOptions['beamShape'],
-            $this->selectedOptions['beamMade']
-        );
+    // public function updatedBeams()
+    // {
+    //     unset(
+    //         $this->selectedOptions['beamShape'],
+    //         $this->selectedOptions['beamsMade']
+    //     );
 
-        $this->beamShape = null;
-        $this->beamMade = null;
+    //     $this->beamShape = null;
+    //     $this->beamsMade = null;
 
-        $this->dispatch('resetBeamOptions');
-    }
+    //     $this->dispatch('resetBeamOptions');
+    // }
 
     // public function updatedNoEaves()
     // {
@@ -725,7 +731,7 @@ class AssessmentForm extends Component
             ['wallType' => 7, 'wallsCondition' => 3],
             ['signsTilt' => 7],
             ['doorType' => 3, 'doorsCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
-            ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
+            ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamsMade' => 2, 'columnbeamCondition' => 4],
             ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
             ['overhang' => 3, 'eaves' => 2],
             ['houseNumber' => 5, 'houseLocation' => 5],
