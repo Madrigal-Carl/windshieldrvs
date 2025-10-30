@@ -41,13 +41,13 @@ class ImageQuestionV2 extends Component
     //     }
     // }
 
-    #[On('resetDoorOptions')]
-    public function resetDoorOptions()
-    {
-        if (in_array($this->model, ['doorType', 'doorCondition'])) {
-            $this->value = '';
-        }
-    }
+    // #[On('resetDoorOptions')]
+    // public function resetDoorOptions()
+    // {
+    //     if (in_array($this->model, ['doorType', 'doorCondition'])) {
+    //         $this->value = '';
+    //     }
+    // }
 
     // #[On('resetColumnOptions')]
     // public function resetColumnOptions()

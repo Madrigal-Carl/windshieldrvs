@@ -39,7 +39,7 @@ class AssessmentForm extends Component
 
     //     // Doors & Windows
     //     'doorType' => 2,
-    //     'doorCondition' => 2,
+    //     'doorsCondition' => 2,
     //     'windowType' => 2,
     //     'doorwindowFrame' => 2,
 
@@ -72,7 +72,7 @@ class AssessmentForm extends Component
     public $roofWallConnection, $roofWallQuality;
     public $wallTotal, $wallType, $wallsTotal, $wallsCondition;
     public $signsTilt;
-    public $doors, $doorType, $doorCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
+    public $doorTotal, $doorType, $doorsTotal, $doorsCondition, $windowTotal, $windowType, $doorwindowFrame, $doorwindowTotal;
     public $columnsTotal, $columnsShape, $columnTotal, $columnMade, $beams, $beamShape, $beamMade, $columnbeamCondition, $columnbeamTotal;
     public $houseShape, $houseHeight, $houseRatio;
     public $overhangTotal, $overhang, $eavesTotal, $eaves;
@@ -194,29 +194,24 @@ class AssessmentForm extends Component
 
                 case 8:
                     $this->validate([
-                        'doors' => 'required',
                         'doorType' => 'required',
-                        'doorCondition' => 'required',
+                        'doorsCondition' => 'required',
                         'windowType' => 'required',
                         'doorwindowFrame' => 'required',
                     ], [
-                        'doors.required' => 'Please enter the total doors.',
                         'doorType.required' => 'Please specify the door type.',
-                        'doorCondition.required' => 'Please specify the door condition.',
+                        'doorsCondition.required' => 'Please specify the door condition.',
                         'windowType.required' => 'Please specify the number of window type.',
                         'doorwindowFrame.required' => 'Please specify the number of window/door anchors.',
                     ]);
-                    $doors = $this->doors;
-                    $windowTotal = $this->windowTotal;
-                    $doorwindowTotal = $this->doorwindowTotal;
-                    if (($doors + $windowTotal) !== $doorwindowTotal) {
+
+                    if ($this->doorTotal !== $this->doorsTotal) {
                         notyf()
                             ->position('x', 'right')
                             ->position('y', 'top')
-                            ->error('The sum of Doors and Window Total should be equal to the number of Door and Window Frames.');
+                            ->error('The number of door type must match the number of door condition.');
                         return false;
                     }
-
                     break;
 
                 case 9:
@@ -394,18 +389,18 @@ class AssessmentForm extends Component
         }
     }
 
-    public function updatedDoors()
-    {
-        unset(
-            $this->selectedOptions['doorType'],
-            $this->selectedOptions['doorCondition']
-        );
+    // public function updatedDoors()
+    // {
+    //     unset(
+    //         $this->selectedOptions['doorType'],
+    //         $this->selectedOptions['doorsCondition']
+    //     );
 
-        $this->doorType = null;
-        $this->doorCondition = null;
+    //     $this->doorType = null;
+    //     $this->doorsCondition = null;
 
-        $this->dispatch('resetDoorOptions');
-    }
+    //     $this->dispatch('resetDoorOptions');
+    // }
 
     // public function updatedWalls()
     // {
@@ -601,10 +596,10 @@ class AssessmentForm extends Component
         }
 
         // Step 8: Openings
-        if ($isHighRisk('doorCondition', 3) || $isHighRisk('windowType', 3) || $isHighRisk('doorwindowFrame', 2)) {
+        if ($isHighRisk('doorsCondition', 3) || $isHighRisk('windowType', 3) || $isHighRisk('doorwindowFrame', 2)) {
             $byStepVulns[8] = sprintf($vulnTemplate, 'Door and window system');
             $byStepRecs[8] = sprintf($actionTemplate, 'door and window installations');
-        } elseif (isset($this->selectedOptions['doorCondition']) || isset($this->selectedOptions['windowType'])) {
+        } elseif (isset($this->selectedOptions['doorsCondition']) || isset($this->selectedOptions['windowType'])) {
             $byStepRecs[8] = sprintf($goodTemplate, 'Door and window system');
         }
 
@@ -729,7 +724,7 @@ class AssessmentForm extends Component
             ['roofWallConnection' => 4, 'roofWallQuality' => 4],
             ['wallType' => 7, 'wallsCondition' => 3],
             ['signsTilt' => 7],
-            ['doorType' => 3, 'doorCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
+            ['doorType' => 3, 'doorsCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
             ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamMade' => 2, 'columnbeamCondition' => 4],
             ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
             ['overhang' => 3, 'eaves' => 2],

@@ -767,7 +767,7 @@
                         </p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+                    {{-- <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
                         <h3 class="font-semibold text-primary mb-4 text-sm md:text-base">How many doors does the house
                             have? <i>(Ilang
                                 pinto
@@ -780,7 +780,7 @@
                                     class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 ease-out peer-focus:w-full peer-focus:left-0 peer-focus:h-[3px] rounded-full"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @php
                         $doorTypeOptions = [
@@ -816,7 +816,7 @@
                             ],
                         ];
 
-                        $doorConditionOptions = [
+                        $doorsConditionOptions = [
                             [
                                 'value' => 'door-condition-secure',
                                 'label' => 'Well-fitted swing/secure sliding (Maayos ang pagbukas at paglapat)',
@@ -918,28 +918,23 @@
                             ],
                         ];
                     @endphp
+                    <livewire:image-question-v3 question="6.1 What type of doors does the building have?"
+                        subtitle="Ano ang uri ng pinto ang mayroon sa gusali?" :options="$doorTypeOptions" model="doorType"
+                        :counts="$doorType ?? []" wire:key="doorType-question" :maxValue="3" />
 
-                    @if ($doors)
-                        <livewire:image-question-v2 question="6.1 What type of doors does the building have?"
-                            subtitle="Ano ang uri ng pinto ang mayroon sa gusali?" :options="$doorTypeOptions" model="doorType"
-                            wire:key="doorType-question" :maxValue="3" :value="$doorType" :baseValue="$doors" />
+                    <livewire:image-question-v3 question="6.2 Do the doors swing/slide properly and is it well sealed?"
+                        subtitle="Maayos bang bumubukas/sumasara ang pinto at seyado ba ito?" :options="$doorsConditionOptions"
+                        model="doorsCondition" :counts="$doorsCondition ?? []" wire:key="doorsCondition-question"
+                        :maxValue="2" />
 
-                        <livewire:image-question-v2
-                            question="6.2 Do the doors swing/slide properly and is it well sealed?"
-                            subtitle="Maayos bang bumubukas/sumasara ang pinto at seyado ba ito?" :options="$doorConditionOptions"
-                            model="doorCondition" wire:key="doorCondition-question" :maxValue="2"
-                            :value="$doorCondition" :baseValue="$doors" />
+                    <livewire:image-question-v3 question="6.3 How many type of windows are installed?"
+                        subtitle="Ilang uri ng bintana ang nakakabit?" :options="$windowTypeOptions" model="windowType"
+                        :counts="$windowType ?? []" wire:key="windowType-question" :maxValue="3" />
 
-                        <livewire:image-question-v3 question="6.3 How many type of windows are installed?"
-                            subtitle="Ilang uri ng bintana ang nakakabit?" :options="$windowTypeOptions" model="windowType"
-                            :counts="$windowType ?? []" wire:key="windowType-question" :maxValue="3" />
-
-                        <livewire:image-question-v3 question="6.4 How many secured and anchored door/window frames?"
-                            subtitle="Ilan ang matibay at maayos ang nakakabit ang mga frame ng bintana at pinto?"
-                            :options="$doorwindowFrameOptions" model="doorwindowFrame" :counts="$doorwindowFrame ?? []"
-                            wire:key="doorwindowFrame-question" :maxValue="2" />
-                    @endif
-
+                    <livewire:image-question-v3 question="6.4 How many secured and anchored door/window frames?"
+                        subtitle="Ilan ang matibay at maayos ang nakakabit ang mga frame ng bintana at pinto?"
+                        :options="$doorwindowFrameOptions" model="doorwindowFrame" :counts="$doorwindowFrame ?? []"
+                        wire:key="doorwindowFrame-question" :maxValue="2" />
                 </div>
             @endif
 
@@ -1417,9 +1412,9 @@
                         subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
                         model="overhang" wire:key="overhang-question" :maxValue="3" :value="$overhang"
                         :baseValue="$no_eaves" /> --}}
-                    <livewire:image-question-v3 question="9.1 How many roofs have each overhang length?"
-                        subtitle="Ilan ang mga bubong ayon sa haba ng overhang?" :options="$overhangOptions" model="overhang"
-                        wire:key="overhang-question" :counts="$overhang ?? []" :maxValue="3" />
+                    <livewire:image-question-v3 question="9.1 How long is the roof overhang?"
+                        subtitle="Gaano kahaba ang bolada o nakausling bahagi ng bubong?" :options="$overhangOptions"
+                        model="overhang" wire:key="overhang-question" :counts="$overhang ?? []" :maxValue="3" />
 
                     {{-- <livewire:image-question-v2
                         question="9.2 What is the condition of the eaves and soffits of the house?"
@@ -1427,9 +1422,10 @@
                         :options="$eavesOptions" model="eaves" wire:key="eaves-question" :maxValue="2"
                         :value="$eaves" :baseValue="$no_eaves" /> --}}
                     <livewire:image-question-v3
-                        question="9.2 How many houses have each condition of eaves and soffits?"
-                        subtitle="Ilan ang mga bahay ayon sa kondisyon ng eaves at soffits?" :options="$eavesOptions"
-                        model="eaves" wire:key="eaves-question" :counts="$eaves ?? []" :maxValue="2" />
+                        question="9.2 What is the condition of the eaves and soffits of the house?"
+                        subtitle="Ano ang kalagayan ng bolada o nakausli at ilalim na bahagi ng bubong?"
+                        :options="$eavesOptions" model="eaves" wire:key="eaves-question" :counts="$eaves ?? []"
+                        :maxValue="2" />
                 </div>
             @endif
 
@@ -2107,7 +2103,7 @@
                                         $openMax = 3 + 2 + 3 + 2;
                                         $openSum =
                                             ($selectedOptions['doorType'] ?? 0) +
-                                            ($selectedOptions['doorCondition'] ?? 0) +
+                                            ($selectedOptions['doorsCondition'] ?? 0) +
                                             ($selectedOptions['windowType'] ?? 0) +
                                             ($selectedOptions['doorwindowFrame'] ?? 0);
                                         $openFill = $openMax > 0 ? ($openSum / $openMax) * 100 : 0;
@@ -2154,9 +2150,9 @@
                                         ito?) </p>
                                     <div class="w-full bg-gray-200 h-3 rounded-lg relative">
                                         <div class="bg-accent/80 h-3 rounded-lg"
-                                            style="width: {{ (($selectedOptions['doorCondition'] ?? 0) / 2) * 100 }}%;">
+                                            style="width: {{ (($selectedOptions['doorsCondition'] ?? 0) / 2) * 100 }}%;">
                                             <span
-                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorCondition'], 2) ?? 0 }}%</span>
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorsCondition'], 2) ?? 0 }}%</span>
                                         </div>
                                     </div>
                                 </div>
