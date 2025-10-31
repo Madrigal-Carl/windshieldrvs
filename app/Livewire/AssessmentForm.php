@@ -236,7 +236,7 @@ class AssessmentForm extends Component
                         return false;
                     }
 
-                    if ($this->breamsTotal !== $this->beamTotal) {
+                    if ($this->beamsTotal !== $this->beamTotal) {
                         notyf()
                             ->position('x', 'right')
                             ->position('y', 'top')
