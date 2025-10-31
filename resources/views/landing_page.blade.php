@@ -304,7 +304,7 @@
                 <div
                     class="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-accent/50 transition-all transform hover:-translate-y-2 shadow-lg hover:shadow-xl">
                     <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/10 mx-auto mb-6">
-                        <img src="http://static.photos/people/200x200/1" alt="Researcher"
+                        <img src="{{ asset('images/cv-pics/wilmer.jpg') }}" alt="Researcher"
                             class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-lg font-semibold text-center mb-2 min-h-14">Wilmer Anjaneya D. Imperio IV</h3>
@@ -323,7 +323,7 @@
                 <div
                     class="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-accent/50 transition-all transform hover:-translate-y-2 shadow-lg hover:shadow-xl">
                     <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/10 mx-auto mb-6">
-                        <img src="http://static.photos/people/200x200/2" alt="Researcher"
+                        <img src="{{ asset('images/cv-pics/denielle.jpg') }}" alt="Researcher"
                             class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-lg font-semibold text-center mb-2 min-h-14">Denielle Marie V. Peñaroyo</h3>
@@ -342,7 +342,7 @@
                 <div
                     class="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-accent/50 transition-all transform hover:-translate-y-2 shadow-lg hover:shadow-xl">
                     <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/10 mx-auto mb-6">
-                        <img src="http://static.photos/people/200x200/3" alt="Researcher"
+                        <img src="{{ asset('images/cv-pics/art.jpg') }}" alt="Researcher"
                             class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-lg font-semibold text-center mb-2 min-h-14">Art Heaverleen R. Ricohermoso</h3>
@@ -361,7 +361,7 @@
                 <div
                     class="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-accent/50 transition-all transform hover:-translate-y-2 shadow-lg hover:shadow-xl">
                     <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/10 mx-auto mb-6">
-                        <img src="http://static.photos/people/200x200/4" alt="Researcher"
+                        <img src="{{ asset('images/cv-pics/samuel.jpg') }}" alt="Researcher"
                             class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-lg font-semibold text-center mb-2 min-h-14">Samuel V. Valdepeña</h3>
