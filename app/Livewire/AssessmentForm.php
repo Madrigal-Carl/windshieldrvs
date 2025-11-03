@@ -14,54 +14,53 @@ use Illuminate\Validation\ValidationException;
 
 class AssessmentForm extends Component
 {
-    public array $selectedOptions = [];
-    // public array $selectedOptions = [
-    //     // Roof
-    //     'roofType' => 3,
-    //     'roofMade' => 3,
-    //     'roofAnchor' => 3,
-    //     'roofCondition' => 3,
+    public array $selectedOptions = [
+        // Roof
+        'roofType' => 0,
+        'roofMade' => 0,
+        'roofAnchor' => 0,
+        'roofCondition' => 0,
 
-    //     // Truss
-    //     'trussMaterial' => 3,
-    //     'trussCondition' => 3,
+        // Truss
+        'trussMaterial' => 0,
+        'trussCondition' => 0,
 
-    //     // Roof-Wall Connection
-    //     'roofWallConnection' => 3,
-    //     'roofWallQuality' => 3,
+        // Roof-Wall Connection
+        'roofWallConnection' => 0,
+        'roofWallQuality' => 0,
 
-    //     // Walls
-    //     'wallType' => 5,
-    //     'wallsCondition' => 2,
+        // Walls
+        'wallType' => 0,
+        'wallsCondition' => 0,
 
-    //     // Tilt
-    //     'signsTilt' => 3,
+        // Tilt
+        'signsTilt' => 0,
 
-    //     // Doors & Windows
-    //     'doorType' => 2,
-    //     'doorsCondition' => 2,
-    //     'windowType' => 2,
-    //     'doorwindowFrame' => 2,
+        // Doors & Windows
+        'doorType' => 0,
+        'doorsCondition' => 0,
+        'windowType' => 0,
+        'doorwindowFrame' => 0,
 
-    //     // Columns & Beams
-    //     'columnsShape' => 1,
-    //     'columnMade' => 2,
-    //     'beamShape' => 1,
-    //     'beamsMade' => 3,
-    //     'columnbeamCondition' => 3,
+        // Columns & Beams
+        'columnsShape' => 0,
+        'columnMade' => 0,
+        'beamShape' => 0,
+        'beamsMade' => 0,
+        'columnbeamCondition' => 0,
 
-    //     // House Shape & Dimensions
-    //     'houseShape' => 3,
-    //     'houseHeight' => 1,
-    //     'houseRatio' => 2,
+        // House Shape & Dimensions
+        'houseShape' => 0,
+        'houseHeight' => 0,
+        'houseRatio' => 0,
 
-    //     // Others
-    //     'overhang' => 1,
-    //     'eaves' => 2,
+        // Others
+        'overhang' => 0,
+        'eaves' => 0,
 
-    //     'houseNumber' => 2,
-    //     'houseLocation' => 2,
-    // ];
+        'houseNumber' => 0,
+        'houseLocation' => 0,
+    ];
 
     public int $currentStep = 1;
     public int $totalSteps = 14;
@@ -346,13 +345,9 @@ class AssessmentForm extends Component
             }
 
             if ($this->currentStep === $this->totalSteps - 1) {
-                $this->evaluateAssessment();
-            }
-
-            // 👇 Before saving images, show the overlay
-            if ($this->currentStep === $this->totalSteps) {
                 $this->dispatch('show-loading-overlay');
                 $this->dispatch('triggerSaveAllSectionsToServer');
+                $this->evaluateAssessment();
             }
 
             $this->currentStep++;
@@ -394,71 +389,6 @@ class AssessmentForm extends Component
             $this->selectedOptions['trussCondition'] = 0;
         }
     }
-
-    // public function updatedDoors()
-    // {
-    //     unset(
-    //         $this->selectedOptions['doorType'],
-    //         $this->selectedOptions['doorsCondition']
-    //     );
-
-    //     $this->doorType = null;
-    //     $this->doorsCondition = null;
-
-    //     $this->dispatch('resetDoorOptions');
-    // }
-
-    // public function updatedWalls()
-    // {
-    //     unset(
-    //         $this->selectedOptions['wallType'],
-    //         $this->selectedOptions['wallsCondition']
-    //     );
-
-    //     $this->wallType = null;
-    //     $this->wallsCondition = null;
-
-    //     $this->dispatch('resetWallOptions');
-    // }
-
-    // public function updatedColumns()
-    // {
-    //     unset(
-    //         $this->selectedOptions['columnsShape'],
-    //         $this->selectedOptions['columnMade']
-    //     );
-
-    //     $this->columnsShape = null;
-    //     $this->columnMade = null;
-
-    //     $this->dispatch('resetColumnOptions');
-    // }
-
-    // public function updatedBeams()
-    // {
-    //     unset(
-    //         $this->selectedOptions['beamShape'],
-    //         $this->selectedOptions['beamsMade']
-    //     );
-
-    //     $this->beamShape = null;
-    //     $this->beamsMade = null;
-
-    //     $this->dispatch('resetBeamOptions');
-    // }
-
-    // public function updatedNoEaves()
-    // {
-    //     unset(
-    //         $this->selectedOptions['overhang'],
-    //         $this->selectedOptions['eaves']
-    //     );
-
-    //     $this->overhang = null;
-    //     $this->eaves = null;
-
-    //     $this->dispatch('resetNoEavesOptions');
-    // }
 
     #[On('optionSelected')]
     public function handleOptionSelected($field, $value, $computedValue)
@@ -517,9 +447,7 @@ class AssessmentForm extends Component
 
     public function evaluateAssessment()
     {
-        // Compute section bars first so we can derive a normalized overall percent
         $this->computeSectionBars();
-        // Prepare full report (this will re-run computeSectionBars internally but that's cheap)
         $this->prepareReport();
     }
 
@@ -839,7 +767,6 @@ class AssessmentForm extends Component
         );
     }
 
-
     public function saveImagesToStorage($images)
     {
         $paths = [];
@@ -911,9 +838,18 @@ class AssessmentForm extends Component
         Assessment::where('house_id', $this->houseId)
             ->update(['path' => $storagePath]);
 
-        return redirect()->route('download.report', ['path' => $storagePath]);
+        return response()->json([
+            'status' => 'success',
+            'path' => $storagePath,
+        ]);
     }
 
+
+    public function download()
+    {
+        $assessment = Assessment::where('house_id', $this->houseId)->first();
+        return Storage::disk('public')->download($assessment->path);
+    }
 
     public function render()
     {
