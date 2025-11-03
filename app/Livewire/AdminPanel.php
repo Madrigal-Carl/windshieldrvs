@@ -22,9 +22,32 @@ class AdminPanel extends Component
 
     public function downloadAssessment($id)
     {
-        $assessment = Assessment::findOrFail($id);
-        notyf()->position('x', 'right')->position('y', 'top')->success('Download Completed');
-        return response()->download(storage_path('app/public/' . $assessment->path));
+        $assessment = Assessment::find($id);
+
+        if (!$assessment) {
+            notyf()
+                ->position('x', 'right')
+                ->position('y', 'top')
+                ->error('Assessment not found.');
+            return back();
+        }
+
+        $filePath = storage_path('app/public/' . $assessment->path);
+
+        if (!$assessment->path || !file_exists($filePath)) {
+            notyf()
+                ->position('x', 'right')
+                ->position('y', 'top')
+                ->error('The report file is not available for download.');
+            return back();
+        }
+
+        notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->success('Download Completed');
+
+        return response()->download($filePath);
     }
 
     public function deleteAssessment($id)
