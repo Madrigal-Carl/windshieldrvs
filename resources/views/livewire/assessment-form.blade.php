@@ -1724,805 +1724,809 @@
                 </div>
             @endif
 
-            <div
-                class="rounded-xl shadow-md w-full overflow-hidden mt-8 md:mt-0 pb-8 bg-white {{ $currentStep > $totalSteps ? '' : 'hidden' }}">
-                <div class="bg-primary p-6">
-                    <h1 class="text-xl md:text-2xl font-bold text-white">Detailed Wind Vulnerability Report</h1>
-                    <p class="text-sm md:text-base text-gray-200 mt-1">Structural Assessment</p>
-                </div>
-
-                <!-- Content -->
-                <div class="p-6 md:p-8 space-y-10">
-                    <div class="capture-section flex justify-between w-full" id="section-1">
-                        <div class="w-full md:w-2/3 text-xs md:text-base">
-                            <p>House ID: {{ $houseId ?? '' }}</p>
-                            <p>Assessor Name: {{ $assessorName ?? '' }}</p>
-                        </div>
-                        <div class="w-full md:w-1/3 text-xs md:text-base">
-                            <p>Date: {{ $this->formattedDate }}</p>
-                            <p>Address: {{ $address ?? '' }}</p>
-                        </div>
+            @if ($currentStep >= 14)
+                <div
+                    class="rounded-xl shadow-md w-full overflow-hidden mt-8 md:mt-0 pb-8 bg-white {{ $currentStep > $totalSteps ? '' : 'hidden' }}">
+                    <div class="bg-primary p-6">
+                        <h1 class="text-xl md:text-2xl font-bold text-white">Detailed Wind Vulnerability Report</h1>
+                        <p class="text-sm md:text-base text-gray-200 mt-1">Structural Assessment</p>
                     </div>
 
-                    <div class="capture-section space-y-6" id="section-2">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">1. Roof Type & Condition (Uri at
-                                Kondisyon ng
-                                Bubong)</h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    20%</span>
-                                @php
-                                    $roofMax = 5 + 6 + 5 + 4;
-                                    $roofSum =
-                                        ($selectedOptions['roofMade'] ?? 0) +
-                                        ($selectedOptions['roofType'] ?? 0) +
-                                        ($selectedOptions['roofAnchor'] ?? 0) +
-                                        ($selectedOptions['roofCondition'] ?? 0);
-                                    $roofFill = $roofMax > 0 ? ($roofSum / $roofMax) * 100 : 0;
-
-                                    $risk = risk_style($roofFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
+                    <!-- Content -->
+                    <div class="p-6 md:p-8 space-y-10">
+                        <div class="capture-section flex justify-between w-full" id="section-1">
+                            <div class="w-full md:w-2/3 text-xs md:text-base">
+                                <p>House ID: {{ $houseId ?? '' }}</p>
+                                <p>Assessor Name: {{ $assessorName ?? '' }}</p>
+                            </div>
+                            <div class="w-full md:w-1/3 text-xs md:text-base">
+                                <p>Date: {{ $this->formattedDate }}</p>
+                                <p>Address: {{ $address ?? '' }}</p>
                             </div>
                         </div>
 
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $roofFill }}%;">
-                                    <span class="text-xs text-white mr-2">
-                                        {{ round($roofSum, 2) }}%
+                        <div class="capture-section space-y-6" id="section-2">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">1. Roof Type & Condition (Uri at
+                                    Kondisyon ng
+                                    Bubong)</h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        20%</span>
+                                    @php
+                                        $roofMax = 5 + 6 + 5 + 4;
+                                        $roofSum =
+                                            ($selectedOptions['roofMade'] ?? 0) +
+                                            ($selectedOptions['roofType'] ?? 0) +
+                                            ($selectedOptions['roofAnchor'] ?? 0) +
+                                            ($selectedOptions['roofCondition'] ?? 0);
+                                        $roofFill = $roofMax > 0 ? ($roofSum / $roofMax) * 100 : 0;
+
+                                        $risk = risk_style($roofFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
                                     </span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <!-- 1.1 -->
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">1.1 What is the roof made
-                                    of?
-                                    (Saan gawa
-                                    ang Bubong?)</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofMade'] ?? 0) / 5) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofMade'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 1.2 -->
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">1.2 What Type of roof does
-                                    the
-                                    house have?
-                                    (Ano ang uri ng bubong ng bahay?)</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofType'] ?? 0) / 6) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofType'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 1.3 -->
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">1.3 How is the roof
-                                    anchored
-                                    to the
-                                    structure?
-                                    (Paano nakakabit ang bubong sa istruktura?)</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofAnchor'] ?? 0) / 5) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofAnchor'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 1.4 -->
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">1.4 What is the current
-                                    condition of the
-                                    roof?
-                                    (Ano ang kasalukuyang kondisyon ng bubong?)</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofCondition'] ?? 0) / 4) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofCondition'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-3">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">2. Roof-Truss (Trases)</h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    10%</span>
-                                @php
-                                    $trussMax = 4 + 6; // trussMaterial + trussCondition
-                                    $trussSum =
-                                        ($selectedOptions['trussMaterial'] ?? 0) +
-                                        ($selectedOptions['trussCondition'] ?? 0);
-                                    $trussFill = $trussMax > 0 ? ($trussSum / $trussMax) * 100 : 0;
-
-                                    $risk = risk_style($trussFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $trussFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($trussSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            {{-- 2.1 remains as N/A control if used --}}
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">2.1 Are there roof trusses
-                                    present? (May
-                                    trases ba na ginamit sa bubong ng bahay?)</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg w-[0%]">
-                                        <span class="absolute text-xs -right-0 top-3.5 text-gray-500">N/A</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-1">
-                                <p class="text-sm text-gray-700 font-medium">2.2 Truss Material</p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['trussMaterial'] ?? 0) / 4) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['trussMaterial'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">2.3 What is the condition
-                                    of
-                                    the truss
-                                    connection and bracing? (Ano ang kalagayan ng mga dugtungan at brace ng
-                                    trases?)
-                                </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['trussCondition'] ?? 0) / 6) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['trussCondition'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-4">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">3. Roof – to – Wall Connection
-                                (Koneksyon ng
-                                Bubong
-                                at Pader)</h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-sm text-gray-500">Total Vulnerability Score: 8%</span>
-                                @php
-                                    $rwcMax = 4 + 4; // roofWallConnection + roofWallQuality
-                                    $rwcSum =
-                                        ($selectedOptions['roofWallConnection'] ?? 0) +
-                                        ($selectedOptions['roofWallQuality'] ?? 0);
-                                    $rwcFill = $rwcMax > 0 ? ($rwcSum / $rwcMax) * 100 : 0;
-
-                                    $risk = risk_style($rwcFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $rwcFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($rwcSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">3.1 Are there proper
-                                    roof-to-wall
-                                    connections
-                                    (ties/anchors)? (Mayroon bang wastong ties o anchor bolts sa bubong at
-                                    pader?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofWallConnection'] ?? 0) / 4) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofWallConnection'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">3.2 What is the quality of
-                                    the
-                                    roof-to-wall
-                                    fasteners (nails, screws, bolts)? (Ano ang kalidad ng mga fasteners
-                                    (pako, turnilyo
-                                    at
-                                    bolts)?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['roofWallQuality'] ?? 0) / 4) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofWallQuality'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-5">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">4. Wall Type and Integrity (Uri at
-                                Integridad ng
-                                Pader) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    10%</span>
-                                @php
-                                    $wallsMax = 7 + 3; // wallType + wallsCondition
-                                    $wallsSum =
-                                        ($selectedOptions['wallType'] ?? 0) + ($selectedOptions['wallsCondition'] ?? 0);
-                                    $wallsFill = $wallsMax > 0 ? ($wallsSum / $wallsMax) * 100 : 0;
-
-                                    $risk = risk_style($wallsFill);
-                                @endphp
-                                <span
-                                    class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $wallsFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($wallsSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">4.1 What type of material
-                                    are
-                                    the walls
-                                    made of? (Anong materyales ang ginamit sa pader?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['wallType'] ?? 0) / 7) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallType'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">4.2 What is the condition
-                                    of
-                                    the walls?
-                                    (Ano
-                                    ang kondisyon ng pader?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['wallsCondition'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallsCondition'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-6">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">5. Wall-to-Foundation Connection
-                                (Koneksyon ng
-                                Pader
-                                sa Pundasyon) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 7%</span>
-                                @php
-                                    $tiltMax = 7; // signsTilt
-                                    $tiltSum = $selectedOptions['signsTilt'] ?? 0;
-                                    $tiltFill = $tiltMax > 0 ? ($tiltSum / $tiltMax) * 100 : 0;
-
-                                    $risk = risk_style($tiltFill);
-                                @endphp
-                                <span
-                                    class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $tiltFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($tiltSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">5.1 Are there signs of
-                                    settlement or tilt?
-                                    (Mayroon bang sensyales ng paglubog ng lupa o pagtagilid ng pader?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['signsTilt'] ?? 0) / 7) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['signsTilt'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-7">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">6. Openings - Windows and Doors (Mga
-                                Bintana at
-                                Pinto) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    10%</span>
-                                @php
-                                    $openMax = 3 + 2 + 3 + 2;
-                                    $openSum =
-                                        ($selectedOptions['doorType'] ?? 0) +
-                                        ($selectedOptions['doorsCondition'] ?? 0) +
-                                        ($selectedOptions['windowType'] ?? 0) +
-                                        ($selectedOptions['doorwindowFrame'] ?? 0);
-                                    $openFill = $openMax > 0 ? ($openSum / $openMax) * 100 : 0;
-
-                                    $risk = risk_style($openFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $openFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($openSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">6.1 What type of doors does
-                                    the building
-                                    have?
-                                    (Ano ang uri ng pinto ang mayroon sa gusali?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['doorType'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorType'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">6.2 Do the doors
-                                    swing/slide
-                                    properly and
-                                    is
-                                    it well sealed? (Maayos bang bumubukas/sumasara ang pinto at seyado ba
-                                    ito?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['doorsCondition'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorsCondition'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">6.3 What type of windows
-                                    are
-                                    installed?
-                                    (Anong
-                                    uri ng bintana ang nakakabit?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['windowType'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['windowType'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">6.4 How secure and anchored
-                                    are the
-                                    door/window frames? (Matibay at maayos bang nakakabit ang mga frame ng
-                                    bintana at
-                                    pinto?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['doorwindowFrame'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorwindowFrame'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-8">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">7. Column and Beam System (Sistema
-                                ng mga Haligi
-                                at Biga) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    12%</span>
-                                @php
-                                    $colMax = 2 + 2 + 2 + 2 + 4;
-                                    $colSum =
-                                        ($selectedOptions['columnsShape'] ?? 0) +
-                                        ($selectedOptions['columnMade'] ?? 0) +
-                                        ($selectedOptions['beamShape'] ?? 0) +
-                                        ($selectedOptions['beamsMade'] ?? 0) +
-                                        ($selectedOptions['columnbeamCondition'] ?? 0);
-                                    $colFill = $colMax > 0 ? ($colSum / $colMax) * 100 : 0;
-
-                                    $risk = risk_style($colFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $colFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ $colSum }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">7.1 What is the shape of
-                                    the
-                                    columns? (Ano
-                                    ang
-                                    hugis ng haligi?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['columnsShape'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnsShape'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">7.2 What is the material of
-                                    the columns?
-                                    (Anong materyales ang ginagamit sa haligi?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['columnMade'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnMade'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">7.3 What is the shape of
-                                    the
-                                    beams? (Ano
-                                    ang
-                                    hugis ng biga?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['beamShape'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamShape'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">7.4 What is the material of
-                                    the beams?
-                                    (Anong
-                                    materyales ang ginagamit sa biga?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['beamsMade'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamsMade'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">7.5 What is the current
-                                    condition of the
-                                    coumn/beams? (Ano ang kondisyon ng haligi at beam?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div
-                                        class="bg-accent/80 h-3 rounded-lg w-[{{ (($selectedOptions['columnbeamCondition'] ?? 0) / 6) * 100 }}%]">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnbeamCondition'], 2) ?? 0 }}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="capture-section space-y-6" id="section-9">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">8. Building Shape & Plan
-                                Configuration (Hugis ng
-                                Gusali at Plano) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 8%</span>
-                                @php
-                                    $geomMax = 3 + 3 + 2;
-                                    $geomSum =
-                                        ($selectedOptions['houseShape'] ?? 0) +
-                                        ($selectedOptions['houseHeight'] ?? 0) +
-                                        ($selectedOptions['houseRatio'] ?? 0);
-                                    $geomFill = $geomMax > 0 ? ($geomSum / $geomMax) * 100 : 0;
-
-                                    $risk = risk_style($geomFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $geomFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($geomSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">8.1 What is the shape of
-                                    the
-                                    house? (Ano
-                                    ang hugis ng bahay?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg relative"
-                                        style="width: {{ (($selectedOptions['houseShape'] ?? 0) / 3) * 100 }}%;">
-                                        <span class="absolute text-xs -right-0 top-3.5 text-gray-500">
-                                            {{ round($selectedOptions['houseShape'], 2) ?? 0 }}%
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $roofFill }}%;">
+                                        <span class="text-xs text-white mr-2">
+                                            {{ round($roofSum, 2) }}%
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">8.2 How tall is your house?
-                                    (Gaano katas
-                                    ang
-                                    bahay?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['houseHeight'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseHeight'], 2) ?? 0 }}%</span>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <!-- 1.1 -->
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">1.1 What is the roof made
+                                        of?
+                                        (Saan gawa
+                                        ang Bubong?)</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofMade'] ?? 0) / 5) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofMade'], 2) ?? 0 }}%</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">8.3 What is the aspect
-                                    ratio
-                                    of the house
-                                    (Height: Width) (Ano ang proporsyon ng sukat ng taas at lapad ng bahay?)
-                                </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['houseRatio'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseRatio'], 2) ?? 0 }}%</span>
+
+                                <!-- 1.2 -->
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">1.2 What Type of roof does
+                                        the
+                                        house have?
+                                        (Ano ang uri ng bubong ng bahay?)</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofType'] ?? 0) / 6) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofType'], 2) ?? 0 }}%</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="capture-section space-y-6" id="section-10">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">9. Overhangs & Eaves (Bulada o
-                                Nakausling Bahagi
-                                ng Bubong)</h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 5%</span>
-                                @php
-                                    $overMax = 3 + 2; // overhang + eaves
-                                    $overSum = ($selectedOptions['overhang'] ?? 0) + ($selectedOptions['eaves'] ?? 0);
-                                    $overFill = $overMax > 0 ? ($overSum / $overMax) * 100 : 0;
-
-                                    $risk = risk_style($overFill);
-                                @endphp
-                                <span
-                                    class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $overFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($overSum, 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">9.1 How long is the roof
-                                    overhang? (Gaano
-                                    kahaba ang bolada o nakausling bahagi ng bubong?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['overhang'] ?? 0) / 3) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['overhang'], 2) ?? 0 }}%</span>
+                                <!-- 1.3 -->
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">1.3 How is the roof
+                                        anchored
+                                        to the
+                                        structure?
+                                        (Paano nakakabit ang bubong sa istruktura?)</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofAnchor'] ?? 0) / 5) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofAnchor'], 2) ?? 0 }}%</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">9.2 What is the condition
-                                    of
-                                    the eaves and
-                                    soffits of the house? (Ano ang kalagayan ng bolada o nakausli at ilalim
-                                    na bahagi ng
-                                    bubong?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['eaves'] ?? 0) / 2) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['eaves'], 2) ?? 0 }}%</span>
+
+                                <!-- 1.4 -->
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">1.4 What is the current
+                                        condition of the
+                                        roof?
+                                        (Ano ang kasalukuyang kondisyon ng bubong?)</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofCondition'] ?? 0) / 4) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofCondition'], 2) ?? 0 }}%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="capture-section space-y-6" id="section-11">
-                        <div class="border-l-4 border-accent pl-4">
-                            <h2 class="md:text-lg font-bold text-primary">10. Location / Environmental
-                                Exposure (Lokasyon
-                                at
-                                Kondisyon ng Kapaligiran) </h2>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
-                                    10%</span>
-                                @php
-                                    $locMax = 5 + 5;
-                                    $locSum =
-                                        ($selectedOptions['houseNumber'] ?? 0) +
-                                        ($selectedOptions['houseLocation'] ?? 0);
-                                    $locFill = $locMax > 0 ? ($locSum / $locMax) * 100 : 0;
+                        <div class="capture-section space-y-6" id="section-3">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">2. Roof-Truss (Trases)</h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        10%</span>
+                                    @php
+                                        $trussMax = 4 + 6; // trussMaterial + trussCondition
+                                        $trussSum =
+                                            ($selectedOptions['trussMaterial'] ?? 0) +
+                                            ($selectedOptions['trussCondition'] ?? 0);
+                                        $trussFill = $trussMax > 0 ? ($trussSum / $trussMax) * 100 : 0;
 
-                                    $risk = risk_style($locFill);
-                                @endphp
-                                <span
-                                    class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
-                                    {{ $risk['label'] }} Vulnerability
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="pb-2">
-                            <div class="w-full bg-gray-200 h-4 rounded-lg">
-                                <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
-                                    style="width: {{ $locFill }}%;">
-                                    <span class="text-xs text-white mr-1">{{ round($locSum, 2) }}%</span>
+                                        $risk = risk_style($trussFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Sub-questions -->
-                        <div class="pl-6 space-y-5 border-l-2 border-gray-100">
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">10.1 How would you describe
-                                    the number of
-                                    houses in your area? (Paano mo ilalarawan ang dami ng bahay sa inyong
-                                    lugar/) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width: {{ (($selectedOptions['houseNumber'] ?? 0) / 5) * 100 }}%;">
-                                        <span
-                                            class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseNumber'], 2) ?? 0 }}%</span>
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $trussFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($trussSum, 2) }}%</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="space-y-1">
-                                <p class="text-xs md:text-sm text-gray-700 font-medium">10.2 Where is the location
-                                    of
-                                    your house?
-                                    (Saan matatagpuan ang inyong bahay?) </p>
-                                <div class="w-full bg-gray-200 h-3 rounded-lg relative">
-                                    <div class="bg-accent/80 h-3 rounded-lg"
-                                        style="width:
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                {{-- 2.1 remains as N/A control if used --}}
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">2.1 Are there roof trusses
+                                        present? (May
+                                        trases ba na ginamit sa bubong ng bahay?)</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg w-[0%]">
+                                            <span class="absolute text-xs -right-0 top-3.5 text-gray-500">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-sm text-gray-700 font-medium">2.2 Truss Material</p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['trussMaterial'] ?? 0) / 4) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['trussMaterial'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">2.3 What is the condition
+                                        of
+                                        the truss
+                                        connection and bracing? (Ano ang kalagayan ng mga dugtungan at brace ng
+                                        trases?)
+                                    </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['trussCondition'] ?? 0) / 6) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['trussCondition'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-4">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">3. Roof – to – Wall Connection
+                                    (Koneksyon ng
+                                    Bubong
+                                    at Pader)</h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-sm text-gray-500">Total Vulnerability Score: 8%</span>
+                                    @php
+                                        $rwcMax = 4 + 4; // roofWallConnection + roofWallQuality
+                                        $rwcSum =
+                                            ($selectedOptions['roofWallConnection'] ?? 0) +
+                                            ($selectedOptions['roofWallQuality'] ?? 0);
+                                        $rwcFill = $rwcMax > 0 ? ($rwcSum / $rwcMax) * 100 : 0;
+
+                                        $risk = risk_style($rwcFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $rwcFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($rwcSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">3.1 Are there proper
+                                        roof-to-wall
+                                        connections
+                                        (ties/anchors)? (Mayroon bang wastong ties o anchor bolts sa bubong at
+                                        pader?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofWallConnection'] ?? 0) / 4) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofWallConnection'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">3.2 What is the quality of
+                                        the
+                                        roof-to-wall
+                                        fasteners (nails, screws, bolts)? (Ano ang kalidad ng mga fasteners
+                                        (pako, turnilyo
+                                        at
+                                        bolts)?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['roofWallQuality'] ?? 0) / 4) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['roofWallQuality'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-5">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">4. Wall Type and Integrity (Uri at
+                                    Integridad ng
+                                    Pader) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        10%</span>
+                                    @php
+                                        $wallsMax = 7 + 3; // wallType + wallsCondition
+                                        $wallsSum =
+                                            ($selectedOptions['wallType'] ?? 0) +
+                                            ($selectedOptions['wallsCondition'] ?? 0);
+                                        $wallsFill = $wallsMax > 0 ? ($wallsSum / $wallsMax) * 100 : 0;
+
+                                        $risk = risk_style($wallsFill);
+                                    @endphp
+                                    <span
+                                        class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $wallsFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($wallsSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">4.1 What type of material
+                                        are
+                                        the walls
+                                        made of? (Anong materyales ang ginamit sa pader?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['wallType'] ?? 0) / 7) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallType'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">4.2 What is the condition
+                                        of
+                                        the walls?
+                                        (Ano
+                                        ang kondisyon ng pader?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['wallsCondition'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['wallsCondition'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-6">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">5. Wall-to-Foundation Connection
+                                    (Koneksyon ng
+                                    Pader
+                                    sa Pundasyon) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 7%</span>
+                                    @php
+                                        $tiltMax = 7; // signsTilt
+                                        $tiltSum = $selectedOptions['signsTilt'] ?? 0;
+                                        $tiltFill = $tiltMax > 0 ? ($tiltSum / $tiltMax) * 100 : 0;
+
+                                        $risk = risk_style($tiltFill);
+                                    @endphp
+                                    <span
+                                        class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $tiltFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($tiltSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">5.1 Are there signs of
+                                        settlement or tilt?
+                                        (Mayroon bang sensyales ng paglubog ng lupa o pagtagilid ng pader?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['signsTilt'] ?? 0) / 7) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['signsTilt'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-7">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">6. Openings - Windows and Doors (Mga
+                                    Bintana at
+                                    Pinto) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        10%</span>
+                                    @php
+                                        $openMax = 3 + 2 + 3 + 2;
+                                        $openSum =
+                                            ($selectedOptions['doorType'] ?? 0) +
+                                            ($selectedOptions['doorsCondition'] ?? 0) +
+                                            ($selectedOptions['windowType'] ?? 0) +
+                                            ($selectedOptions['doorwindowFrame'] ?? 0);
+                                        $openFill = $openMax > 0 ? ($openSum / $openMax) * 100 : 0;
+
+                                        $risk = risk_style($openFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $openFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($openSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">6.1 What type of doors does
+                                        the building
+                                        have?
+                                        (Ano ang uri ng pinto ang mayroon sa gusali?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['doorType'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorType'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">6.2 Do the doors
+                                        swing/slide
+                                        properly and
+                                        is
+                                        it well sealed? (Maayos bang bumubukas/sumasara ang pinto at seyado ba
+                                        ito?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['doorsCondition'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorsCondition'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">6.3 What type of windows
+                                        are
+                                        installed?
+                                        (Anong
+                                        uri ng bintana ang nakakabit?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['windowType'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['windowType'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">6.4 How secure and anchored
+                                        are the
+                                        door/window frames? (Matibay at maayos bang nakakabit ang mga frame ng
+                                        bintana at
+                                        pinto?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['doorwindowFrame'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['doorwindowFrame'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-8">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">7. Column and Beam System (Sistema
+                                    ng mga Haligi
+                                    at Biga) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        12%</span>
+                                    @php
+                                        $colMax = 2 + 2 + 2 + 2 + 4;
+                                        $colSum =
+                                            ($selectedOptions['columnsShape'] ?? 0) +
+                                            ($selectedOptions['columnMade'] ?? 0) +
+                                            ($selectedOptions['beamShape'] ?? 0) +
+                                            ($selectedOptions['beamsMade'] ?? 0) +
+                                            ($selectedOptions['columnbeamCondition'] ?? 0);
+                                        $colFill = $colMax > 0 ? ($colSum / $colMax) * 100 : 0;
+
+                                        $risk = risk_style($colFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $colFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ $colSum }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">7.1 What is the shape of
+                                        the
+                                        columns? (Ano
+                                        ang
+                                        hugis ng haligi?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['columnsShape'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnsShape'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">7.2 What is the material of
+                                        the columns?
+                                        (Anong materyales ang ginagamit sa haligi?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['columnMade'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnMade'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">7.3 What is the shape of
+                                        the
+                                        beams? (Ano
+                                        ang
+                                        hugis ng biga?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['beamShape'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamShape'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">7.4 What is the material of
+                                        the beams?
+                                        (Anong
+                                        materyales ang ginagamit sa biga?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['beamsMade'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['beamsMade'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">7.5 What is the current
+                                        condition of the
+                                        coumn/beams? (Ano ang kondisyon ng haligi at beam?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div
+                                            class="bg-accent/80 h-3 rounded-lg w-[{{ (($selectedOptions['columnbeamCondition'] ?? 0) / 6) * 100 }}%]">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['columnbeamCondition'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-9">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">8. Building Shape & Plan
+                                    Configuration (Hugis ng
+                                    Gusali at Plano) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 8%</span>
+                                    @php
+                                        $geomMax = 3 + 3 + 2;
+                                        $geomSum =
+                                            ($selectedOptions['houseShape'] ?? 0) +
+                                            ($selectedOptions['houseHeight'] ?? 0) +
+                                            ($selectedOptions['houseRatio'] ?? 0);
+                                        $geomFill = $geomMax > 0 ? ($geomSum / $geomMax) * 100 : 0;
+
+                                        $risk = risk_style($geomFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $geomFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($geomSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">8.1 What is the shape of
+                                        the
+                                        house? (Ano
+                                        ang hugis ng bahay?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg relative"
+                                            style="width: {{ (($selectedOptions['houseShape'] ?? 0) / 3) * 100 }}%;">
+                                            <span class="absolute text-xs -right-0 top-3.5 text-gray-500">
+                                                {{ round($selectedOptions['houseShape'], 2) ?? 0 }}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">8.2 How tall is your house?
+                                        (Gaano katas
+                                        ang
+                                        bahay?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['houseHeight'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseHeight'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">8.3 What is the aspect
+                                        ratio
+                                        of the house
+                                        (Height: Width) (Ano ang proporsyon ng sukat ng taas at lapad ng bahay?)
+                                    </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['houseRatio'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseRatio'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-10">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">9. Overhangs & Eaves (Bulada o
+                                    Nakausling Bahagi
+                                    ng Bubong)</h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score: 5%</span>
+                                    @php
+                                        $overMax = 3 + 2; // overhang + eaves
+                                        $overSum =
+                                            ($selectedOptions['overhang'] ?? 0) + ($selectedOptions['eaves'] ?? 0);
+                                        $overFill = $overMax > 0 ? ($overSum / $overMax) * 100 : 0;
+
+                                        $risk = risk_style($overFill);
+                                    @endphp
+                                    <span
+                                        class="text-[.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $overFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($overSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">9.1 How long is the roof
+                                        overhang? (Gaano
+                                        kahaba ang bolada o nakausling bahagi ng bubong?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['overhang'] ?? 0) / 3) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['overhang'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">9.2 What is the condition
+                                        of
+                                        the eaves and
+                                        soffits of the house? (Ano ang kalagayan ng bolada o nakausli at ilalim
+                                        na bahagi ng
+                                        bubong?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['eaves'] ?? 0) / 2) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['eaves'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="capture-section space-y-6" id="section-11">
+                            <div class="border-l-4 border-accent pl-4">
+                                <h2 class="md:text-lg font-bold text-primary">10. Location / Environmental
+                                    Exposure (Lokasyon
+                                    at
+                                    Kondisyon ng Kapaligiran) </h2>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-xs md:text-sm text-gray-500">Total Vulnerability Score:
+                                        10%</span>
+                                    @php
+                                        $locMax = 5 + 5;
+                                        $locSum =
+                                            ($selectedOptions['houseNumber'] ?? 0) +
+                                            ($selectedOptions['houseLocation'] ?? 0);
+                                        $locFill = $locMax > 0 ? ($locSum / $locMax) * 100 : 0;
+
+                                        $risk = risk_style($locFill);
+                                    @endphp
+                                    <span
+                                        class="text-[0.6rem] md:text-xs px-2 py-1 rounded-full {{ $risk['bg'] }} {{ $risk['text'] }}">
+                                        {{ $risk['label'] }} Vulnerability
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="pb-2">
+                                <div class="w-full bg-gray-200 h-4 rounded-lg">
+                                    <div class="bg-accent h-4 rounded-lg flex items-center justify-end"
+                                        style="width: {{ $locFill }}%;">
+                                        <span class="text-xs text-white mr-1">{{ round($locSum, 2) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-questions -->
+                            <div class="pl-6 space-y-5 border-l-2 border-gray-100">
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">10.1 How would you describe
+                                        the number of
+                                        houses in your area? (Paano mo ilalarawan ang dami ng bahay sa inyong
+                                        lugar/) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width: {{ (($selectedOptions['houseNumber'] ?? 0) / 5) * 100 }}%;">
+                                            <span
+                                                class="absolute text-xs -right-0 top-3.5 text-gray-500">{{ round($selectedOptions['houseNumber'], 2) ?? 0 }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs md:text-sm text-gray-700 font-medium">10.2 Where is the location
+                                        of
+                                        your house?
+                                        (Saan matatagpuan ang inyong bahay?) </p>
+                                    <div class="w-full bg-gray-200 h-3 rounded-lg relative">
+                                        <div class="bg-accent/80 h-3 rounded-lg"
+                                            style="width:
                                             {{ (($selectedOptions['houseLocation'] ?? 0) / 5) * 100 }}%;">
-                                        <span
-                                            class="absolute
+                                            <span
+                                                class="absolute
                                             text-xs -right-0 top-3.5 text-gray-500">
-                                            {{ round($selectedOptions['houseLocation'], 2) ?? 0 }}%</span>
+                                                {{ round($selectedOptions['houseLocation'], 2) ?? 0 }}%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <div id="clone-container" style="position: fixed; left: -9999px; top: 0;"></div>
 
