@@ -391,36 +391,91 @@
                         Engineering Department</p>
                 </div>
                 <div class="mb-6 md:mb-0">
-                    <h4 class="md:text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-sm md:text-base">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About</a></li>
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
-                        <li><a href="#map" class="text-gray-400 hover:text-white transition">GIS Map</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                    </ul>
+                    <h4 class="text-base md:text-lg font-semibold mb-4">Contacts</h4>
+                    <div class="space-y-2 text-sm md:text-base flex flex-col md:flex-row md:gap-6">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/boac_mdrrmo.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0960-585-8800</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/boac_bfp.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0930-377-6499</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/boac_mps.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0998-598-5802</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/mho_boac.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">(042)
+                                    754-0079</a>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/mogpog_mdrmmc.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0917-813-7880</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/torrijos_mdrmmc.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0910-041-1118</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/santa_cruz_mdrmmc.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0908-894-9677</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/buenavista_mdrrmc.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0908-894-9677</a>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/gasan_mdrrmc.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0917-813-7880</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/pdrrmo.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0968-226-5727</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/marelco.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0998-868-2476</a>
+                            </div>
+                            <div class="flex items-center gap-2"><input class="size-6" type="image"
+                                    src="{{ asset('images/contact_logo/pvet.png') }}" alt=""><a
+                                    href="#home"
+                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0939-910-0115</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="text-base md:text-lg font-semibold mb-4">Connect With Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#"
-                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
-                            <x-feathericon-facebook class="w-5 h-5" />
+                <div class="mr-4">
+                    <h4 class="text-xl font-semibold text-white mb-4">Other</h4>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://hazardhunter.georisk.gov.ph/" target="_blank"
+                            class="text-gray-400 hover:text-accent transition duration-200">
+                            HazardHunterPH
                         </a>
-                        <a href="#"
-                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
-                            <x-feathericon-twitter class="w-5 h-5" />
-                        </a>
-                        <a href="#"
-                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
-                            <x-feathericon-linkedin class="w-5 h-5" />
-                        </a>
-                        <a href="#"
-                            class="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-accent transition">
-                            <x-feathericon-youtube class="w-5 h-5" />
+                        <a href="https://www.panahon.gov.ph/" target="_blank"
+                            class="text-gray-400 hover:text-accent transition duration-200">
+                            PANaH0N
                         </a>
                     </div>
                 </div>
+
             </div>
             <div
                 class="border-t border-gray-800 mt-8 md:mt-12 pt-6 md:pt-8 text-center text-gray-400 text-sm md:text-base">
