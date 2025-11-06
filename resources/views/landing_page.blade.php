@@ -391,7 +391,7 @@
                         Engineering Department</p>
                 </div>
                 <div class="mb-6 md:mb-0">
-                    <h4 class="text-base md:text-lg font-semibold mb-4">Contacts</h4>
+                    <h4 class="text-base md:text-lg font-semibold mb-4">Emergency Hotline</h4>
                     <div class="space-y-2 text-sm md:text-base flex flex-col md:flex-row md:gap-6">
                         <div class="flex flex-col gap-2">
                             <div class="flex items-center gap-2"><input class="size-6" type="image"
