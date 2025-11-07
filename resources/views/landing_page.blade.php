@@ -394,70 +394,117 @@
                     <h4 class="text-base md:text-lg font-semibold mb-4">Emergency Hotline</h4>
                     <div class="space-y-2 text-sm md:text-base flex flex-col md:flex-row md:gap-6">
                         <div class="flex flex-col gap-2">
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/boac_mdrrmo.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0960-585-8800</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/boac_mdrrmo.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">LDRRMO BOAC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0960-585-8800</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/boac_bfp.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0930-377-6499</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/boac_bfp.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">BFP BOAC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0930-377-6499</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/boac_mps.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0998-598-5802</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/boac_mps.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">MPS BOAC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0998-598-5802</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/mho_boac.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">(042)
-                                    754-0079</a>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/mogpog_mdrmmc.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0917-813-7880</a>
-                            </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/torrijos_mdrmmc.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0910-041-1118</a>
-                            </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/santa_cruz_mdrmmc.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0908-894-9677</a>
-                            </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/buenavista_mdrrmc.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0908-894-9677</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/mho_boac.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">MHO BOAC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        (042) 754-0079</p>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/gasan_mdrrmc.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0917-813-7880</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9"
+                                    src="{{ asset('images/contact_logo/mogpog_mdrmmc.png') }}" alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">MOGPOG MDRMMC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0917-813-7880</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/pdrrmo.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0968-226-5727</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9"
+                                    src="{{ asset('images/contact_logo/torrijos_mdrmmc.png') }}" alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">TORIJJOS MDRMMC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0910-041-1118</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/marelco.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0998-868-2476</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9"
+                                    src="{{ asset('images/contact_logo/santa_cruz_mdrmmc.png') }}" alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">SANTA CRUZ MDRMMC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0908-894-9677</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2"><input class="size-6" type="image"
-                                    src="{{ asset('images/contact_logo/pvet.png') }}" alt=""><a
-                                    href="#home"
-                                    class="text-sm md:text-base text-gray-400 hover:text-white transition">0939-910-0115</a>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9"
+                                    src="{{ asset('images/contact_logo/buenavista_mdrrmc.png') }}" alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">BUENAVISTA MDRMMC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0908-894-9677</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9"
+                                    src="{{ asset('images/contact_logo/gasan_mdrrmc.png') }}" alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">GASAN MDRMMC</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0917-813-7880</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/pdrrmo.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">MOGPOG PDRRMO</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0968-226-5727</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/marelco.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">MARELCO</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0998-868-2476</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img class="size-8 md:size-9" src="{{ asset('images/contact_logo/pvet.png') }}"
+                                    alt="">
+                                <div>
+                                    <p class="text-xs md:text-sm text-gray-400 hover:text-white">ProVet MARINDUQUE</p>
+                                    <p class="text-sm md:text-base transition">
+                                        0939-910-0115</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -465,13 +512,17 @@
                 <div class="mr-4">
                     <h4 class="text-xl font-semibold text-white mb-4">Other</h4>
                     <div class="flex flex-col gap-2">
-                        <a href="https://hazardhunter.georisk.gov.ph/" target="_blank"
+                        <a href="https://hazardhunter.georisk.gov.ph/"
                             class="text-gray-400 hover:text-accent transition duration-200">
                             HazardHunterPH
                         </a>
-                        <a href="https://www.panahon.gov.ph/" target="_blank"
+                        <a href="https://www.panahon.gov.ph/"
                             class="text-gray-400 hover:text-accent transition duration-200">
                             PANaH0N
+                        </a>
+                        <a href="https://noah.up.edu.ph/"
+                            class="text-gray-400 hover:text-accent transition duration-200">
+                            NOAH
                         </a>
                     </div>
                 </div>

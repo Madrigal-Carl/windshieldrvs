@@ -1173,9 +1173,9 @@
                     @endphp
 
                     <livewire:image-question-v3 question="7.5 How many columns/beams are in good condition?"
-                        subtitle="Matibay at maayos bang nakakabit ang mga frame ng bintana at pinto?"
-                        :options="$columnbeamConditionOptions" model="columnbeamCondition" wire:key="columnbeamCondition-question"
-                        :counts="$columnbeamCondition ?? []" :maxValue="4" />
+                        subtitle="Ilan ang mga haligi o poste na nasa maayos na kondisyon?" :options="$columnbeamConditionOptions"
+                        model="columnbeamCondition" wire:key="columnbeamCondition-question" :counts="$columnbeamCondition ?? []"
+                        :maxValue="4" />
                 </div>
             @endif
 
