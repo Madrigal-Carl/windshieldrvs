@@ -630,9 +630,6 @@ class AssessmentForm extends Component
         } else {
             $this->remarksMessage = '';
         }
-
-        // Compute the per-step section bars for the results visualization
-        $this->computeSectionBars();
     }
 
     protected function computeSectionBars(): void
@@ -665,8 +662,69 @@ class AssessmentForm extends Component
             ['houseNumber' => 5, 'houseLocation' => 5],
         ];
 
-        // 🎨 Risk-level color setup
-        switch ($this->riskLevel ?? 'Very Low') {
+        $bars = [];
+        $sectionValues = [];
+
+        $colorBuckets = [
+            [0, 19, '#3b82f6'],
+            [20, 39, '#22c55e'],
+            [40, 59, '#eab308'],
+            [60, 79, '#f97316'],
+            [80, 100, '#dc2626'],
+        ];
+
+        foreach ($sections as $index => $fields) {
+            $maxTotal = 0;
+            $valueTotal = 0;
+
+            foreach ($fields as $field => $maxValue) {
+                $maxTotal += $maxValue;
+                $val = $this->selectedOptions[$field] ?? 0;
+                $valueTotal += $val;
+            }
+
+            $valueTotal = round($valueTotal, 2);
+
+            $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
+            $sectionPercent = round(min(100, max(0, $sectionPercent)));
+            $overallPercent = round(($sectionPercent / 100) * $weights[$index], 2);
+
+            $fillHex = collect($colorBuckets)
+                ->firstWhere(fn($b) => $sectionPercent >= $b[0] && $sectionPercent <= $b[1])[2]
+                ?? '#3b82f6';
+
+            $bars[] = [
+                'index' => $index + 1,
+                'weight' => $weights[$index],
+                'sectionPercent' => round($sectionPercent, 1),
+                'fillPercent' => round($sectionPercent, 1),
+                'overallPercent' => round($overallPercent, 2),
+                'fillColorHex' => $fillHex,
+            ];
+
+            $sectionValues[$sectionKeys[$index]] = $valueTotal;
+        }
+
+        $this->sectionBars = $bars;
+
+        // ✅ Compute the new overall risk score and level
+        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
+        $this->riskScore = round($scorePercent, 2);
+
+        if ($this->riskScore >= 81 && $this->riskScore <= 100) {
+            $this->riskLevel = 'Very High';
+        } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
+            $this->riskLevel = 'High';
+        } elseif ($this->riskScore >= 41 && $this->riskScore <= 60) {
+            $this->riskLevel = 'Medium';
+        } elseif ($this->riskScore >= 21 && $this->riskScore <= 40) {
+            $this->riskLevel = 'Low';
+        } else {
+            $this->riskLevel = 'Very Low';
+        }
+
+        // 🎨 Apply color *after* risk level is finalized
+        switch ($this->riskLevel) {
             case 'Very High':
                 $stroke = 'bg-red-600';
                 $text = 'text-red-600';
@@ -689,71 +747,15 @@ class AssessmentForm extends Component
                 break;
         }
 
-        $bars = [];
-        $sectionValues = []; // store section valueTotals
-
-        $colorBuckets = [
-            [0, 19, '#3b82f6'],
-            [20, 39, '#22c55e'],
-            [40, 59, '#eab308'],
-            [60, 79, '#f97316'],
-            [80, 100, '#dc2626'],
-        ];
-
-        foreach ($sections as $index => $fields) {
-            $maxTotal = 0;
-            $valueTotal = 0;
-
-            foreach ($fields as $field => $maxValue) {
-                $maxTotal += $maxValue;
-                $val = $this->selectedOptions[$field] ?? 0;
-                $valueTotal += $val;
-            }
-
-            // 🎯 Round the raw valueTotal
-            $valueTotal = round($valueTotal, 2);
-
-            $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
-            $sectionPercent = round(min(100, max(0, $sectionPercent)));
-            $overallPercent = round(($sectionPercent / 100) * $weights[$index], 2);
-
-            // Determine fill color
-            $fillHex = collect($colorBuckets)
-                ->firstWhere(fn($b) => $sectionPercent >= $b[0] && $sectionPercent <= $b[1])[2]
-                ?? '#3b82f6';
-
-            $bars[] = [
-                'index' => $index + 1,
-                'weight' => $weights[$index],
-                'sectionPercent' => round($sectionPercent, 1),
-                'fillPercent' => round($sectionPercent, 1),
-                'overallPercent' => round($overallPercent, 2),
-                'strokeColor' => $stroke,
-                'textColor' => $text,
-                'fillColorHex' => $fillHex,
-            ];
-
-            $sectionValues[$sectionKeys[$index]] = $valueTotal;
-        }
-
-        $this->sectionBars = $bars;
+        // Attach final stroke/text colors
         $this->strokeColor = $stroke;
         $this->textColorClass = $text;
 
-        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
-        $this->riskScore = round($scorePercent, 2);
-
-        if ($this->riskScore >= 81 && $this->riskScore <= 100) {
-            $this->riskLevel = 'Very High';
-        } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
-            $this->riskLevel = 'High';
-        } elseif ($this->riskScore >= 41 && $this->riskScore <= 60) {
-            $this->riskLevel = 'Medium';
-        } elseif ($this->riskScore >= 21 && $this->riskScore <= 40) {
-            $this->riskLevel = 'Low';
-        } else {
-            $this->riskLevel = 'Very Low';
-        }
+        // Add colors to each bar
+        $this->sectionBars = array_map(fn($bar) => array_merge($bar, [
+            'strokeColor' => $stroke,
+            'textColor' => $text,
+        ]), $this->sectionBars);
 
         Assessment::updateOrCreate(
             ['house_id' => $this->houseId],
@@ -766,6 +768,7 @@ class AssessmentForm extends Component
             ])
         );
     }
+
 
     public function saveImagesToStorage($images)
     {
