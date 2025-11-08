@@ -1621,7 +1621,7 @@
                                         <!-- filled portion -->
                                         <div class="h-full relative">
                                             <div class="absolute left-0 top-0 bottom-0 flex items-stretch w-full">
-                                                <div style="width: {{ $seg['fillPercent'] }}%;" class="h-full">
+                                                <div style="width: {{ $seg['sectionPercent'] }}%;" class="h-full">
                                                     {{-- Use inline background-color hex if provided, otherwise fallback to Tailwind class --}}
                                                     @if (!empty($seg['fillColorHex']))
                                                         <div class="h-full transition-all duration-500"
@@ -1637,10 +1637,9 @@
                                             </div>
                                         </div>
 
-                                        <!-- 2px divider on the right between segments -->
                                         @if (!$loop->last)
                                             <div class="absolute right-0 top-0 bottom-0 z-30 pointer-events-none"
-                                                style="border-right:2px solid rgba(229, 231, 235, 0.95);"></div>
+                                                style="border-right:2px solid rgba(229, 231, 235, 0.829);"></div>
                                         @endif
                                     </div>
                                 @endforeach

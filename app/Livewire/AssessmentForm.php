@@ -447,15 +447,13 @@ class AssessmentForm extends Component
 
     public function evaluateAssessment()
     {
+        $this->computeSections();
         $this->computeSectionBars();
         $this->prepareReport();
     }
 
     protected function prepareReport()
     {
-        // compute section bars early so we can base remarks/vulns on per-section percentages
-        $this->computeSectionBars();
-
         $vulns = [];
         $recs = [];
         $byStepVulns = [];
@@ -632,85 +630,32 @@ class AssessmentForm extends Component
         }
     }
 
-    protected function computeSectionBars(): void
+    protected function computeSections(): void
     {
-        $weights = [20, 10, 8, 10, 7, 10, 12, 8, 5, 10];
-
-        $sectionKeys = [
-            'roof_type_and_condition',
-            'roof_truss',
-            'roof_to_wall_connection',
-            'wall_type_integrity',
-            'wall_to_foundation_connection',
-            'openings_windows_and_doors',
-            'column_and_beam_system',
-            'building_shape_and_plan_configuration',
-            'overhand_and_eaves',
-            'location_or_environmental_exposure',
-        ];
-
+        // 🎯 Define which selectedOptions belong to which section
         $sections = [
-            ['roofType' => 6, 'roofMade' => 5, 'roofAnchor' => 5, 'roofCondition' => 4],
-            ['trussMaterial' => 4, 'trussCondition' => 6],
-            ['roofWallConnection' => 4, 'roofWallQuality' => 4],
-            ['wallType' => 7, 'wallsCondition' => 3],
-            ['signsTilt' => 7],
-            ['doorType' => 3, 'doorsCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
-            ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamsMade' => 2, 'columnbeamCondition' => 4],
-            ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
-            ['overhang' => 3, 'eaves' => 2],
-            ['houseNumber' => 5, 'houseLocation' => 5],
+            'roof_type_and_condition' => ['roofType', 'roofMade', 'roofAnchor', 'roofCondition'],
+            'roof_truss' => ['trussMaterial', 'trussCondition'],
+            'roof_to_wall_connection' => ['roofWallConnection', 'roofWallQuality'],
+            'wall_type_integrity' => ['wallType', 'wallsCondition'],
+            'wall_to_foundation_connection' => ['signsTilt'],
+            'openings_windows_and_doors' => ['doorType', 'doorsCondition', 'windowType', 'doorwindowFrame'],
+            'column_and_beam_system' => ['columnsShape', 'columnMade', 'beamShape', 'beamsMade', 'columnbeamCondition'],
+            'building_shape_and_plan_configuration' => ['houseShape', 'houseHeight', 'houseRatio'],
+            'overhand_and_eaves' => ['overhang', 'eaves'],
+            'location_or_environmental_exposure' => ['houseNumber', 'houseLocation'],
         ];
 
-        $bars = [];
+        // 🎯 1. Compute each section’s total value
         $sectionValues = [];
-
-        $colorBuckets = [
-            [0, 19, '#3b82f6'],
-            [20, 39, '#22c55e'],
-            [40, 59, '#eab308'],
-            [60, 79, '#f97316'],
-            [80, 100, '#dc2626'],
-        ];
-
-        foreach ($sections as $index => $fields) {
-            $maxTotal = 0;
-            $valueTotal = 0;
-
-            foreach ($fields as $field => $maxValue) {
-                $maxTotal += $maxValue;
-                $val = $this->selectedOptions[$field] ?? 0;
-                $valueTotal += $val;
-            }
-
-            $valueTotal = round($valueTotal, 2);
-
-            $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
-            $sectionPercent = round(min(100, max(0, $sectionPercent)));
-            $overallPercent = round(($sectionPercent / 100) * $weights[$index], 2);
-
-            $fillHex = collect($colorBuckets)
-                ->firstWhere(fn($b) => $sectionPercent >= $b[0] && $sectionPercent <= $b[1])[2]
-                ?? '#3b82f6';
-
-            $bars[] = [
-                'index' => $index + 1,
-                'weight' => $weights[$index],
-                'sectionPercent' => round($sectionPercent, 1),
-                'fillPercent' => round($sectionPercent, 1),
-                'overallPercent' => round($overallPercent, 2),
-                'fillColorHex' => $fillHex,
-            ];
-
-            $sectionValues[$sectionKeys[$index]] = $valueTotal;
+        foreach ($sections as $key => $fields) {
+            $sectionValues[$key] = collect($fields)->sum(fn($f) => $this->selectedOptions[$f] ?? 0);
         }
 
-        $this->sectionBars = $bars;
+        // 🎯 2. Sum all sections for total risk score
+        $this->riskScore = array_sum($sectionValues);
 
-        // ✅ Compute the new overall risk score and level
-        $scorePercent = array_sum(array_column($this->sectionBars, 'overallPercent'));
-        $this->riskScore = round($scorePercent, 2);
-
+        // 🎯 3. Determine Risk Level based on totalScore (no normalization/division)
         if ($this->riskScore >= 81 && $this->riskScore <= 100) {
             $this->riskLevel = 'Very High';
         } elseif ($this->riskScore >= 61 && $this->riskScore <= 80) {
@@ -723,7 +668,7 @@ class AssessmentForm extends Component
             $this->riskLevel = 'Very Low';
         }
 
-        // 🎨 Apply color *after* risk level is finalized
+        // 🎨 4. Apply color *after* risk level is finalized
         switch ($this->riskLevel) {
             case 'Very High':
                 $stroke = 'bg-red-600';
@@ -747,28 +692,82 @@ class AssessmentForm extends Component
                 break;
         }
 
-        // Attach final stroke/text colors
         $this->strokeColor = $stroke;
         $this->textColorClass = $text;
 
-        // Add colors to each bar
-        $this->sectionBars = array_map(fn($bar) => array_merge($bar, [
-            'strokeColor' => $stroke,
-            'textColor' => $text,
-        ]), $this->sectionBars);
-
+        // ✅ 5. Save computed section totals directly to DB
         Assessment::updateOrCreate(
             ['house_id' => $this->houseId],
-            array_merge($sectionValues, [
-                'address' => $this->address,
-                'assessor_name' => $this->assessorName,
-                'severity' => strtolower(str_replace(' ', '-', $this->riskLevel)),
-                'latitude' => round($this->latitude, 7),
-                'longitude' => round($this->longitude, 7),
-            ])
+            array_merge(
+                $sectionValues,
+                [
+                    'address' => $this->address,
+                    'assessor_name' => $this->assessorName,
+                    'severity' => strtolower(str_replace(' ', '-', $this->riskLevel)),
+                    'latitude' => round($this->latitude, 7),
+                    'longitude' => round($this->longitude, 7),
+                ]
+            )
         );
     }
 
+    protected function computeSectionBars(): void
+    {
+        $weights = [20, 10, 8, 10, 7, 10, 12, 8, 5, 10];
+
+        $sections = [
+            ['roofType' => 6, 'roofMade' => 5, 'roofAnchor' => 5, 'roofCondition' => 4],
+            ['trussMaterial' => 4, 'trussCondition' => 6],
+            ['roofWallConnection' => 4, 'roofWallQuality' => 4],
+            ['wallType' => 7, 'wallsCondition' => 3],
+            ['signsTilt' => 7],
+            ['doorType' => 3, 'doorsCondition' => 2, 'windowType' => 3, 'doorwindowFrame' => 2],
+            ['columnsShape' => 2, 'columnMade' => 2, 'beamShape' => 2, 'beamsMade' => 2, 'columnbeamCondition' => 4],
+            ['houseShape' => 3, 'houseHeight' => 3, 'houseRatio' => 2],
+            ['overhang' => 3, 'eaves' => 2],
+            ['houseNumber' => 5, 'houseLocation' => 5],
+        ];
+
+        $colorBuckets = [
+            [0, 19, '#3b82f6'],  // blue
+            [20, 39, '#22c55e'], // green
+            [40, 59, '#eab308'], // yellow
+            [60, 79, '#f97316'], // orange
+            [80, 100, '#dc2626'], // red
+        ];
+
+        $bars = [];
+
+        foreach ($sections as $index => $fields) {
+            $maxTotal = 0;
+            $valueTotal = 0;
+
+            foreach ($fields as $field => $maxValue) {
+                $maxTotal += $maxValue;
+                $val = $this->selectedOptions[$field] ?? 0;
+                $valueTotal += $val;
+            }
+
+            $sectionPercent = $maxTotal > 0 ? ($valueTotal / $maxTotal) * 100 : 0;
+            $sectionPercent = round(min(100, max(0, $sectionPercent)), 1);
+            $overallPercent = round(($sectionPercent / 100) * $weights[$index], 2);
+
+            $fillHex = collect($colorBuckets)
+                ->firstWhere(fn($b) => $sectionPercent >= $b[0] && $sectionPercent <= $b[1])[2]
+                ?? '#3b82f6';
+
+            $bars[] = [
+                'index' => $index + 1,
+                'weight' => $weights[$index],
+                'sectionPercent' => $sectionPercent,
+                'overallPercent' => $overallPercent,
+                'fillColorHex' => $fillHex,
+                'textColor' => $this->textColorClass ?? 'text-blue-600',
+                'strokeColor' => $this->strokeColor ?? 'bg-blue-500',
+            ];
+        }
+        $this->sectionBars = $bars;
+    }
 
     public function saveImagesToStorage($images)
     {
